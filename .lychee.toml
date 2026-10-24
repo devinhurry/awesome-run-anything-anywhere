@@ -1,0 +1,20 @@
+# lychee configuration
+# https://github.com/lycheeverse/lychee/blob/master/lychee.example.toml
+
+max_redirects = 10
+timeout = 30
+max_retries = 3
+retry_wait_time = 2
+
+# Some official sites return 403/429 to automated clients.
+accept = [200, 204, 206, 301, 302, 403, 429]
+
+exclude = [
+  # Forgejo instances that block automated link checkers.
+  "^https://git\\.ryujinx\\.app/",
+  "^https://git\\.eden-emu\\.dev/",
+  # Apple's App Store pages are region- and client-dependent.
+  "^https://apps\\.apple\\.com/",
+  # The touchHLE compatibility database is frequently unavailable.
+  "^https://appdb\\.touchhle\\.org/",
+]
