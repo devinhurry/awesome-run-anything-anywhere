@@ -9,7 +9,7 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **70 个项目**，已于 **2026-10-24** 对照一手资料核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **72 个项目**，已于 **2026-10-24** 对照一手资料核验。
 
 如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
@@ -70,29 +70,30 @@
 
 出现项目名表示存在实用路线。*斜体* 表示实验性或受限路线。`—` 表示本列表中没有成熟路线。
 
-| Guest | Windows | Linux | macOS | iOS / iPadOS | Android | 浏览器 |
-| --- | --- | --- | --- | --- | --- | --- |
-| Windows x86/x64 | 原生；Arm 上由 Prism 模拟 | Wine、Proton、CrossOver | CrossOver、Wine + Rosetta、GPTK、Parallels、VMware、UTM | — | Winlator、Boxedwine | v86、CheerpX、JSLinux（旧版 Windows） |
-| Linux x86/x64 | WSL2、VirtualBox | 原生 | UTM、Lima、VirtualBox | iSH、UTM SE | — | v86、JSLinux、CheerpX |
-| Linux arm64 | WSL2 | 原生 | UTM、Lima、VirtualBox | UTM SE | — | — |
-| macOS 应用 | — | Darling | 原生；Intel 应用经 Rosetta 2 | — | — | — |
-| iOS 应用（早期） | touchHLE | touchHLE | touchHLE | 原生（仅旧应用） | touchHLE | — |
-| Android 应用 | — | Waydroid、redroid | Mac.apk、UTM（Android 虚拟机） | — | 原生 | — |
-| DOS、Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86、JSLinux |
-| GB / GBC / GBA | mGBA、RetroArch | mGBA、RetroArch | mGBA、RetroArch | RetroArch、Delta | mGBA、RetroArch | — |
-| Nintendo DS | melonDS、RetroArch | melonDS、RetroArch | melonDS、RetroArch | RetroArch、Delta | melonDS、RetroArch | — |
-| Nintendo 3DS | Azahar | Azahar | Azahar | — | Azahar | — |
-| Nintendo 64 | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch、Delta | RetroArch | — |
-| GameCube / Wii | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
-| Wii U | Cemu | Cemu | *Cemu* | — | — | — |
-| Switch 1 | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | *nxnative（少量游戏）* | Eden | — |
-| PS1 / PS2 | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | RetroArch（PS1） | NetherSX2、RetroArch（PS1） | — |
-| PS3 / PS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | — | — | — |
-| PS5 | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | — | — | — |
-| PlayStation Vita | Vita3K | Vita3K | Vita3K | — | Vita3K | — |
-| Sega Dreamcast | Flycast | Flycast | Flycast | — | Flycast | — |
-| Xbox / Xbox 360 | xemu、Xenia；重编译移植 | xemu、Xenia；重编译移植 | xemu；重编译移植 | — | — | — |
-| WebAssembly | Wasmtime | Wasmtime | Wasmtime | — | — | 原生 |
+| Guest | Windows | Linux | SteamOS | macOS | iOS / iPadOS | Android | 浏览器 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Windows x86/x64 | 原生；Arm 上由 Prism 模拟 | Wine、Proton、CrossOver | Proton、Wine | CrossOver、Wine + Rosetta、GPTK、Parallels、VMware、UTM | — | Winlator、Boxedwine | v86、CheerpX、JSLinux（旧版 Windows） |
+| Linux x86/x64 | WSL2、VirtualBox | 原生 | 原生 | UTM、Lima、VirtualBox | iSH、UTM SE | — | v86、JSLinux、CheerpX |
+| Linux arm64 | WSL2 | 原生 | — | UTM、Lima、VirtualBox | UTM SE、LinPad | — | — |
+| SteamOS | *VirtualBox、QEMU* | *QEMU/KVM* | 原生 | *UTM、QEMU* | — | — | — |
+| macOS 应用 | — | Darling | — | 原生；Intel 应用经 Rosetta 2 | — | — | — |
+| iOS 应用（早期） | touchHLE | touchHLE | — | touchHLE | 原生（仅旧应用） | touchHLE | — |
+| Android 应用 | — | Waydroid、redroid | *Waydroid（Distrobox）* | Mac.apk、UTM（Android 虚拟机） | — | 原生 | — |
+| DOS、Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86、JSLinux |
+| GB / GBC / GBA | mGBA、RetroArch | mGBA、RetroArch | mGBA、RetroArch | mGBA、RetroArch | RetroArch、Delta | mGBA、RetroArch | — |
+| Nintendo DS | melonDS、RetroArch | melonDS、RetroArch | melonDS、RetroArch | melonDS、RetroArch | RetroArch、Delta | melonDS、RetroArch | — |
+| Nintendo 3DS | Azahar | Azahar | Azahar | Azahar | — | Azahar | — |
+| Nintendo 64 | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch、Delta | RetroArch | — |
+| GameCube / Wii | Dolphin | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
+| Wii U | Cemu | Cemu | Cemu | *Cemu* | — | — | — |
+| Switch 1 | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | *nxnative（少量游戏）* | Eden | — |
+| PS1 / PS2 | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | RetroArch（PS1） | NetherSX2、RetroArch（PS1） | — |
+| PS3 / PS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | — | — | — |
+| PS5 | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | — | — | — |
+| PlayStation Vita | Vita3K | Vita3K | Vita3K | Vita3K | — | Vita3K | — |
+| Sega Dreamcast | Flycast | Flycast | Flycast | Flycast | — | Flycast | — |
+| Xbox / Xbox 360 | xemu、Xenia；重编译移植 | xemu、Xenia；重编译移植 | xemu、Xenia；重编译移植 | xemu；重编译移植 | — | — | — |
+| WebAssembly | Wasmtime | Wasmtime | Wasmtime | Wasmtime | — | — | 原生 |
 
 ### 主机宿主
 
@@ -119,27 +120,28 @@
 
 | Guest | 宿主与对应项目 |
 | --- | --- |
-| Windows x86/x64 | **Windows：** 原生；Arm 上使用 [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)<br>**Linux：** [Wine](#wine)、[Proton](#proton)、[CrossOver](#crossover)、[Hangover](#hangover)、[FEX](#fex)、[Box64](#box64)<br>**macOS：** [CrossOver](#crossover)、[Wine](#wine)、[Game Porting Toolkit](#game-porting-toolkit)、[Rosetta 2](#rosetta-2)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**Android：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**浏览器：** [v86](#v86)、[CheerpX](#cheerpx)、[JSLinux](#jslinux) |
-| Linux x86/x64 | **Windows：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [iSH](#ish)、[UTM](#utm)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux) |
-| Linux arm64 | **Windows：** [WSL](#wsl)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)<br>**iOS：** [UTM](#utm)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux) |
-| macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling) |
-| iOS 应用（早期） | **Windows / macOS / Android / Linux：** [touchHLE](#touchhle)<br>**iOS：** 原生（仅旧应用） |
-| Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**Switch：** Switchroot Android（无独立条目） |
-| DOS / Windows 3.x–9x | **Windows / Linux / macOS：** [DOSBox-X](#dosbox-x)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux) |
-| GB / GBC / GBA | **Windows / Linux / macOS：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**Android：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**PS5：** [PS5 RetroArch](#ps5-retroarch) |
-| Nintendo DS | **Windows / Linux / macOS：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**Android：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch) |
-| Nintendo 3DS | **Windows / Linux / macOS / Android：** [Azahar](#azahar) |
-| Nintendo 64 | **Windows / Linux / macOS：** [RetroArch](#retroarch)<br>**Android：** [RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**Windows / Linux / macOS（原生移植）：** [N64Recomp](#n64recomp)、[Zelda64Recomp](#zelda64recomp) |
-| GameCube / Wii | **Windows / Linux / macOS：** [Dolphin](#dolphin)<br>**Android：** [Dolphin](#dolphin) |
-| Wii U | **Windows / Linux：** [Cemu](#cemu)<br>**macOS：** [Cemu](#cemu)（实验性） |
-| Switch 1 | **Windows / Linux / macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)<br>**PS5：** [ProsperoEden](#prosperoeden) |
-| PS1 / PS2 | **Windows / Linux / macOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch)<br>**iOS / Switch（PS1）：** [RetroArch](#retroarch)<br>**Android：** [NetherSX2-classic](#nethersx2-classic)、[RetroArch](#retroarch)（PS1）<br>**PS5：** [PS5 RetroArch](#ps5-retroarch) |
-| PS3 / PS4 | **Windows / Linux / macOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4) |
-| PS5 | **Windows / Linux / macOS：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)（实验性） |
-| PlayStation Vita | **Windows / Linux / macOS / Android：** [Vita3K](#vita3k) |
-| Sega Dreamcast | **Windows / Linux / macOS / Android / Switch / Xbox：** [Flycast](#flycast) |
-| Xbox / Xbox 360 | **Windows / Linux / macOS：** [xemu](#xemu)<br>**Windows / Linux：** [Xenia](#xenia)<br>**Windows / Linux（原生移植）：** [XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp) |
-| WebAssembly | **Windows / Linux / macOS：** [Wasmtime](#wasmtime)<br>**浏览器：** 原生 |
+| Windows x86/x64 | **Windows：** 原生；Arm 上使用 [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)<br>**Linux：** [Wine](#wine)、[Proton](#proton)、[CrossOver](#crossover)、[Hangover](#hangover)、[FEX](#fex)、[Box64](#box64)<br>**macOS：** [CrossOver](#crossover)、[Wine](#wine)、[Game Porting Toolkit](#game-porting-toolkit)、[Rosetta 2](#rosetta-2)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**Android：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**浏览器：** [v86](#v86)、[CheerpX](#cheerpx)、[JSLinux](#jslinux)<br>**SteamOS：** [Proton](#proton)、[Wine](#wine) |
+| Linux x86/x64 | **Windows：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [iSH](#ish)、[UTM](#utm)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** 原生 |
+| Linux arm64 | **Windows：** [WSL](#wsl)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)<br>**iOS：** [UTM](#utm)、[LinPad OS](#linpad-os)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** — |
+| SteamOS | **Windows：** *[VirtualBox](#virtualbox)、[QEMU](#qemu)*<br>**Linux：** *[QEMU](#qemu)*<br>**SteamOS：** 原生<br>**macOS：** *[UTM](#utm)、[QEMU](#qemu)* |
+| macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling)<br>**SteamOS：** — |
+| iOS 应用（早期） | **Windows / macOS / Android / Linux：** [touchHLE](#touchhle)<br>**iOS：** 原生（仅旧应用）<br>**SteamOS：** — |
+| Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**Switch：** Switchroot Android（无独立条目）<br>**SteamOS：** *[Waydroid](#waydroid)（通过 Distrobox）* |
+| DOS / Windows 3.x–9x | **Windows / Linux / macOS：** [DOSBox-X](#dosbox-x)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)<br>**SteamOS：** [DOSBox-X](#dosbox-x) |
+| GB / GBC / GBA | **Windows / Linux / macOS：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**Android：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [mGBA](#mgba)、[RetroArch](#retroarch) |
+| Nintendo DS | **Windows / Linux / macOS：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**Android：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**SteamOS：** [melonDS](#melonds)、[RetroArch](#retroarch) |
+| Nintendo 3DS | **Windows / Linux / macOS / Android：** [Azahar](#azahar)<br>**SteamOS：** [Azahar](#azahar) |
+| Nintendo 64 | **Windows / Linux / macOS：** [RetroArch](#retroarch)<br>**Android：** [RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**Windows / Linux / macOS（原生移植）：** [N64Recomp](#n64recomp)、[Zelda64Recomp](#zelda64recomp)<br>**SteamOS：** [RetroArch](#retroarch)、[Zelda64Recomp](#zelda64recomp) |
+| GameCube / Wii | **Windows / Linux / macOS：** [Dolphin](#dolphin)<br>**Android：** [Dolphin](#dolphin)<br>**SteamOS：** [Dolphin](#dolphin) |
+| Wii U | **Windows / Linux：** [Cemu](#cemu)<br>**macOS：** [Cemu](#cemu)（实验性）<br>**SteamOS：** [Cemu](#cemu) |
+| Switch 1 | **Windows / Linux / macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)<br>**PS5：** [ProsperoEden](#prosperoeden)<br>**SteamOS：** [Ryujinx](#ryujinx)、[Eden](#eden) |
+| PS1 / PS2 | **Windows / Linux / macOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch)<br>**iOS / Switch（PS1）：** [RetroArch](#retroarch)<br>**Android：** [NetherSX2-classic](#nethersx2-classic)、[RetroArch](#retroarch)（PS1）<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch) |
+| PS3 / PS4 | **Windows / Linux / macOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4)<br>**SteamOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4) |
+| PS5 | **Windows / Linux / macOS：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)（实验性）<br>**SteamOS：** *[KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)* |
+| PlayStation Vita | **Windows / Linux / macOS / Android：** [Vita3K](#vita3k)<br>**SteamOS：** [Vita3K](#vita3k) |
+| Sega Dreamcast | **Windows / Linux / macOS / Android / Switch / Xbox：** [Flycast](#flycast)<br>**SteamOS：** [Flycast](#flycast) |
+| Xbox / Xbox 360 | **Windows / Linux / macOS：** [xemu](#xemu)<br>**Windows / Linux：** [Xenia](#xenia)<br>**Windows / Linux（原生移植）：** [XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**SteamOS：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp) |
+| WebAssembly | **Windows / Linux / macOS：** [Wasmtime](#wasmtime)<br>**浏览器：** 原生<br>**SteamOS：** [Wasmtime](#wasmtime) |
 
 ## 按 Host 分类
 
@@ -151,8 +153,9 @@
 | Windows on Arm | **Windows x86/x64：** [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)<br>**Linux：** [WSL](#wsl)<br>**Arm Guest：** [VirtualBox](#virtualbox) |
 | Linux | **Windows：** [Wine](#wine)、[Proton](#proton)、[FEX](#fex)、[Box64](#box64)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | Linux on Arm64 | **Windows：** [FEX](#fex)、[Box64](#box64)、[Box86](#box86)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[PPSSPP](#ppsspp)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden) |
+| SteamOS | **Linux：** 原生<br>**Windows：** [Proton](#proton)、[Wine](#wine)<br>**Android：** *[Waydroid](#waydroid)（通过 Distrobox）*<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [touchHLE](#touchhle)<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [nxnative](#nxnative) |
+| iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [nxnative](#nxnative) |
 | Android | **Windows：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**Android：** 原生<br>**经典主机：** [mGBA](#mgba)、[melonDS](#melonds)、[Dolphin](#dolphin)、[PPSSPP](#ppsspp)、[Azahar](#azahar)、[Vita3K](#vita3k)、[Flycast](#flycast)<br>**PS1 / PS2：** [RetroArch](#retroarch)、[NetherSX2-classic](#nethersx2-classic)<br>**Switch：** [Eden](#eden) |
 | 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
 | Switch 1（自制系统） | **GBA / GBC / GB：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP：** [RetroArch](#retroarch)（取决于核心）<br>**Dreamcast：** [Flycast](#flycast)<br>**Linux：** [Lakka](#lakka)<br>**通过 Linux 运行 Windows：** [Box64](#box64)、[Wine](#wine) |
@@ -235,6 +238,14 @@ touchHLE 不模拟 iPhone 硬件。它取代 iOS 的位置，自行实现 Founda
 Windows Subsystem for Linux 在轻量虚拟机中运行真实 Linux 内核，并与 Windows 集成文件系统、网络与进程启动。WSLg 增加了 GUI 应用支持。它是在 Windows 上运行 Linux 工具链的默认方式，但不是完整桌面替代品，也不能让任意 Linux 内核模块或硬件直通工作。
 
 [源码](https://github.com/microsoft/WSL) · [文档](https://learn.microsoft.com/windows/wsl/)
+
+#### LinPad OS
+
+**路线：** Linux（Alpine）桌面应用 → M1 及更新款 iPad · **状态：** 实验性 · **类型：** 本地 Linux 环境
+
+LinPad OS 是面向 iPad 的预发布 Linux 桌面环境，基于 Alpine Linux。它以 iPad 应用的形式本地运行，提供平铺桌面、终端与 Alpine 软件包，可运行 VS Code、Firefox、Python、Node.js、Git 等桌面程序。它面向 iPadOS 17 或更高版本、M1 及更新款 iPad，需要用你自己的 Apple ID 侧载，并在快速模式下通过 StikDebug 启用 ARM64 JIT。它不支持 Docker、Steam 或 x86 游戏，也不会取代 iPadOS。
+
+[官网](https://linpados.com/) · [源码](https://github.com/fspecii/LinPad)
 
 #### Waydroid
 
@@ -441,6 +452,14 @@ Lima 启动带自动文件共享与端口转发的 Linux 虚拟机，理念类�
 ps5-linux 利用已修补的 hypervisor 漏洞，在 PS5 上启动自定义 Linux 镜像，把主机变成拥有八核十六线程并可访问 GPU 的 Linux PC。它支持 USB 与 M.2 安装，可运行 Steam 游戏与模拟器。它需要特定固件的已破解主机，不能降级，并会牺牲 PSN 访问。项目负责人在 2026 年离开了该社区，因此长期支持存在不确定性。
 
 [源码](https://github.com/ps5-linux/ps5-linux-loader)
+
+#### SteamOS
+
+**路线：** SteamOS 作为 Windows/Linux 游戏与模拟器宿主；SteamOS 作为 x86 虚拟机 Guest · **状态：** 活跃 · **类型：** Linux 游戏操作系统
+
+SteamOS 3 是 Valve 面向 Steam Deck、Steam Machine 以及 AMD 掌机与台式机的 Arch Linux 发行版。作为宿主，它通过 Proton 运行 Windows 游戏、原生运行 Linux 游戏与模拟器；作为 Guest，它可以安装到 x86 宿主上的 QEMU/KVM、VirtualBox 或 VMware 中。SteamOS 3.9 改进了虚拟机 Guest 的 virtio-gpu 与 venus 图形加速支持，但 Valve 并不提供通用虚拟机镜像。官方安装面向 AMD 硬件，Intel 与 NVIDIA 支持仍在开发中。
+
+[官网](https://store.steampowered.com/steamos/) · [安装 FAQ](https://help.steampowered.com/en/faqs/view/65B4-2AA3-5F37-4227) · [SteamOS 3.9 说明](https://steamcommunity.com/games/1675200/announcements/detail/687519694976975288)
 
 ### 浏览器与 WebAssembly
 
