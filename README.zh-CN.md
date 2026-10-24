@@ -9,7 +9,7 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **76 个项目**，已于 **2026-10-24** 对照一手资料核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **77 个项目**，已于 **2026-10-24** 对照一手资料核验。
 
 如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
@@ -86,7 +86,7 @@
 | Nintendo 64 | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch、Delta | RetroArch | — |
 | GameCube / Wii | Dolphin | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
 | Wii U | Cemu | Cemu | Cemu | *Cemu* | — | — | — |
-| Switch 1 | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden、MacNativeGames | *nxnative、NX2Apple、Touchable、MacNativeGames* | Eden | — |
+| Switch 1 | Ryujinx、Eden、*SavageWindRecomp（BOTW）* | Ryujinx、Eden、*SavageWindRecomp（BOTW）* | Ryujinx、Eden | Ryujinx、Eden、MacNativeGames | *nxnative、NX2Apple、Touchable、MacNativeGames* | Eden | — |
 | PS1 / PS2 | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | RetroArch（PS1） | NetherSX2、RetroArch（PS1） | — |
 | PS3 / PS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | *Husk（PS4）* | — | — |
 | PS5 | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | — | — | — |
@@ -134,7 +134,7 @@
 | Nintendo 64 | **Windows / Linux / macOS：** [RetroArch](#retroarch)<br>**Android：** [RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**Windows / Linux / macOS（原生移植）：** [N64Recomp](#n64recomp)、[Zelda64Recomp](#zelda64recomp)<br>**SteamOS：** [RetroArch](#retroarch)、[Zelda64Recomp](#zelda64recomp) |
 | GameCube / Wii | **Windows / Linux / macOS：** [Dolphin](#dolphin)<br>**Android：** [Dolphin](#dolphin)<br>**SteamOS：** [Dolphin](#dolphin) |
 | Wii U | **Windows / Linux：** [Cemu](#cemu)<br>**macOS：** [Cemu](#cemu)（实验性）<br>**SteamOS：** [Cemu](#cemu) |
-| Switch 1 | **Windows / Linux：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames)<br>**PS5：** [ProsperoEden](#prosperoeden)<br>**SteamOS：** [Ryujinx](#ryujinx)、[Eden](#eden) |
+| Switch 1 | **Windows / Linux：** [Ryujinx](#ryujinx)、[Eden](#eden)、*[SavageWindRecomp](#savagewindrecomp)（BOTW）*<br>**macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames)<br>**PS5：** [ProsperoEden](#prosperoeden)<br>**SteamOS：** [Ryujinx](#ryujinx)、[Eden](#eden) |
 | PS1 / PS2 | **Windows / Linux / macOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch)<br>**iOS / Switch（PS1）：** [RetroArch](#retroarch)<br>**Android：** [NetherSX2-classic](#nethersx2-classic)、[RetroArch](#retroarch)（PS1）<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch) |
 | PS3 / PS4 | **Windows / Linux / macOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4)<br>**iOS / iPadOS（PS4）：** *[Husk](#husk)*<br>**SteamOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4) |
 | PS5 | **Windows / Linux / macOS：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)（实验性）<br>**SteamOS：** *[KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)* |
@@ -149,9 +149,9 @@
 
 | 宿主 | Guest 与对应项目 |
 | --- | --- |
-| Windows | **Windows：** 原生<br>**Linux：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
+| Windows | **Windows：** 原生<br>**Linux：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、*[SavageWindRecomp](#savagewindrecomp)（BOTW）*<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | Windows on Arm | **Windows x86/x64：** [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)<br>**Linux：** [WSL](#wsl)<br>**Arm Guest：** [VirtualBox](#virtualbox) |
-| Linux | **Windows：** [Wine](#wine)、[Proton](#proton)、[FEX](#fex)、[Box64](#box64)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
+| Linux | **Windows：** [Wine](#wine)、[Proton](#proton)、[FEX](#fex)、[Box64](#box64)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、*[SavageWindRecomp](#savagewindrecomp)（BOTW）*<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | Linux on Arm64 | **Windows：** [FEX](#fex)、[Box64](#box64)、[Box86](#box86)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[PPSSPP](#ppsspp)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden) |
 | SteamOS | **Linux：** 原生<br>**Windows：** [Proton](#proton)、[Wine](#wine)<br>**Android：** *[Waydroid](#waydroid)（通过 Distrobox）*<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [touchHLE](#touchhle)<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
@@ -757,6 +757,14 @@ Unleashed Recompiled 是 Xbox 360 版 Sonic Unleashed 的非官方 PC 移植，�
 
 [源码](https://github.com/hedge-dev/UnleashedRecomp)
 
+
+#### SavageWindRecomp
+
+**路线：** The Legend of Zelda: Breath of the Wild（Switch 1.8.2）→ Windows 与 Linux 原生应用 · **状态：** 实验性 · **类型：** 静态重编译移植
+
+Savage Wind Recomp 是 Breath of the Wild（Switch 1.8.2）的进行中静态重编译项目，目标平台为 Windows/Linux 原生应用。它在本地从你自行提取的 ExeFS 与 RomFS 重编译游戏的 AArch64 代码，将 NVN 图形翻译为 Vulkan，并加入 60/120 fps、最高 4K 内部分辨率、FSR 1、键鼠与控制器等 PC 选项。目前开局与初始台地可玩，游戏其余部分尚未测试。它需要 Windows 10+（支持 AVX2）或 Linux x86-64、Vulkan 1.3、约 35 GB 可用空间，以及你自己的 1.8.2 游戏文件。项目声明其几乎全部代码、工具、逆向工程与文档均在人类指导、测试与审查下由 AI 编写；请将其视为 alpha 版本。
+
+[源码](https://github.com/Revivedx/SavageWindRecomp)
 
 #### nxnative
 
