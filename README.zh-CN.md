@@ -18,14 +18,15 @@
 - [范围](#范围)
 - [如何阅读](#如何阅读)
 - [Guest → Host 矩阵](#guest--host-矩阵)
-- [兼容层](#兼容层)
-- [二进制翻译与用户态模拟](#二进制翻译与用户态模拟)
-- [图形 API 翻译](#图形-api-翻译)
-- [虚拟机与全系统模拟](#虚拟机与全系统模拟)
-- [浏览器与 WebAssembly](#浏览器与-webassembly)
-- [游戏主机与电脑模拟器](#游戏主机与电脑模拟器)
-- [游戏引擎重实现](#游戏引擎重实现)
-- [静态重编译与原生移植](#静态重编译与原生移植)
+- [技术路线](#技术路线)
+  - [兼容层](#兼容层)
+  - [二进制翻译与用户态模拟](#二进制翻译与用户态模拟)
+  - [图形 API 翻译](#图形-api-翻译)
+  - [虚拟机与全系统模拟](#虚拟机与全系统模拟)
+  - [浏览器与 WebAssembly](#浏览器与-webassembly)
+  - [游戏主机与电脑模拟器](#游戏主机与电脑模拟器)
+  - [游戏引擎重实现](#游戏引擎重实现)
+  - [静态重编译与原生移植](#静态重编译与原生移植)
 - [主机作为宿主](#主机作为宿主)
 - [路线配方](#路线配方)
 - [法律与实践说明](#法律与实践说明)
@@ -106,9 +107,11 @@
 | Windows | *通过 Switchroot Linux 使用 Box64 + Wine* | *通过 ps5-linux 使用 Steam/Proton* |
 | Android | Switchroot Android | — |
 
-## 兼容层
+## 技术路线
+项目按实现路线所依赖的机制分组。选择最贴近你问题的类别；许多路线会组合两种或更多机制。
+### 兼容层
 
-### Wine
+#### Wine
 
 **路线：** Windows x86/x64 与 Windows 3.x/9x 软件 → Linux、macOS 及其他类 Unix 系统 · **状态：** 成熟 · **类型：** API 兼容层
 
@@ -116,7 +119,7 @@ Wine 把 Windows NT 的用户态与内核接口重新实现为 Unix 库，使 Wi
 
 [官网](https://www.winehq.org/) · [源码](https://github.com/wine-mirror/wine)
 
-### Proton
+#### Proton
 
 **路线：** Windows 游戏 → Linux（Steam Deck 与桌面 Steam） · **状态：** 成熟 · **类型：** 带图形翻译的 Wine 发行版
 
@@ -124,7 +127,7 @@ Proton 将 Wine 与 DXVK、VKD3D-Proton、FAudio 及游戏专用补丁打包，�
 
 [源码](https://github.com/ValveSoftware/Proton)
 
-### CrossOver
+#### CrossOver
 
 **路线：** Windows 应用与游戏 → macOS（Intel 与 Apple silicon）及 Linux · **状态：** 专有 · **类型：** 商业 Wine 发行版
 
@@ -132,7 +135,7 @@ CrossOver 是 CodeWeavers 提供支持的 Wine 版本，带有安装器、完善
 
 [官网](https://www.codeweavers.com/crossover)
 
-### Boxedwine
+#### Boxedwine
 
 **路线：** 16/32 位 Windows 应用 → Windows、macOS、Linux 与 Web · **状态：** 活跃 · **类型：** CPU 模拟加 Wine
 
@@ -140,7 +143,7 @@ Boxedwine 模拟 32 位 Linux 内核与 CPU，再在其中运行 32 位 Wine。�
 
 [源码](https://github.com/danoon2/Boxedwine)
 
-### Winlator
+#### Winlator
 
 **路线：** Windows x86/x64 应用 → Arm Android · **状态：** 活跃 · **类型：** 打包 Wine 与 Box86/Box64 的 Android 应用
 
@@ -148,7 +151,7 @@ Winlator 将 Wine、Box86/Box64 与图形驱动打包成 Android 应用，用于
 
 [源码](https://github.com/brunodev85/winlator)
 
-### Hangover
+#### Hangover
 
 **路线：** Windows x86/x64 应用 → Arm64 Linux · **状态：** 活跃 · **类型：** 使用 ARM64EC 与 FEX 的 Wine WoW64
 
@@ -156,7 +159,7 @@ Hangover 使用 ARM64EC 与模拟器 DLL，在 Arm64 Wine 上运行 x86 与 x86-
 
 [源码](https://github.com/AndreRH/hangover)
 
-### Darling
+#### Darling
 
 **路线：** macOS 应用 → Linux · **状态：** 实验性 · **类型：** Darwin/macOS 兼容层
 
@@ -164,7 +167,7 @@ Darling 在 Linux 之上实现 macOS 的 Mach IPC、POSIX 与 Darwin 系统调�
 
 [源码](https://github.com/darlinghq/darling)
 
-### touchHLE
+#### touchHLE
 
 **路线：** 早期 iOS 应用（iPhone OS 2.x–4.0） → Windows、macOS、Android 与 Linux 构建 · **状态：** 活跃 · **类型：** 高级模拟器
 
@@ -172,7 +175,7 @@ touchHLE 不模拟 iPhone 硬件。它取代 iOS 的位置，自行实现 Founda
 
 [源码](https://github.com/touchHLE/touchHLE) · [兼容性数据库](https://appdb.touchhle.org/)
 
-### WSL
+#### WSL
 
 **路线：** Linux x86/x64 与 arm64 → Windows 10/11 · **状态：** 成熟 · **类型：** 带系统集成的轻量虚拟机
 
@@ -180,7 +183,7 @@ Windows Subsystem for Linux 在轻量虚拟机中运行真实 Linux 内核，并
 
 [源码](https://github.com/microsoft/WSL) · [文档](https://learn.microsoft.com/windows/wsl/)
 
-### Waydroid
+#### Waydroid
 
 **路线：** Android 应用 → Linux（Arm 与 x86） · **状态：** 活跃 · **类型：** 基于容器的 Android 运行时
 
@@ -188,7 +191,7 @@ Waydroid 使用命名空间在 Linux 容器中启动完整 Android 系统镜像�
 
 [源码](https://github.com/waydroid/waydroid)
 
-### libhybris
+#### libhybris
 
 **路线：** Android 硬件库 → 基于 glibc 的 Linux 发行版 · **状态：** 活跃 · **类型：** 底层兼容胶水
 
@@ -196,7 +199,7 @@ libhybris 让 glibc 系统加载并使用基于 bionic 的 Android 硬件适配�
 
 [源码](https://github.com/libhybris/libhybris)
 
-### redroid
+#### redroid
 
 **路线：** Android → 使用 Docker、Podman 或 Kubernetes 的 Linux 宿主 · **状态：** 活跃 · **类型：** 多架构 Android 容器
 
@@ -204,9 +207,9 @@ redroid 在 arm64 与 amd64 Linux 宿主上以容器方式运行 Android，支�
 
 [源码](https://github.com/remote-android/redroid-doc)
 
-## 二进制翻译与用户态模拟
+### 二进制翻译与用户态模拟
 
-### FEX
+#### FEX
 
 **路线：** x86 与 x86-64 Linux 二进制 → Arm64 Linux · **状态：** 成熟 · **类型：** 带 JIT 的用户态模拟器
 
@@ -214,7 +217,7 @@ FEX 在 Arm64 Linux 上运行 32 位与 64 位 x86 Linux 程序，常与 Wine �
 
 [源码](https://github.com/FEX-Emu/FEX)
 
-### Box64
+#### Box64
 
 **路线：** x86-64 Linux 二进制 → Arm64、RISC-V 64 与 LoongArch Linux · **状态：** 成熟 · **类型：** 带动态重编译器的用户态模拟器
 
@@ -222,7 +225,7 @@ Box64 在非 x86 的 64 位小端宿主上翻译 x86-64 Linux 程序，并包装
 
 [源码](https://github.com/ptitSeb/box64) · [兼容性列表](https://box86.org/app/)
 
-### Box86
+#### Box86
 
 **路线：** x86 Linux 二进制 → 32 位 Arm Linux（以及带 32 位用户态的 64 位宿主） · **状态：** 活跃 · **类型：** 带动态重编译器的用户态模拟器
 
@@ -230,7 +233,7 @@ Box86 是 Box64 的 32 位姊妹项目。它需要 32 位子系统与工具链�
 
 [源码](https://github.com/ptitSeb/box86)
 
-### Rosetta 2
+#### Rosetta 2
 
 **路线：** x86-64 macOS 应用 → Apple silicon macOS · **状态：** 成熟，已宣布终止时间表 · **类型：** Apple 二进制翻译器
 
@@ -238,7 +241,7 @@ Rosetta 2 通过提前翻译与 JIT 路径，在 Apple silicon 上运行 x86-64 
 
 [文档](https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment) · [2026 支持通知](https://developer.apple.com/news/?id=w5ngl9k2) · [支持文章](https://support.apple.com/en-us/102527)
 
-### Windows on Arm x86/x64 模拟
+#### Windows on Arm x86/x64 模拟
 
 **路线：** x86 与 x64 Windows 应用 → Arm 上的 Windows 11 · **状态：** 成熟 · **类型：** 操作系统内置模拟
 
@@ -246,7 +249,7 @@ Windows 11 on Arm 透明地模拟 x86 与 x64 用户态应用；近期版本中�
 
 [文档](https://learn.microsoft.com/windows/arm/apps-on-arm-x86-emulation)
 
-### blink
+#### blink
 
 **路线：** x86-64 Linux 二进制 → Linux、macOS 及其他 POSIX 宿主 · **状态：** 活跃 · **类型：** 极简用户态模拟器
 
@@ -254,7 +257,7 @@ blink 是一个体积很小、带 JIT 与解释器的 x86-64-linux 用户态模�
 
 [源码](https://github.com/jart/blink)
 
-### iSH
+#### iSH
 
 **路线：** x86 Linux 用户空间 → iOS 与 iPadOS · **状态：** 活跃 · **类型：** 带系统调用翻译的用户态 x86 模拟
 
@@ -262,9 +265,9 @@ iSH 通过模拟 x86 并翻译 Linux 系统调用，在 iOS 上运行 Alpine Lin
 
 [源码](https://github.com/ish-app/ish) · [App Store](https://apps.apple.com/app/ish-shell/id1436902243)
 
-## 图形 API 翻译
+### 图形 API 翻译
 
-### DXVK
+#### DXVK
 
 **路线：** Direct3D 8/9/10/11 → Vulkan · **状态：** 成熟 · **类型：** 图形 API 翻译层
 
@@ -272,7 +275,7 @@ DXVK 将 Direct3D 8、9、10、11 翻译为 Vulkan，是 Proton 的核心组件�
 
 [源码](https://github.com/doitsujin/dxvk) · [驱动支持 Wiki](https://github.com/doitsujin/dxvk/wiki/Driver-support)
 
-### VKD3D-Proton
+#### VKD3D-Proton
 
 **路线：** Direct3D 12 → Vulkan · **状态：** 成熟 · **类型：** 图形 API 翻译层
 
@@ -280,7 +283,7 @@ VKD3D-Proton 在 Vulkan 上实现完整 Direct3D 12 API，是 Proton 的 D3D12 �
 
 [源码](https://github.com/HansKristian-Work/vkd3d-proton)
 
-### MoltenVK
+#### MoltenVK
 
 **路线：** Vulkan → macOS、iOS、tvOS 与 visionOS 上的 Metal · **状态：** 遗留/已弃用 · **类型：** Vulkan 可移植性实现
 
@@ -288,7 +291,7 @@ MoltenVK 在 Metal 上实现 Vulkan 1.4，并将 SPIR-V 着色器转换为 Metal
 
 [源码](https://github.com/KhronosGroup/MoltenVK)
 
-### KosmicKrisp
+#### KosmicKrisp
 
 **路线：** Vulkan → Apple silicon macOS 26+ 上的 Metal 4 · **状态：** 活跃 · **类型：** Mesa Vulkan 驱动
 
@@ -296,7 +299,7 @@ KosmicKrisp 是 LunarG 基于 Mesa 的 Vulkan 驱动，目标后端是 Apple sil
 
 [文档](https://docs.mesa3d.org/drivers/kosmickrisp.html) · [Vulkan SDK](https://vulkan.lunarg.com/)
 
-### ANGLE
+#### ANGLE
 
 **路线：** OpenGL ES 2.0/3.0/3.1 → Vulkan、Direct3D 9/11、桌面 OpenGL、OpenGL ES、Metal 或 WebGPU · **状态：** 成熟 · **类型：** 图形 API 翻译层
 
@@ -304,7 +307,7 @@ ANGLE 将 OpenGL ES 调用翻译为宿主图形 API。它是 Windows 上 Chrome 
 
 [源码](https://github.com/google/angle)
 
-### Zink
+#### Zink
 
 **路线：** OpenGL → Vulkan · **状态：** 活跃 · **类型：** Mesa Gallium 驱动
 
@@ -312,7 +315,7 @@ Zink 是 Mesa 的 Gallium 驱动，发出 Vulkan 调用而不是直接面向 GPU
 
 [文档](https://docs.mesa3d.org/drivers/zink.html)
 
-### Game Porting Toolkit
+#### Game Porting Toolkit
 
 **路线：** Windows 游戏 → Apple silicon macOS（评估）；Windows 游戏代码 → 原生 Mac 移植 · **状态：** 专有 · **类型：** Apple 移植工具包
 
@@ -320,9 +323,9 @@ Apple 的 Game Porting Toolkit 组合了 D3DMetal（Direct3D 9/10/11/12 到 Meta
 
 [文档](https://developer.apple.com/games/game-porting-toolkit/)
 
-## 虚拟机与全系统模拟
+### 虚拟机与全系统模拟
 
-### QEMU
+#### QEMU
 
 **路线：** 任意受支持的 Guest 架构 → 多种宿主系统；全系统与 Linux 用户态 · **状态：** 成熟 · **类型：** 模拟器与虚拟机监视器
 
@@ -330,7 +333,7 @@ QEMU 可以模拟完整机器，也可以为另一种架构运行 Linux 用户�
 
 [官网](https://www.qemu.org/) · [源码](https://github.com/qemu/qemu)
 
-### UTM
+#### UTM
 
 **路线：** Windows、Linux 及其他操作系统 → macOS、iOS、iPadOS 与 visionOS · **状态：** 活跃 · **类型：** QEMU 前端与虚拟机宿主
 
@@ -338,7 +341,7 @@ UTM 以原生应用封装 QEMU 与 Apple Virtualization 框架。它支持 30 �
 
 [源码](https://github.com/utmapp/UTM) · [官网](https://getutm.app/)
 
-### VirtualBox
+#### VirtualBox
 
 **路线：** x86/x64 Guest → Windows、Linux 与 Intel macOS；Arm Guest → Apple silicon macOS 与 Windows on Arm（7.2+） · **状态：** 成熟 · **类型：** Hypervisor
 
@@ -346,7 +349,7 @@ VirtualBox 是通用桌面 hypervisor。7.2 版本新增 Apple silicon macOS 与
 
 [官网](https://www.virtualbox.org/) · [7.2 公告](https://blogs.oracle.com/virtualization/oracle-virtualbox-72)
 
-### Lima
+#### Lima
 
 **路线：** Linux 虚拟机 → macOS、Linux 与 NetBSD 宿主 · **状态：** 活跃 · **类型：** Linux 虚拟机管理器
 
@@ -354,9 +357,9 @@ Lima 启动带自动文件共享与端口转发的 Linux 虚拟机，理念类�
 
 [源码](https://github.com/lima-vm/lima) · [官网](https://lima-vm.io/)
 
-## 浏览器与 WebAssembly
+### 浏览器与 WebAssembly
 
-### v86
+#### v86
 
 **路线：** x86 PC 操作系统 → Web 浏览器 · **状态：** 活跃 · **类型：** x86 到 WebAssembly 的 JIT
 
@@ -364,7 +367,7 @@ v86 在浏览器中模拟兼容 x86 的 CPU 与 PC 硬件。它可以启动 32 �
 
 [源码](https://github.com/copy/v86) · [演示](https://copy.sh/v86/)
 
-### CheerpX
+#### CheerpX
 
 **路线：** 32 位 x86 Linux 二进制与发行版 → Web 浏览器 · **状态：** 专有 · **类型：** WebAssembly 中的 x86 虚拟化
 
@@ -372,7 +375,7 @@ CheerpX 在 WebAssembly 沙箱中运行未修改的 x86 Linux 二进制，实现
 
 [源码](https://github.com/leaningtech/cheerpx-meta) · [官网](https://leaningtech.com/cheerpx/)
 
-### JSLinux
+#### JSLinux
 
 **路线：** x86/x86-64 与 RISC-V Linux、Windows 2000、FreeDOS → Web 浏览器 · **状态：** 活跃 · **类型：** 浏览器 PC 模拟器
 
@@ -380,7 +383,7 @@ JSLinux 是 Fabrice Bellard 的浏览器内模拟系统合集。它包括支持 
 
 [官网](https://bellard.org/jslinux/)
 
-### Wasmtime
+#### Wasmtime
 
 **路线：** WebAssembly 模块 → Windows、Linux 与 macOS；可嵌入应用 · **状态：** 成熟 · **类型：** WebAssembly 运行时
 
@@ -388,9 +391,9 @@ Wasmtime 是 Bytecode Alliance 提供的高速、安全、符合标准的 WebAss
 
 [源码](https://github.com/bytecodealliance/wasmtime) · [官网](https://wasmtime.dev/)
 
-## 游戏主机与电脑模拟器
+### 游戏主机与电脑模拟器
 
-### Dolphin
+#### Dolphin
 
 **路线：** GameCube 与 Wii → Windows、Linux、macOS 与较新 Android · **状态：** 成熟 · **类型：** 主机模拟器
 
@@ -398,7 +401,7 @@ Dolphin 模拟 GameCube 与 Wii，带有 x86-64 与 Arm64 JIT 重编译器，支
 
 [源码](https://github.com/dolphin-emu/dolphin) · [官网](https://dolphin-emu.org/)
 
-### PCSX2
+#### PCSX2
 
 **路线：** PlayStation 2 → Windows、Linux 与 macOS · **状态：** 成熟 · **类型：** 主机模拟器
 
@@ -406,7 +409,7 @@ PCSX2 已有 20 多年开发历史，能以全速运行大多数 PS2 游戏，�
 
 [源码](https://github.com/PCSX2/pcsx2) · [官网](https://pcsx2.net/) · [兼容性](https://pcsx2.net/compat/)
 
-### RPCS3
+#### RPCS3
 
 **路线：** PlayStation 3 → Windows、Linux、macOS 与 FreeBSD · **状态：** 成熟 · **类型：** 主机模拟器与调试器
 
@@ -414,7 +417,7 @@ RPCS3 是领先的开源 PS3 模拟器，带有 PPU 与 SPU 重编译器以及 V
 
 [源码](https://github.com/RPCS3/rpcs3) · [官网](https://rpcs3.net/)
 
-### shadPS4
+#### shadPS4
 
 **路线：** PlayStation 4 → Windows、Linux 与 Apple silicon macOS · **状态：** 活跃 · **类型：** 主机模拟器
 
@@ -422,7 +425,7 @@ shadPS4 是一个用 C++ 编写的早期 PS4 模拟器。它执行 PS4 的 x86-6
 
 [源码](https://github.com/shadps4-emu/shadPS4) · [兼容性](https://github.com/shadps4-compatibility/shadps4-game-compatibility)
 
-### KytyPS5
+#### KytyPS5
 
 **路线：** PlayStation 5 → Windows 与 Linux；macOS 通过 Rosetta 2 与 MoltenVK 实验性支持 · **状态：** 实验性 · **类型：** PS5 翻译层
 
@@ -430,7 +433,7 @@ KytyPS5 是免费开源的 PS5 翻译层，源自 Kyty。它执行原生 PS5 代
 
 [源码](https://github.com/KytyPS5/KytyPS5) · [官网](https://kytyps5.github.io/)
 
-### SharpEmu
+#### SharpEmu
 
 **路线：** PlayStation 5 → Windows、Linux 与 macOS（x86-64，Apple silicon 上经 Rosetta 2） · **状态：** 实验性 · **类型：** PS5 模拟器
 
@@ -438,7 +441,7 @@ SharpEmu 是一个用 C# 从零编写的实验性 PS5 模拟器。它可以加�
 
 [源码](https://github.com/sharpemu/sharpemu) · [兼容性](https://sharpemu.app/compatibility/)
 
-### xemu
+#### xemu
 
 **路线：** 初代 Xbox → Windows、Linux 与 macOS · **状态：** 活跃 · **类型：** 主机模拟器
 
@@ -446,7 +449,7 @@ xemu 模拟初代 Xbox，包括其 NVIDIA GPU 与 Pentium III CPU。它需要 Xb
 
 [源码](https://github.com/xemu-project/xemu) · [官网](https://xemu.app/)
 
-### PPSSPP
+#### PPSSPP
 
 **路线：** PlayStation Portable → Windows、macOS、Linux、Android 与 iOS · **状态：** 成熟 · **类型：** 主机模拟器
 
@@ -454,7 +457,7 @@ PPSSPP 是高级 PSP 模拟器，不需要 BIOS。它支持 Vulkan、OpenGL 与 
 
 [源码](https://github.com/hrydgard/ppsspp) · [官网](https://www.ppsspp.org/) · [兼容性](https://report.ppsspp.org/games)
 
-### melonDS
+#### melonDS
 
 **路线：** Nintendo DS → Windows、Linux、macOS 与 Android · **状态：** 活跃 · **类型：** 主机模拟器
 
@@ -462,7 +465,7 @@ melonDS 模拟 Nintendo DS 与 DSi，带有 OpenGL 渲染器，支持直接启�
 
 [源码](https://github.com/melonDS-emu/melonDS) · [官网](https://melonds.kuribo64.net/)
 
-### mGBA
+#### mGBA
 
 **路线：** Game Boy、Game Boy Color 与 Game Boy Advance → Windows、macOS、Linux、Android、Switch、3DS、Vita、Wii，以及通过 RetroArch 到 PS5 · **状态：** 成熟 · **类型：** 主机模拟器
 
@@ -470,7 +473,7 @@ mGBA 是精确的 GBA 模拟器，也支持 GB 与 GBC 游戏。它提供联机�
 
 [源码](https://github.com/mgba-emu/mgba) · [官网](https://mgba.io/) · [下载](https://mgba.io/downloads.html)
 
-### DOSBox-X
+#### DOSBox-X
 
 **路线：** DOS、Windows 3.x/9x/ME 与 NEC PC-98 软件 → Windows、Linux 与 macOS · **状态：** 活跃 · **类型：** PC 模拟器
 
@@ -478,7 +481,7 @@ DOSBox-X 是 DOSBox 的分支，侧重精确模拟与可配置性。它运行 DO
 
 [源码](https://github.com/joncampbell123/dosbox-x) · [官网](https://dosbox-x.com/)
 
-### Cemu
+#### Cemu
 
 **路线：** Wii U → Windows、Linux 与 macOS（实验性） · **状态：** 活跃 · **类型：** 主机模拟器
 
@@ -486,7 +489,7 @@ Cemu 模拟 Wii U，支持 Vulkan 与 OpenGL 渲染。原生 macOS 构建仍是�
 
 [源码](https://github.com/cemu-project/Cemu) · [官网](https://cemu.info/)
 
-### RetroArch
+#### RetroArch
 
 **路线：** 多种经典主机与电脑 → Windows、Linux、macOS、Android、iOS、Switch、PS5 自制系统等 · **状态：** 成熟 · **类型：** libretro 前端
 
@@ -494,7 +497,7 @@ RetroArch 是 libretro API 的主要前端，拥有 NES、SNES、GB/GBC/GBA、DS
 
 [源码](https://github.com/libretro/RetroArch) · [官网](https://www.retroarch.com/) · [核心](https://docs.libretro.com/)
 
-### Ryujinx
+#### Ryujinx
 
 **路线：** Nintendo Switch 1 → Windows、Linux 与 macOS · **状态：** 遗留（社区分支活跃） · **类型：** 主机模拟器
 
@@ -502,7 +505,7 @@ Ryujinx 是以准确性著称的 C# Nintendo Switch 模拟器。原项目于 202
 
 [官网](https://ryujinx.app/) · [源码（Ryubing 分支）](https://git.ryujinx.app/projects/Ryubing)
 
-### Eden
+#### Eden
 
 **路线：** Nintendo Switch 1 → Windows、Linux、macOS 与 Android · **状态：** 活跃 · **类型：** 主机模拟器
 
@@ -510,9 +513,9 @@ Eden 是源自 Yuzu 的社区 Switch 模拟器。在任天堂 DMCA 下架使项�
 
 [官网](https://eden-emu.dev/) · [源码](https://git.eden-emu.dev/eden-emu/eden)
 
-## 游戏引擎重实现
+### 游戏引擎重实现
 
-### ScummVM
+#### ScummVM
 
 **路线：** 经典冒险游戏与受支持的引擎 → Windows、macOS、Linux、Android、iOS 与主机 · **状态：** 成熟 · **类型：** 游戏引擎重实现
 
@@ -520,7 +523,7 @@ ScummVM 重实现了数百款冒险游戏的引擎，包括 SCUMM、Sierra 及�
 
 [源码](https://github.com/scummvm/scummvm) · [官网](https://www.scummvm.org/) · [兼容性](https://www.scummvm.org/compatibility/)
 
-### OpenMW
+#### OpenMW
 
 **路线：** The Elder Scrolls III: Morrowind → Windows、macOS 与 Linux · **状态：** 成熟 · **类型：** 游戏引擎重实现
 
@@ -528,9 +531,9 @@ OpenMW 是 Morrowind 引擎的开源重实现。它加载原版游戏数据，�
 
 [源码](https://github.com/OpenMW/openmw) · [官网](https://openmw.org/)
 
-## 静态重编译与原生移植
+### 静态重编译与原生移植
 
-### N64Recomp
+#### N64Recomp
 
 **路线：** Nintendo 64 二进制 → C 代码 → 任意平台的原生可执行文件 · **状态：** 活跃 · **类型：** 静态重编译器
 
@@ -538,7 +541,7 @@ N64Recomp 将 N64 机器码翻译为可编译到现代平台的 C 代码。它�
 
 [源码](https://github.com/N64Recomp/N64Recomp)
 
-### Zelda64Recomp
+#### Zelda64Recomp
 
 **路线：** The Legend of Zelda: Majora's Mask（以及开发中的 Ocarina of Time） → Windows、Linux 与 macOS · **状态：** 活跃 · **类型：** 静态重编译移植
 
@@ -546,7 +549,7 @@ Zelda 64: Recompiled 使用 N64Recomp 将 Majora's Mask 转为原生移植，通
 
 [源码](https://github.com/Zelda64Recomp/Zelda64Recomp) · [官网](https://zelda64.dev/)
 
-### XenonRecomp
+#### XenonRecomp
 
 **路线：** Xbox 360 可执行文件 → C++ → 原生可执行文件 · **状态：** 活跃 · **类型：** 静态重编译器
 
@@ -554,7 +557,7 @@ XenonRecomp 将 Xbox 360 PowerPC 可执行文件转换为可编译到现代平�
 
 [源码](https://github.com/hedge-dev/XenonRecomp)
 
-### UnleashedRecomp
+#### UnleashedRecomp
 
 **路线：** Sonic Unleashed（Xbox 360） → Windows 与 Linux · **状态：** 活跃 · **类型：** 静态重编译移植
 
@@ -562,9 +565,9 @@ Unleashed Recompiled 是 Xbox 360 版 Sonic Unleashed 的非官方 PC 移植，�
 
 [源码](https://github.com/hedge-dev/UnleashedRecomp)
 
-## 主机作为宿主
+### 主机作为宿主
 
-### nxnative
+#### nxnative
 
 **路线：** Nintendo Switch 1 游戏 → iPhone 与 iPad（原生执行，不是模拟） · **状态：** 实验性 · **类型：** 原生移植工具链
 
@@ -572,7 +575,7 @@ nxnative 重写 Switch NSO 二进制、替代 Horizon OS，并将 NVN 图形翻�
 
 [源码](https://github.com/seedds/nxnative)
 
-### ProsperoEden
+#### ProsperoEden
 
 **路线：** Nintendo Switch 1 游戏 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** Eden 模拟器的 PS5 移植
 
@@ -580,7 +583,7 @@ ProsperoEden 是 Eden 的非官方 PS5 移植，以原生 PS5 自制应用形式
 
 [源码](https://github.com/Swordpdf/ProsperoEden)
 
-### PS5 RetroArch
+#### PS5 RetroArch
 
 **路线：** GBA、DS、PS1、PS2、PSP 及其他经典系统 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** 原生 RetroArch 自制应用
 
@@ -588,7 +591,7 @@ PS5 RetroArch 是面向已破解 PS5 的原生 RetroArch 自制应用，带原�
 
 [源码](https://github.com/mihawk-99/PS5_RetroArch) · [镜像](https://github.com/SocialMDev/ps5_retroarch)
 
-### ps5-linux
+#### ps5-linux
 
 **路线：** Linux → 固件 3.00–13.60 的 PlayStation 5 Phat、Slim 与 Pro · **状态：** 实验性 · **类型：** Hypervisor 漏洞与 Linux 引导器
 
@@ -596,7 +599,7 @@ ps5-linux 利用已修补的 hypervisor 漏洞，在 PS5 上启动自定义 Linu
 
 [源码](https://github.com/ps5-linux/ps5-linux-loader)
 
-### Lakka
+#### Lakka
 
 **路线：** RetroArch/Linux → Nintendo Switch 1（Switchroot L4T Lakka beta）、PC 与单板计算机 · **状态：** 活跃 · **类型：** 基于 RetroArch 的 Linux 发行版
 

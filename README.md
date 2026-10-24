@@ -18,14 +18,15 @@ If you are here for the headline routes — Windows games on Apple silicon, Swit
 - [Scope](#scope)
 - [How to read this list](#how-to-read-this-list)
 - [Guest → host matrix](#guest--host-matrix)
-- [Compatibility layers](#compatibility-layers)
-- [Binary translation and userspace emulation](#binary-translation-and-userspace-emulation)
-- [Graphics API translation](#graphics-api-translation)
-- [Virtual machines and full-system emulation](#virtual-machines-and-full-system-emulation)
-- [Browser and WebAssembly](#browser-and-webassembly)
-- [Game console and computer emulators](#game-console-and-computer-emulators)
-- [Game engine reimplementations](#game-engine-reimplementations)
-- [Static recompilation and native ports](#static-recompilation-and-native-ports)
+- [Technology routes](#technology-routes)
+  - [Compatibility layers](#compatibility-layers)
+  - [Binary translation and userspace emulation](#binary-translation-and-userspace-emulation)
+  - [Graphics API translation](#graphics-api-translation)
+  - [Virtual machines and full-system emulation](#virtual-machines-and-full-system-emulation)
+  - [Browser and WebAssembly](#browser-and-webassembly)
+  - [Game console and computer emulators](#game-console-and-computer-emulators)
+  - [Game engine reimplementations](#game-engine-reimplementations)
+  - [Static recompilation and native ports](#static-recompilation-and-native-ports)
 - [Console-as-host routes](#console-as-host-routes)
 - [Route recipes](#route-recipes)
 - [Legal and practical notes](#legal-and-practical-notes)
@@ -106,9 +107,11 @@ These routes require homebrew, a jailbreak, or both. They are not supported by t
 | Windows | *Box64 + Wine via Switchroot Linux* | *Steam/Proton via ps5-linux* |
 | Android | Switchroot Android | — |
 
-## Compatibility layers
+## Technology routes
+The projects are grouped by the mechanism that makes the route work. Pick the narrowest category that matches your problem; many routes combine two or more.
+### Compatibility layers
 
-### Wine
+#### Wine
 
 **Route:** Windows x86/x64 and Windows 3.x/9x software → Linux, macOS, and other Unix-like systems · **Status:** Mature · **Type:** API compatibility layer
 
@@ -116,7 +119,7 @@ Wine reimplements the Windows NT user and kernel interfaces as Unix libraries, s
 
 [Website](https://www.winehq.org/) · [Source](https://github.com/wine-mirror/wine)
 
-### Proton
+#### Proton
 
 **Route:** Windows games → Linux (Steam Deck and desktop Steam) · **Status:** Mature · **Type:** Wine distribution with graphics translation
 
@@ -124,7 +127,7 @@ Proton bundles Wine with DXVK, VKD3D-Proton, FAudio, and game-specific patches, 
 
 [Source](https://github.com/ValveSoftware/Proton)
 
-### CrossOver
+#### CrossOver
 
 **Route:** Windows applications and games → macOS (Intel and Apple silicon) and Linux · **Status:** Proprietary · **Type:** Commercial Wine distribution
 
@@ -132,7 +135,7 @@ CrossOver is CodeWeavers' supported Wine build with installers, a polished UI, a
 
 [Website](https://www.codeweavers.com/crossover)
 
-### Boxedwine
+#### Boxedwine
 
 **Route:** 16/32-bit Windows applications → Windows, macOS, Linux, and the web · **Status:** Active · **Type:** CPU emulation plus Wine
 
@@ -140,7 +143,7 @@ Boxedwine emulates a 32-bit Linux kernel and CPU, then runs a 32-bit Wine build 
 
 [Source](https://github.com/danoon2/Boxedwine)
 
-### Winlator
+#### Winlator
 
 **Route:** Windows x86/x64 applications → Android on Arm · **Status:** Active · **Type:** Android app bundling Wine and Box86/Box64
 
@@ -148,7 +151,7 @@ Winlator packages Wine, Box86/Box64, and graphics drivers into an Android app fo
 
 [Source](https://github.com/brunodev85/winlator)
 
-### Hangover
+#### Hangover
 
 **Route:** Windows x86/x64 applications → Arm64 Linux · **Status:** Active · **Type:** Wine WoW64 with ARM64EC and FEX
 
@@ -156,7 +159,7 @@ Hangover runs x86 and x86-64 Windows applications on Arm64 Wine using ARM64EC an
 
 [Source](https://github.com/AndreRH/hangover)
 
-### Darling
+#### Darling
 
 **Route:** macOS applications → Linux · **Status:** Experimental · **Type:** Darwin/macOS compatibility layer
 
@@ -164,7 +167,7 @@ Darling implements macOS's Mach IPC, POSIX, and Darwin syscall interfaces on top
 
 [Source](https://github.com/darlinghq/darling)
 
-### touchHLE
+#### touchHLE
 
 **Route:** Early iOS apps (iPhone OS 2.x–4.0) → Windows, macOS, Android, and Linux builds · **Status:** Active · **Type:** High-level emulator
 
@@ -172,7 +175,7 @@ touchHLE does not emulate iPhone hardware. It takes the place of iOS and provide
 
 [Source](https://github.com/touchHLE/touchHLE) · [Compatibility database](https://appdb.touchhle.org/)
 
-### WSL
+#### WSL
 
 **Route:** Linux x86/x64 and arm64 → Windows 10/11 · **Status:** Mature · **Type:** Lightweight virtual machine with OS integration
 
@@ -180,7 +183,7 @@ Windows Subsystem for Linux runs a real Linux kernel in a lightweight VM and int
 
 [Source](https://github.com/microsoft/WSL) · [Documentation](https://learn.microsoft.com/windows/wsl/)
 
-### Waydroid
+#### Waydroid
 
 **Route:** Android applications → Linux (Arm and x86) · **Status:** Active · **Type:** Container-based Android runtime
 
@@ -188,7 +191,7 @@ Waydroid boots a full Android system image in a Linux container using namespaces
 
 [Source](https://github.com/waydroid/waydroid)
 
-### libhybris
+#### libhybris
 
 **Route:** Android hardware libraries → glibc-based Linux distributions · **Status:** Active · **Type:** Low-level compatibility glue
 
@@ -196,7 +199,7 @@ libhybris lets glibc systems load and use bionic-based Android hardware adaptati
 
 [Source](https://github.com/libhybris/libhybris)
 
-### redroid
+#### redroid
 
 **Route:** Android → Linux hosts using Docker, Podman, or Kubernetes · **Status:** Active · **Type:** Multi-arch Android container
 
@@ -204,9 +207,9 @@ redroid runs Android in a container on arm64 and amd64 Linux hosts, with GPU sup
 
 [Source](https://github.com/remote-android/redroid-doc)
 
-## Binary translation and userspace emulation
+### Binary translation and userspace emulation
 
-### FEX
+#### FEX
 
 **Route:** x86 and x86-64 Linux binaries → Arm64 Linux · **Status:** Mature · **Type:** Userspace emulator with JIT
 
@@ -214,7 +217,7 @@ FEX runs 32-bit and 64-bit x86 Linux programs on Arm64 Linux and is commonly pai
 
 [Source](https://github.com/FEX-Emu/FEX)
 
-### Box64
+#### Box64
 
 **Route:** x86-64 Linux binaries → Arm64, RISC-V 64, and LoongArch Linux · **Status:** Mature · **Type:** Userspace emulator with dynamic recompiler
 
@@ -222,7 +225,7 @@ Box64 translates x86-64 Linux programs on non-x86 64-bit little-endian hosts and
 
 [Source](https://github.com/ptitSeb/box64) · [Compatibility list](https://box86.org/app/)
 
-### Box86
+#### Box86
 
 **Route:** x86 Linux binaries → 32-bit Arm Linux (and 64-bit hosts with a 32-bit userland) · **Status:** Active · **Type:** Userspace emulator with dynamic recompiler
 
@@ -230,7 +233,7 @@ Box86 is the 32-bit sibling of Box64. It needs a 32-bit subsystem and toolchain,
 
 [Source](https://github.com/ptitSeb/box86)
 
-### Rosetta 2
+#### Rosetta 2
 
 **Route:** x86-64 macOS applications → Apple silicon macOS · **Status:** Mature, sunset announced · **Type:** Apple binary translator
 
@@ -238,7 +241,7 @@ Rosetta 2 translates x86-64 macOS applications for Apple silicon, using ahead-of
 
 [Documentation](https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment) · [2026 support notice](https://developer.apple.com/news/?id=w5ngl9k2) · [Support article](https://support.apple.com/en-us/102527)
 
-### Windows on Arm x86/x64 emulation
+#### Windows on Arm x86/x64 emulation
 
 **Route:** x86 and x64 Windows applications → Windows 11 on Arm · **Status:** Mature · **Type:** Built-in OS emulation
 
@@ -246,7 +249,7 @@ Windows 11 on Arm emulates x86 and x64 user-mode applications transparently; the
 
 [Documentation](https://learn.microsoft.com/windows/arm/apps-on-arm-x86-emulation)
 
-### blink
+#### blink
 
 **Route:** x86-64 Linux binaries → Linux, macOS, and other POSIX hosts · **Status:** Active · **Type:** Minimal userspace emulator
 
@@ -254,7 +257,7 @@ blink is a very small x86-64-linux userspace emulator with a JIT and an interpre
 
 [Source](https://github.com/jart/blink)
 
-### iSH
+#### iSH
 
 **Route:** x86 Linux userland → iOS and iPadOS · **Status:** Active · **Type:** Userspace x86 emulation with syscall translation
 
@@ -262,9 +265,9 @@ iSH runs an Alpine Linux shell on iOS by emulating x86 and translating Linux sys
 
 [Source](https://github.com/ish-app/ish) · [App Store](https://apps.apple.com/app/ish-shell/id1436902243)
 
-## Graphics API translation
+### Graphics API translation
 
-### DXVK
+#### DXVK
 
 **Route:** Direct3D 8/9/10/11 → Vulkan · **Status:** Mature · **Type:** Graphics API translation layer
 
@@ -272,7 +275,7 @@ DXVK translates Direct3D 8, 9, 10, and 11 to Vulkan and is a core part of Proton
 
 [Source](https://github.com/doitsujin/dxvk) · [Driver support wiki](https://github.com/doitsujin/dxvk/wiki/Driver-support)
 
-### VKD3D-Proton
+#### VKD3D-Proton
 
 **Route:** Direct3D 12 → Vulkan · **Status:** Mature · **Type:** Graphics API translation layer
 
@@ -280,7 +283,7 @@ VKD3D-Proton implements the full Direct3D 12 API on Vulkan and is Proton's D3D12
 
 [Source](https://github.com/HansKristian-Work/vkd3d-proton)
 
-### MoltenVK
+#### MoltenVK
 
 **Route:** Vulkan → Metal on macOS, iOS, tvOS, and visionOS · **Status:** Legacy/deprecated · **Type:** Vulkan portability implementation
 
@@ -288,7 +291,7 @@ MoltenVK layers Vulkan 1.4 over Metal and converts SPIR-V shaders to Metal Shadi
 
 [Source](https://github.com/KhronosGroup/MoltenVK)
 
-### KosmicKrisp
+#### KosmicKrisp
 
 **Route:** Vulkan → Metal 4 on Apple silicon macOS 26+ · **Status:** Active · **Type:** Mesa Vulkan driver
 
@@ -296,7 +299,7 @@ KosmicKrisp is LunarG's Mesa-based Vulkan driver that targets Metal on Apple sil
 
 [Documentation](https://docs.mesa3d.org/drivers/kosmickrisp.html) · [Vulkan SDK](https://vulkan.lunarg.com/)
 
-### ANGLE
+#### ANGLE
 
 **Route:** OpenGL ES 2.0/3.0/3.1 → Vulkan, Direct3D 9/11, desktop OpenGL, OpenGL ES, Metal, or WebGPU · **Status:** Mature · **Type:** Graphics API translation layer
 
@@ -304,7 +307,7 @@ ANGLE translates OpenGL ES calls to a host graphics API. It is the default WebGL
 
 [Source](https://github.com/google/angle)
 
-### Zink
+#### Zink
 
 **Route:** OpenGL → Vulkan · **Status:** Active · **Type:** Mesa Gallium driver
 
@@ -312,7 +315,7 @@ Zink is a Mesa Gallium driver that emits Vulkan calls instead of targeting a GPU
 
 [Documentation](https://docs.mesa3d.org/drivers/zink.html)
 
-### Game Porting Toolkit
+#### Game Porting Toolkit
 
 **Route:** Windows games → macOS on Apple silicon (evaluation); Windows game code → native Mac ports · **Status:** Proprietary · **Type:** Apple porting toolkit
 
@@ -320,9 +323,9 @@ Apple's Game Porting Toolkit combines D3DMetal (Direct3D 9/10/11/12 to Metal), a
 
 [Documentation](https://developer.apple.com/games/game-porting-toolkit/)
 
-## Virtual machines and full-system emulation
+### Virtual machines and full-system emulation
 
-### QEMU
+#### QEMU
 
 **Route:** Any supported guest architecture → many host operating systems; full-system and Linux user-mode · **Status:** Mature · **Type:** Emulator and virtual machine monitor
 
@@ -330,7 +333,7 @@ QEMU can emulate a complete machine or run Linux user-mode binaries for another 
 
 [Website](https://www.qemu.org/) · [Source](https://github.com/qemu/qemu)
 
-### UTM
+#### UTM
 
 **Route:** Windows, Linux, and other operating systems → macOS, iOS, iPadOS, and visionOS · **Status:** Active · **Type:** QEMU frontend and virtual-machine host
 
@@ -338,7 +341,7 @@ UTM wraps QEMU and Apple's Virtualization framework in a native app. It supports
 
 [Source](https://github.com/utmapp/UTM) · [Website](https://getutm.app/)
 
-### VirtualBox
+#### VirtualBox
 
 **Route:** x86/x64 guests → Windows, Linux, and Intel macOS; Arm guests → macOS on Apple silicon and Windows on Arm (7.2+) · **Status:** Mature · **Type:** Hypervisor
 
@@ -346,7 +349,7 @@ VirtualBox is a general-purpose desktop hypervisor. Version 7.2 added macOS on A
 
 [Website](https://www.virtualbox.org/) · [7.2 announcement](https://blogs.oracle.com/virtualization/oracle-virtualbox-72)
 
-### Lima
+#### Lima
 
 **Route:** Linux virtual machines → macOS, Linux, and NetBSD hosts · **Status:** Active · **Type:** Linux VM manager
 
@@ -354,9 +357,9 @@ Lima launches Linux virtual machines with automatic file sharing and port forwar
 
 [Source](https://github.com/lima-vm/lima) · [Website](https://lima-vm.io/)
 
-## Browser and WebAssembly
+### Browser and WebAssembly
 
-### v86
+#### v86
 
 **Route:** x86 PC operating systems → web browsers · **Status:** Active · **Type:** x86-to-WebAssembly JIT
 
@@ -364,7 +367,7 @@ v86 emulates an x86-compatible CPU and PC hardware in the browser. It boots 32-b
 
 [Source](https://github.com/copy/v86) · [Demo](https://copy.sh/v86/)
 
-### CheerpX
+#### CheerpX
 
 **Route:** 32-bit x86 Linux binaries and distributions → web browsers · **Status:** Proprietary · **Type:** x86 virtualization in WebAssembly
 
@@ -372,7 +375,7 @@ CheerpX runs unmodified x86 Linux binaries in a WebAssembly sandbox, implements 
 
 [Source](https://github.com/leaningtech/cheerpx-meta) · [Website](https://leaningtech.com/cheerpx/)
 
-### JSLinux
+#### JSLinux
 
 **Route:** x86/x86-64 and RISC-V Linux, Windows 2000, and FreeDOS → web browsers · **Status:** Active · **Type:** Browser-based PC emulator
 
@@ -380,7 +383,7 @@ JSLinux is Fabrice Bellard's collection of emulated systems that run entirely in
 
 [Website](https://bellard.org/jslinux/)
 
-### Wasmtime
+#### Wasmtime
 
 **Route:** WebAssembly modules → Windows, Linux, and macOS; embeddable in applications · **Status:** Mature · **Type:** WebAssembly runtime
 
@@ -388,9 +391,9 @@ Wasmtime is a fast, secure, standards-compliant WebAssembly runtime from the Byt
 
 [Source](https://github.com/bytecodealliance/wasmtime) · [Website](https://wasmtime.dev/)
 
-## Game console and computer emulators
+### Game console and computer emulators
 
-### Dolphin
+#### Dolphin
 
 **Route:** GameCube and Wii → Windows, Linux, macOS, and recent Android · **Status:** Mature · **Type:** Console emulator
 
@@ -398,7 +401,7 @@ Dolphin emulates the GameCube and Wii with JIT recompilers for x86-64 and Arm64,
 
 [Source](https://github.com/dolphin-emu/dolphin) · [Website](https://dolphin-emu.org/)
 
-### PCSX2
+#### PCSX2
 
 **Route:** PlayStation 2 → Windows, Linux, and macOS · **Status:** Mature · **Type:** Console emulator
 
@@ -406,7 +409,7 @@ PCSX2 has more than 20 years of development and runs most PS2 games at full spee
 
 [Source](https://github.com/PCSX2/pcsx2) · [Website](https://pcsx2.net/) · [Compatibility](https://pcsx2.net/compat/)
 
-### RPCS3
+#### RPCS3
 
 **Route:** PlayStation 3 → Windows, Linux, macOS, and FreeBSD · **Status:** Mature · **Type:** Console emulator and debugger
 
@@ -414,7 +417,7 @@ RPCS3 is the leading open-source PS3 emulator, with PPU and SPU recompilers and 
 
 [Source](https://github.com/RPCS3/rpcs3) · [Website](https://rpcs3.net/)
 
-### shadPS4
+#### shadPS4
 
 **Route:** PlayStation 4 → Windows, Linux, and macOS on Apple silicon · **Status:** Active · **Type:** Console emulator
 
@@ -422,7 +425,7 @@ shadPS4 is an early PS4 emulator written in C++. It executes the PS4's x86-64 co
 
 [Source](https://github.com/shadps4-emu/shadPS4) · [Compatibility](https://github.com/shadps4-compatibility/shadps4-game-compatibility)
 
-### KytyPS5
+#### KytyPS5
 
 **Route:** PlayStation 5 → Windows and Linux; macOS experimentally through Rosetta 2 and MoltenVK · **Status:** Experimental · **Type:** PS5 translation layer
 
@@ -430,7 +433,7 @@ KytyPS5 is a free and open-source PS5 translation layer derived from Kyty. It ex
 
 [Source](https://github.com/KytyPS5/KytyPS5) · [Website](https://kytyps5.github.io/)
 
-### SharpEmu
+#### SharpEmu
 
 **Route:** PlayStation 5 → Windows, Linux, and macOS on x86-64 (Rosetta 2 on Apple silicon) · **Status:** Experimental · **Type:** PS5 emulator
 
@@ -438,7 +441,7 @@ SharpEmu is an experimental PS5 emulator written from scratch in C#. It can load
 
 [Source](https://github.com/sharpemu/sharpemu) · [Compatibility](https://sharpemu.app/compatibility/)
 
-### xemu
+#### xemu
 
 **Route:** Original Xbox → Windows, Linux, and macOS · **Status:** Active · **Type:** Console emulator
 
@@ -446,7 +449,7 @@ xemu emulates the original Xbox, including its NVIDIA GPU and Pentium III CPU. I
 
 [Source](https://github.com/xemu-project/xemu) · [Website](https://xemu.app/)
 
-### PPSSPP
+#### PPSSPP
 
 **Route:** PlayStation Portable → Windows, macOS, Linux, Android, and iOS · **Status:** Mature · **Type:** Console emulator
 
@@ -454,7 +457,7 @@ PPSSPP is a high-level PSP emulator that does not require a BIOS. It supports Vu
 
 [Source](https://github.com/hrydgard/ppsspp) · [Website](https://www.ppsspp.org/) · [Compatibility](https://report.ppsspp.org/games)
 
-### melonDS
+#### melonDS
 
 **Route:** Nintendo DS → Windows, Linux, macOS, and Android · **Status:** Active · **Type:** Console emulator
 
@@ -462,7 +465,7 @@ melonDS emulates the Nintendo DS and DSi, with an OpenGL renderer and support fo
 
 [Source](https://github.com/melonDS-emu/melonDS) · [Website](https://melonds.kuribo64.net/)
 
-### mGBA
+#### mGBA
 
 **Route:** Game Boy, Game Boy Color, and Game Boy Advance → Windows, macOS, Linux, Android, Switch, 3DS, Vita, Wii, and PS5 through RetroArch · **Status:** Mature · **Type:** Console emulator
 
@@ -470,7 +473,7 @@ mGBA is an accurate GBA emulator that also supports GB and GBC games. It include
 
 [Source](https://github.com/mgba-emu/mgba) · [Website](https://mgba.io/) · [Downloads](https://mgba.io/downloads.html)
 
-### DOSBox-X
+#### DOSBox-X
 
 **Route:** DOS, Windows 3.x/9x/ME, and NEC PC-98 software → Windows, Linux, and macOS · **Status:** Active · **Type:** PC emulator
 
@@ -478,7 +481,7 @@ DOSBox-X is a DOSBox fork focused on accurate emulation and configurability. It 
 
 [Source](https://github.com/joncampbell123/dosbox-x) · [Website](https://dosbox-x.com/)
 
-### Cemu
+#### Cemu
 
 **Route:** Wii U → Windows, Linux, and macOS (experimental) · **Status:** Active · **Type:** Console emulator
 
@@ -486,7 +489,7 @@ Cemu emulates the Wii U and supports Vulkan and OpenGL rendering. The native mac
 
 [Source](https://github.com/cemu-project/Cemu) · [Website](https://cemu.info/)
 
-### RetroArch
+#### RetroArch
 
 **Route:** Many classic consoles and computers → Windows, Linux, macOS, Android, iOS, Switch, PS5 homebrew, and more · **Status:** Mature · **Type:** libretro frontend
 
@@ -494,7 +497,7 @@ RetroArch is the main frontend for the libretro API, with cores for NES, SNES, G
 
 [Source](https://github.com/libretro/RetroArch) · [Website](https://www.retroarch.com/) · [Cores](https://docs.libretro.com/)
 
-### Ryujinx
+#### Ryujinx
 
 **Route:** Nintendo Switch 1 → Windows, Linux, and macOS · **Status:** Legacy (community fork active) · **Type:** Console emulator
 
@@ -502,7 +505,7 @@ Ryujinx is a C# Nintendo Switch emulator known for accuracy. The original projec
 
 [Website](https://ryujinx.app/) · [Source (Ryubing fork)](https://git.ryujinx.app/projects/Ryubing)
 
-### Eden
+#### Eden
 
 **Route:** Nintendo Switch 1 → Windows, Linux, macOS, and Android · **Status:** Active · **Type:** Console emulator
 
@@ -510,9 +513,9 @@ Eden is a community Switch emulator derived from Yuzu. It is developed on its ow
 
 [Website](https://eden-emu.dev/) · [Source](https://git.eden-emu.dev/eden-emu/eden)
 
-## Game engine reimplementations
+### Game engine reimplementations
 
-### ScummVM
+#### ScummVM
 
 **Route:** Classic adventure games and supported engines → Windows, macOS, Linux, Android, iOS, and consoles · **Status:** Mature · **Type:** Game engine reimplementation
 
@@ -520,7 +523,7 @@ ScummVM reimplements the engines of hundreds of adventure games, including SCUMM
 
 [Source](https://github.com/scummvm/scummvm) · [Website](https://www.scummvm.org/) · [Compatibility](https://www.scummvm.org/compatibility/)
 
-### OpenMW
+#### OpenMW
 
 **Route:** The Elder Scrolls III: Morrowind → Windows, macOS, and Linux · **Status:** Mature · **Type:** Game engine reimplementation
 
@@ -528,9 +531,9 @@ OpenMW is an open-source reimplementation of Morrowind's engine. It loads the or
 
 [Source](https://github.com/OpenMW/openmw) · [Website](https://openmw.org/)
 
-## Static recompilation and native ports
+### Static recompilation and native ports
 
-### N64Recomp
+#### N64Recomp
 
 **Route:** Nintendo 64 binaries → C code → native executables on any platform · **Status:** Active · **Type:** Static recompiler
 
@@ -538,7 +541,7 @@ N64Recomp translates N64 machine code into C that can be compiled for modern pla
 
 [Source](https://github.com/N64Recomp/N64Recomp)
 
-### Zelda64Recomp
+#### Zelda64Recomp
 
 **Route:** The Legend of Zelda: Majora's Mask (and Ocarina of Time in progress) → Windows, Linux, and macOS · **Status:** Active · **Type:** Static recompilation port
 
@@ -546,7 +549,7 @@ Zelda 64: Recompiled uses N64Recomp to turn Majora's Mask into a native port wit
 
 [Source](https://github.com/Zelda64Recomp/Zelda64Recomp) · [Website](https://zelda64.dev/)
 
-### XenonRecomp
+#### XenonRecomp
 
 **Route:** Xbox 360 executables → C++ → native executables · **Status:** Active · **Type:** Static recompiler
 
@@ -554,7 +557,7 @@ XenonRecomp converts Xbox 360 PowerPC executables into C++ that can be compiled 
 
 [Source](https://github.com/hedge-dev/XenonRecomp)
 
-### UnleashedRecomp
+#### UnleashedRecomp
 
 **Route:** Sonic Unleashed (Xbox 360) → Windows and Linux · **Status:** Active · **Type:** Static recompilation port
 
@@ -562,9 +565,9 @@ Unleashed Recompiled is an unofficial PC port of the Xbox 360 version of Sonic U
 
 [Source](https://github.com/hedge-dev/UnleashedRecomp)
 
-## Console-as-host routes
+### Console-as-host routes
 
-### nxnative
+#### nxnative
 
 **Route:** Nintendo Switch 1 games → iPhone and iPad (native execution, not emulation) · **Status:** Experimental · **Type:** Native porting toolkit
 
@@ -572,7 +575,7 @@ nxnative rewrites Switch NSO binaries, stands in for the Horizon OS, and transla
 
 [Source](https://github.com/seedds/nxnative)
 
-### ProsperoEden
+#### ProsperoEden
 
 **Route:** Nintendo Switch 1 games → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** PS5 port of the Eden emulator
 
@@ -580,7 +583,7 @@ ProsperoEden is an unofficial PS5 port of Eden, packaged as native PS5 homebrew.
 
 [Source](https://github.com/Swordpdf/ProsperoEden)
 
-### PS5 RetroArch
+#### PS5 RetroArch
 
 **Route:** GBA, DS, PS1, PS2, PSP, and other classic systems → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** Native RetroArch homebrew
 
@@ -588,7 +591,7 @@ PS5 RetroArch is a native RetroArch homebrew title for jailbroken PS5 consoles, 
 
 [Source](https://github.com/mihawk-99/PS5_RetroArch) · [Mirror](https://github.com/SocialMDev/ps5_retroarch)
 
-### ps5-linux
+#### ps5-linux
 
 **Route:** Linux → PlayStation 5 Phat, Slim, and Pro on firmware 3.00–13.60 · **Status:** Experimental · **Type:** Hypervisor exploit and Linux bootloader
 
@@ -596,7 +599,7 @@ ps5-linux uses patched hypervisor vulnerabilities to boot a custom Linux image o
 
 [Source](https://github.com/ps5-linux/ps5-linux-loader)
 
-### Lakka
+#### Lakka
 
 **Route:** RetroArch/Linux → Nintendo Switch 1 (Switchroot L4T Lakka beta), PCs, and single-board computers · **Status:** Active · **Type:** RetroArch-based Linux distribution
 
