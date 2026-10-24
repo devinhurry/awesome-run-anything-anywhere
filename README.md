@@ -29,7 +29,6 @@ If you are here for the headline routes — Windows games on Apple silicon, Swit
   - [Game console and computer emulators](#game-console-and-computer-emulators)
   - [Game engine reimplementations](#game-engine-reimplementations)
   - [Static recompilation and native ports](#static-recompilation-and-native-ports)
-  - [Console-as-host routes](#console-as-host-routes)
 - [Legal and practical notes](#legal-and-practical-notes)
 - [Contributing](#contributing)
 
@@ -402,6 +401,14 @@ Lima launches Linux virtual machines with automatic file sharing and port forwar
 
 [Source](https://github.com/lima-vm/lima) · [Website](https://lima-vm.io/)
 
+#### ps5-linux
+
+**Route:** Linux → PlayStation 5 Phat, Slim, and Pro on firmware 3.00–13.60 · **Status:** Experimental · **Type:** Hypervisor exploit and Linux bootloader
+
+ps5-linux uses patched hypervisor vulnerabilities to boot a custom Linux image on a PS5, turning the console into a Linux PC with eight cores, sixteen threads, and access to the GPU. It supports USB and M.2 installation, and can run Steam games and emulators. It requires a jailbroken console on a specific firmware, cannot be downgraded, and sacrifices PSN access. The lead developer stepped away from the scene in 2026, so treat long-term support as uncertain.
+
+[Source](https://github.com/ps5-linux/ps5-linux-loader)
+
 ### Browser and WebAssembly
 
 #### v86
@@ -558,6 +565,30 @@ Eden is a community Switch emulator derived from Yuzu. It is developed on its ow
 
 [Website](https://eden-emu.dev/) · [Source](https://git.eden-emu.dev/eden-emu/eden)
 
+#### ProsperoEden
+
+**Route:** Nintendo Switch 1 games → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** PS5 port of the Eden emulator
+
+ProsperoEden is an unofficial PS5 port of Eden, packaged as native PS5 homebrew. It uses a Vulkan renderer running on a PS5 Mesa/RADV port, and requires a jailbreak plus your own firmware, keys, and game files. Early reports show lighter titles running around 40 FPS while heavier games struggle. It is alpha software and does not work with PSN.
+
+[Source](https://github.com/Swordpdf/ProsperoEden)
+
+#### PS5 RetroArch
+
+**Route:** GBA, DS, PS1, PS2, PSP, and other classic systems → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** Native RetroArch homebrew
+
+PS5 RetroArch is a native RetroArch homebrew title for jailbroken PS5 consoles, with native Vulkan rendering, fifteen release cores, and a local WebUI. The core list includes mGBA for Game Boy/GBC/GBA and LRPS2 for PlayStation 2. It is an alpha release, requires a jailbreak and your own content/BIOS/firmware, and does not run PS5 games.
+
+[Source](https://github.com/mihawk-99/PS5_RetroArch) · [Mirror](https://github.com/SocialMDev/ps5_retroarch)
+
+#### Lakka
+
+**Route:** RetroArch/Linux → Nintendo Switch 1 (Switchroot L4T Lakka beta), PCs, and single-board computers · **Status:** Active · **Type:** RetroArch-based Linux distribution
+
+Lakka is a lightweight LibreELEC-based distribution built around RetroArch. On Switch 1 it is installed through Switchroot and hekate on an unpatched console, and it is one of the ways to turn the console into a RetroArch host. Switchroot also offers Android, L4T Ubuntu, and L4T Fedora. These routes are community projects: they require an unpatched console, can be fragile, and are not supported by Nintendo.
+
+[Website](https://www.lakka.tv/) · [Switch guide](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
+
 ### Game engine reimplementations
 
 #### ScummVM
@@ -610,7 +641,6 @@ Unleashed Recompiled is an unofficial PC port of the Xbox 360 version of Sonic U
 
 [Source](https://github.com/hedge-dev/UnleashedRecomp)
 
-### Console-as-host routes
 
 #### nxnative
 
@@ -619,39 +649,6 @@ Unleashed Recompiled is an unofficial PC port of the Xbox 360 version of Sonic U
 nxnative rewrites Switch NSO binaries, stands in for the Horizon OS, and translates NVN graphics to Metal, producing a sideloadable IPA from an NSP folder and `prod.keys`. It requires iOS/iPadOS 26 or later and an A17 Pro or M1-or-newer device because the games use BC-compressed textures. Only a small set of titles is supported, and it does not include any game data.
 
 [Source](https://github.com/seedds/nxnative)
-
-#### ProsperoEden
-
-**Route:** Nintendo Switch 1 games → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** PS5 port of the Eden emulator
-
-ProsperoEden is an unofficial PS5 port of Eden, packaged as native PS5 homebrew. It uses a Vulkan renderer running on a PS5 Mesa/RADV port, and requires a jailbreak plus your own firmware, keys, and game files. Early reports show lighter titles running around 40 FPS while heavier games struggle. It is alpha software and does not work with PSN.
-
-[Source](https://github.com/Swordpdf/ProsperoEden)
-
-#### PS5 RetroArch
-
-**Route:** GBA, DS, PS1, PS2, PSP, and other classic systems → jailbroken PlayStation 5 · **Status:** Experimental · **Type:** Native RetroArch homebrew
-
-PS5 RetroArch is a native RetroArch homebrew title for jailbroken PS5 consoles, with native Vulkan rendering, fifteen release cores, and a local WebUI. The core list includes mGBA for Game Boy/GBC/GBA and LRPS2 for PlayStation 2. It is an alpha release, requires a jailbreak and your own content/BIOS/firmware, and does not run PS5 games.
-
-[Source](https://github.com/mihawk-99/PS5_RetroArch) · [Mirror](https://github.com/SocialMDev/ps5_retroarch)
-
-#### ps5-linux
-
-**Route:** Linux → PlayStation 5 Phat, Slim, and Pro on firmware 3.00–13.60 · **Status:** Experimental · **Type:** Hypervisor exploit and Linux bootloader
-
-ps5-linux uses patched hypervisor vulnerabilities to boot a custom Linux image on a PS5, turning the console into a Linux PC with eight cores, sixteen threads, and access to the GPU. It supports USB and M.2 installation, and can run Steam games and emulators. It requires a jailbroken console on a specific firmware, cannot be downgraded, and sacrifices PSN access. The lead developer stepped away from the scene in 2026, so treat long-term support as uncertain.
-
-[Source](https://github.com/ps5-linux/ps5-linux-loader)
-
-#### Lakka
-
-**Route:** RetroArch/Linux → Nintendo Switch 1 (Switchroot L4T Lakka beta), PCs, and single-board computers · **Status:** Active · **Type:** RetroArch-based Linux distribution
-
-Lakka is a lightweight LibreELEC-based distribution built around RetroArch. On Switch 1 it is installed through Switchroot and hekate on an unpatched console, and it is one of the ways to turn the console into a RetroArch host. Switchroot also offers Android, L4T Ubuntu, and L4T Fedora. These routes are community projects: they require an unpatched console, can be fragile, and are not supported by Nintendo.
-
-[Website](https://www.lakka.tv/) · [Switch guide](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
-
 
 ## Legal and practical notes
 

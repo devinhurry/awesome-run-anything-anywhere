@@ -29,7 +29,6 @@
   - [游戏主机与电脑模拟器](#游戏主机与电脑模拟器)
   - [游戏引擎重实现](#游戏引擎重实现)
   - [静态重编译与原生移植](#静态重编译与原生移植)
-  - [主机作为宿主](#主机作为宿主)
 - [法律与实践说明](#法律与实践说明)
 - [贡献](#贡献)
 
@@ -402,6 +401,14 @@ Lima 启动带自动文件共享与端口转发的 Linux 虚拟机，理念类�
 
 [源码](https://github.com/lima-vm/lima) · [官网](https://lima-vm.io/)
 
+#### ps5-linux
+
+**路线：** Linux → 固件 3.00–13.60 的 PlayStation 5 Phat、Slim 与 Pro · **状态：** 实验性 · **类型：** Hypervisor 漏洞与 Linux 引导器
+
+ps5-linux 利用已修补的 hypervisor 漏洞，在 PS5 上启动自定义 Linux 镜像，把主机变成拥有八核十六线程并可访问 GPU 的 Linux PC。它支持 USB 与 M.2 安装，可运行 Steam 游戏与模拟器。它需要特定固件的已破解主机，不能降级，并会牺牲 PSN 访问。项目负责人在 2026 年离开了该社区，因此长期支持存在不确定性。
+
+[源码](https://github.com/ps5-linux/ps5-linux-loader)
+
 ### 浏览器与 WebAssembly
 
 #### v86
@@ -558,6 +565,30 @@ Eden 是源自 Yuzu 的社区 Switch 模拟器。在任天堂 DMCA 下架使项�
 
 [官网](https://eden-emu.dev/) · [源码](https://git.eden-emu.dev/eden-emu/eden)
 
+#### ProsperoEden
+
+**路线：** Nintendo Switch 1 游戏 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** Eden 模拟器的 PS5 移植
+
+ProsperoEden 是 Eden 的非官方 PS5 移植，以原生 PS5 自制应用形式打包。它使用运行在 PS5 Mesa/RADV 移植上的 Vulkan 渲染器，需要破解以及自己的固件、密钥与游戏文件。早期报告显示较轻的作品约 40 FPS，而较重的作品很吃力。它是 alpha 软件，不能使用 PSN。
+
+[源码](https://github.com/Swordpdf/ProsperoEden)
+
+#### PS5 RetroArch
+
+**路线：** GBA、DS、PS1、PS2、PSP 及其他经典系统 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** 原生 RetroArch 自制应用
+
+PS5 RetroArch 是面向已破解 PS5 的原生 RetroArch 自制应用，带原生 Vulkan 渲染、十五个发布核心与本地 WebUI。核心列表包括用于 Game Boy/GBC/GBA 的 mGBA 与用于 PlayStation 2 的 LRPS2。它是 alpha 版本，需要破解及自己的内容/BIOS/固件，不能运行 PS5 游戏。
+
+[源码](https://github.com/mihawk-99/PS5_RetroArch) · [镜像](https://github.com/SocialMDev/ps5_retroarch)
+
+#### Lakka
+
+**路线：** RetroArch/Linux → Nintendo Switch 1（Switchroot L4T Lakka beta）、PC 与单板计算机 · **状态：** 活跃 · **类型：** 基于 RetroArch 的 Linux 发行版
+
+Lakka 是围绕 RetroArch 构建的轻量 LibreELEC 发行版。在 Switch 1 上，它通过 Switchroot 与 hekate 安装在未打补丁的主机上，是把主机变成 RetroArch 宿主的方式之一。Switchroot 还提供 Android、L4T Ubuntu 与 L4T Fedora。这些路线属于社区项目：需要未打补丁的主机，可能不稳定，且不受任天堂支持。
+
+[官网](https://www.lakka.tv/) · [Switch 指南](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
+
 ### 游戏引擎重实现
 
 #### ScummVM
@@ -610,7 +641,6 @@ Unleashed Recompiled 是 Xbox 360 版 Sonic Unleashed 的非官方 PC 移植，�
 
 [源码](https://github.com/hedge-dev/UnleashedRecomp)
 
-### 主机作为宿主
 
 #### nxnative
 
@@ -619,39 +649,6 @@ Unleashed Recompiled 是 Xbox 360 版 Sonic Unleashed 的非官方 PC 移植，�
 nxnative 重写 Switch NSO 二进制、替代 Horizon OS，并将 NVN 图形翻译为 Metal，从 NSP 文件夹与 `prod.keys` 生成可侧载的 IPA。它需要 iOS/iPadOS 26 或更高，以及 A17 Pro 或 M1 及更新设备，因为游戏使用 BC 压缩纹理。仅支持少量作品，且不包含任何游戏数据。
 
 [源码](https://github.com/seedds/nxnative)
-
-#### ProsperoEden
-
-**路线：** Nintendo Switch 1 游戏 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** Eden 模拟器的 PS5 移植
-
-ProsperoEden 是 Eden 的非官方 PS5 移植，以原生 PS5 自制应用形式打包。它使用运行在 PS5 Mesa/RADV 移植上的 Vulkan 渲染器，需要破解以及自己的固件、密钥与游戏文件。早期报告显示较轻的作品约 40 FPS，而较重的作品很吃力。它是 alpha 软件，不能使用 PSN。
-
-[源码](https://github.com/Swordpdf/ProsperoEden)
-
-#### PS5 RetroArch
-
-**路线：** GBA、DS、PS1、PS2、PSP 及其他经典系统 → 已破解 PlayStation 5 · **状态：** 实验性 · **类型：** 原生 RetroArch 自制应用
-
-PS5 RetroArch 是面向已破解 PS5 的原生 RetroArch 自制应用，带原生 Vulkan 渲染、十五个发布核心与本地 WebUI。核心列表包括用于 Game Boy/GBC/GBA 的 mGBA 与用于 PlayStation 2 的 LRPS2。它是 alpha 版本，需要破解及自己的内容/BIOS/固件，不能运行 PS5 游戏。
-
-[源码](https://github.com/mihawk-99/PS5_RetroArch) · [镜像](https://github.com/SocialMDev/ps5_retroarch)
-
-#### ps5-linux
-
-**路线：** Linux → 固件 3.00–13.60 的 PlayStation 5 Phat、Slim 与 Pro · **状态：** 实验性 · **类型：** Hypervisor 漏洞与 Linux 引导器
-
-ps5-linux 利用已修补的 hypervisor 漏洞，在 PS5 上启动自定义 Linux 镜像，把主机变成拥有八核十六线程并可访问 GPU 的 Linux PC。它支持 USB 与 M.2 安装，可运行 Steam 游戏与模拟器。它需要特定固件的已破解主机，不能降级，并会牺牲 PSN 访问。项目负责人在 2026 年离开了该社区，因此长期支持存在不确定性。
-
-[源码](https://github.com/ps5-linux/ps5-linux-loader)
-
-#### Lakka
-
-**路线：** RetroArch/Linux → Nintendo Switch 1（Switchroot L4T Lakka beta）、PC 与单板计算机 · **状态：** 活跃 · **类型：** 基于 RetroArch 的 Linux 发行版
-
-Lakka 是围绕 RetroArch 构建的轻量 LibreELEC 发行版。在 Switch 1 上，它通过 Switchroot 与 hekate 安装在未打补丁的主机上，是把主机变成 RetroArch 宿主的方式之一。Switchroot 还提供 Android、L4T Ubuntu 与 L4T Fedora。这些路线属于社区项目：需要未打补丁的主机，可能不稳定，且不受任天堂支持。
-
-[官网](https://www.lakka.tv/) · [Switch 指南](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
-
 
 ## 法律与实践说明
 
