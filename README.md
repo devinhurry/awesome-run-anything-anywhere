@@ -9,9 +9,9 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **60 projects**, checked against primary sources on **2026-10-24**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **70 projects**, checked against primary sources on **2026-10-24**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Switch 1 games on PC/Android/PS5, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
+If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS, Switch 1 games on PC/Android/PS5, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
@@ -72,23 +72,26 @@ A name means a practical route exists. *Italic* means the route is experimental 
 
 | Guest | Windows | Linux | macOS | iOS / iPadOS | Android | Browser |
 | --- | --- | --- | --- | --- | --- | --- |
-| Windows x86/x64 | Native; Prism on Arm | Wine, Proton, CrossOver | CrossOver, Wine + Rosetta, GPTK | — | Winlator, Boxedwine | v86, CheerpX, JSLinux (older Windows) |
+| Windows x86/x64 | Native; Prism on Arm | Wine, Proton, CrossOver | CrossOver, Wine + Rosetta, GPTK, Parallels, VMware, UTM | — | Winlator, Boxedwine | v86, CheerpX, JSLinux (older Windows) |
 | Linux x86/x64 | WSL2, VirtualBox | Native | UTM, Lima, VirtualBox | iSH, UTM SE | — | v86, JSLinux, CheerpX |
 | Linux arm64 | WSL2 | Native | UTM, Lima, VirtualBox | UTM SE | — | — |
 | macOS apps | — | Darling | Native; Rosetta 2 for Intel apps | — | — | — |
 | iOS apps (early) | touchHLE | touchHLE | touchHLE | Native (old apps only) | touchHLE | — |
-| Android apps | — | Waydroid, redroid | UTM (Android VM) | — | Native | — |
+| Android apps | — | Waydroid, redroid | Mac.apk, UTM (Android VM) | — | Native | — |
 | DOS, Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86, JSLinux |
-| GB / GBC / GBA | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | RetroArch (mGBA core) | mGBA, RetroArch | — |
-| Nintendo DS | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | RetroArch (core-dependent) | melonDS, RetroArch | — |
-| Nintendo 64 | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch (core-dependent) | RetroArch | — |
+| GB / GBC / GBA | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | RetroArch, Delta | mGBA, RetroArch | — |
+| Nintendo DS | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | RetroArch, Delta | melonDS, RetroArch | — |
+| Nintendo 3DS | Azahar | Azahar | Azahar | — | Azahar | — |
+| Nintendo 64 | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch, Delta | RetroArch | — |
 | GameCube / Wii | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
 | Wii U | Cemu | Cemu | *Cemu* | — | — | — |
 | Switch 1 | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | *nxnative (few games)* | Eden | — |
-| PS1 / PS2 | PCSX2, RetroArch | PCSX2, RetroArch | PCSX2, RetroArch | RetroArch (PS1) | RetroArch (PS1) | — |
+| PS1 / PS2 | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | RetroArch (PS1) | NetherSX2, RetroArch (PS1) | — |
 | PS3 / PS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | — | — | — |
 | PS5 | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | — | — | — |
-| Xbox / Xbox 360 | xemu; recomp ports | xemu; recomp ports | xemu; recomp ports | — | — | — |
+| PlayStation Vita | Vita3K | Vita3K | Vita3K | — | Vita3K | — |
+| Sega Dreamcast | Flycast | Flycast | Flycast | — | Flycast | — |
+| Xbox / Xbox 360 | xemu, Xenia; recomp ports | xemu, Xenia; recomp ports | xemu; recomp ports | — | — | — |
 | WebAssembly | Wasmtime | Wasmtime | Wasmtime | — | — | Native |
 
 ### Console hosts
@@ -99,9 +102,12 @@ These routes require homebrew, a jailbreak, or both. They are not supported by t
 | --- | --- | --- |
 | GBA / GBC / GB | mGBA, RetroArch | PS5 RetroArch (mGBA core) |
 | Nintendo DS | RetroArch (core-dependent) | — |
+| Nintendo 3DS | — | — |
 | Nintendo 64 | RetroArch (core-dependent) | — |
+| Sega Dreamcast | Flycast | — |
 | Switch 1 | Native | *ProsperoEden* |
 | PS1 / PS2 | RetroArch (PS1) | PS5 RetroArch (LRPS2) |
+| PlayStation Vita | — | — |
 | PSP | RetroArch (core-dependent) | RetroArch (core-dependent) |
 | Linux | Switchroot L4T Linux, Lakka | ps5-linux |
 | Windows | *Box64 + Wine via Switchroot Linux* | *Steam/Proton via ps5-linux* |
@@ -113,23 +119,26 @@ Start from the software you want to run. Each host is followed by the projects t
 
 | Guest | Hosts and projects |
 | --- | --- |
-| Windows x86/x64 | **Windows:** native; Arm uses [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Hangover](#hangover), [FEX](#fex), [Box64](#box64)<br>**macOS:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2)<br>**Android:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Browser:** [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux) |
+| Windows x86/x64 | **Windows:** native; Arm uses [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Hangover](#hangover), [FEX](#fex), [Box64](#box64)<br>**macOS:** [CrossOver](#crossover), [Wine](#wine), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**Android:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Browser:** [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux) |
 | Linux x86/x64 | **Windows:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [iSH](#ish), [UTM](#utm)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux) |
 | Linux arm64 | **Windows:** [WSL](#wsl)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox)<br>**iOS:** [UTM](#utm)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux) |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling) |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only) |
-| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [UTM](#utm)<br>**Switch:** Switchroot Android (no separate entry) |
+| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**Switch:** Switchroot Android (no separate entry) |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS:** [DOSBox-X](#dosbox-x)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux) |
-| GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch) |
-| Nintendo DS | **Windows / Linux / macOS:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Android:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Switch:** [RetroArch](#retroarch) |
-| Nintendo 64 | **Windows / Linux / macOS:** [RetroArch](#retroarch)<br>**Android:** [RetroArch](#retroarch)<br>**Switch:** [RetroArch](#retroarch)<br>**Windows / Linux / macOS (native ports):** [N64Recomp](#n64recomp), [Zelda64Recomp](#zelda64recomp) |
+| GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch) |
+| Nintendo DS | **Windows / Linux / macOS:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Android:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch) |
+| Nintendo 3DS | **Windows / Linux / macOS / Android:** [Azahar](#azahar) |
+| Nintendo 64 | **Windows / Linux / macOS:** [RetroArch](#retroarch)<br>**Android:** [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch)<br>**Windows / Linux / macOS (native ports):** [N64Recomp](#n64recomp), [Zelda64Recomp](#zelda64recomp) |
 | GameCube / Wii | **Windows / Linux / macOS:** [Dolphin](#dolphin)<br>**Android:** [Dolphin](#dolphin) |
 | Wii U | **Windows / Linux:** [Cemu](#cemu)<br>**macOS:** [Cemu](#cemu) (experimental) |
 | Switch 1 | **Windows / Linux / macOS:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**Android:** [Eden](#eden)<br>**iPhone / iPad:** [nxnative](#nxnative)<br>**PS5:** [ProsperoEden](#prosperoeden) |
-| PS1 / PS2 | **Windows / Linux / macOS:** [PCSX2](#pcsx2), [RetroArch](#retroarch)<br>**iOS / Android / Switch (PS1):** [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch) |
+| PS1 / PS2 | **Windows / Linux / macOS:** [DuckStation](#duckstation), [PCSX2](#pcsx2), [RetroArch](#retroarch)<br>**iOS / Switch (PS1):** [RetroArch](#retroarch)<br>**Android:** [NetherSX2-classic](#nethersx2-classic), [RetroArch](#retroarch) (PS1)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch) |
 | PS3 / PS4 | **Windows / Linux / macOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4) |
 | PS5 | **Windows / Linux / macOS:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu) (experimental) |
-| Xbox / Xbox 360 | **Windows / Linux / macOS:** [xemu](#xemu)<br>**Windows / Linux (native ports):** [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp) |
+| PlayStation Vita | **Windows / Linux / macOS / Android:** [Vita3K](#vita3k) |
+| Sega Dreamcast | **Windows / Linux / macOS / Android / Switch / Xbox:** [Flycast](#flycast) |
+| Xbox / Xbox 360 | **Windows / Linux / macOS:** [xemu](#xemu)<br>**Windows / Linux:** [Xenia](#xenia)<br>**Windows / Linux (native ports):** [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp) |
 | WebAssembly | **Windows / Linux / macOS:** [Wasmtime](#wasmtime)<br>**Browser:** native |
 
 ## By host
@@ -138,15 +147,15 @@ Start from the machine you have. Each guest is followed by the projects that pro
 
 | Host | Guests and projects |
 | --- | --- |
-| Windows | **Windows:** native<br>**Linux:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
+| Windows | **Windows:** native<br>**Linux:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | Windows on Arm | **Windows x86/x64:** [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [WSL](#wsl)<br>**Arm guests:** [VirtualBox](#virtualbox) |
-| Linux | **Windows:** [Wine](#wine), [Proton](#proton), [FEX](#fex), [Box64](#box64), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
-| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm)<br>**Retro consoles / GBA:** [RetroArch](#retroarch)<br>**Switch:** [nxnative](#nxnative) |
-| Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [RetroArch](#retroarch), [Dolphin](#dolphin), [PPSSPP](#ppsspp)<br>**Switch:** [Eden](#eden) |
+| Linux | **Windows:** [Wine](#wine), [Proton](#proton), [FEX](#fex), [Box64](#box64), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
+| Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
+| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
+| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [nxnative](#nxnative) |
+| Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
-| Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
+| Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
 | PS5 (jailbroken) | **GBA / GBC / GB / PS2:** [PS5 RetroArch](#ps5-retroarch)<br>**Switch:** [ProsperoEden](#prosperoeden)<br>**Linux:** [ps5-linux](#ps5-linux)<br>**Windows via Linux:** [ps5-linux](#ps5-linux), [Proton](#proton) |
 
 ## Technology routes
@@ -234,6 +243,14 @@ Windows Subsystem for Linux runs a real Linux kernel in a lightweight VM and int
 Waydroid boots a full Android system image in a Linux container using namespaces, sharing the host kernel. It is the common route for Android apps on Linux phones and desktops. It needs a compatible kernel with binder support, does not ship Google Play services, and running Arm apps on x86 usually requires a native bridge such as libhoudini or libndk.
 
 [Source](https://github.com/waydroid/waydroid)
+
+#### Mac.apk
+
+**Route:** Android apps → macOS 26.4+ on Apple silicon · **Status:** Experimental · **Type:** Android application environment
+
+Mac.apk implements the Android application environment directly on macOS instead of booting Android in an emulator or virtual machine. Apps launch as ordinary Mac processes, use the Mac GPU, and run arm64 code natively; a recompiler handles older 32-bit ARM native libraries. It requires macOS 26.4 or later and Apple silicon, and its compatibility list reports 58 fully playable apps out of 71 tested (October 2026). It is alpha software, and apps run with your macOS user permissions rather than a phone-style sandbox.
+
+[Source](https://github.com/kksimp/Mac.apk) · [Compatibility](https://github.com/kksimp/Mac.apk/blob/main/COMPATIBILITY.md)
 
 #### libhybris
 
@@ -393,6 +410,22 @@ VirtualBox is a general-purpose desktop hypervisor. Version 7.2 added macOS on A
 
 [Website](https://www.virtualbox.org/) · [7.2 announcement](https://blogs.oracle.com/virtualization/oracle-virtualbox-72)
 
+#### Parallels Desktop
+
+**Route:** Windows 11 Arm, Linux, and macOS guests → macOS on Apple silicon and Intel · **Status:** Proprietary · **Type:** Desktop hypervisor
+
+Parallels Desktop runs Windows 11 Arm on Apple silicon with Microsoft authorization, and Windows 11 x64 on Intel Macs. On Apple silicon, x86/x64 Windows applications run through Windows' built-in Prism emulation inside the Arm VM; Parallels Desktop 26 also has a preview of x86_64 VM emulation for some guests. It offers deep macOS integration and a guided Windows installer. It is commercial, and nested virtualization, drivers, and anti-cheat may not work.
+
+[Website](https://www.parallels.com/products/desktop/) · [System requirements](https://kb.parallels.com/en/124223)
+
+#### VMware Fusion
+
+**Route:** Windows 11 Arm and Arm Linux guests → macOS on Apple silicon; x86/x64 guests → Intel Macs · **Status:** Proprietary (free for personal and commercial use) · **Type:** Desktop hypervisor
+
+VMware Fusion Pro runs Arm guests on Apple silicon and x86/x64 guests on Intel Macs. It cannot run x86 operating systems in virtual machines on Apple silicon; Windows 11 Arm can run x86/x64 applications through Prism. Broadcom now makes Fusion Pro free for personal, commercial, and educational use, but downloads require a Broadcom account. Graphics acceleration and guest integration vary by configuration.
+
+[Website](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion) · [Apple silicon notes](https://knowledge.broadcom.com/external/article/315602)
+
 #### Lima
 
 **Route:** Linux virtual machines → macOS, Linux, and NetBSD hosts · **Status:** Active · **Type:** Linux VM manager
@@ -453,6 +486,14 @@ Dolphin emulates the GameCube and Wii with JIT recompilers for x86-64 and Arm64,
 
 [Source](https://github.com/dolphin-emu/dolphin) · [Website](https://dolphin-emu.org/)
 
+#### DuckStation
+
+**Route:** PlayStation 1 → Windows, Linux, and macOS · **Status:** Active · **Type:** Console emulator
+
+DuckStation is a PS1 emulator focused on accuracy, speed, and a modern frontend. It has a CPU recompiler for x86-64, Arm, and RISC-V, hardware rendering through Direct3D 11/12, OpenGL, Vulkan, and Metal, plus upscaling, PGXP, and save states. It requires a PS1 or PS2 BIOS image. It does not run PS2 games; use PCSX2 or NetherSX2 for those.
+
+[Source](https://github.com/stenzek/duckstation)
+
 #### PCSX2
 
 **Route:** PlayStation 2 → Windows, Linux, and macOS · **Status:** Mature · **Type:** Console emulator
@@ -460,6 +501,14 @@ Dolphin emulates the GameCube and Wii with JIT recompilers for x86-64 and Arm64,
 PCSX2 has more than 20 years of development and runs most PS2 games at full speed, with more than 2,500 titles tested in its compatibility database. It requires a PS2 BIOS dump and offers Vulkan, Direct3D 12, and OpenGL backends. Per-game settings are often needed; check the current macOS requirements before installing.
 
 [Source](https://github.com/PCSX2/pcsx2) · [Website](https://pcsx2.net/) · [Compatibility](https://pcsx2.net/compat/)
+
+#### NetherSX2-classic
+
+**Route:** PlayStation 2 → Android on Arm · **Status:** Active · **Type:** Android emulator build
+
+NetherSX2-classic is a community continuation of AetherSX2, itself based on PCSX2, for Android. It fixes RetroAchievements notifications, updates the game database and controller support, adds widescreen patches, and resigns the APK so Play Store updates cannot overwrite it. It requires a PS2 BIOS and game dumps. It is a patched build rather than an upstream emulator, and compatibility depends on the device GPU and driver.
+
+[Source](https://github.com/Trixarian/NetherSX2-classic)
 
 #### RPCS3
 
@@ -493,13 +542,29 @@ SharpEmu is an experimental PS5 emulator written from scratch in C#. It can load
 
 [Source](https://github.com/sharpemu/sharpemu) · [Compatibility](https://sharpemu.app/compatibility/)
 
+#### Vita3K
+
+**Route:** PlayStation Vita → Windows, Linux, macOS, and Android · **Status:** Experimental · **Type:** Console emulator
+
+Vita3K is an experimental PS Vita emulator that runs most homebrew and many commercial games. It supports Windows, Linux, macOS, and Android, and maintains separate homebrew and commercial compatibility lists. It requires Vita firmware and legally obtained game dumps. Performance and compatibility vary significantly by title and GPU.
+
+[Source](https://github.com/Vita3K/Vita3K) · [Website](https://vita3k.org/)
+
 #### xemu
 
 **Route:** Original Xbox → Windows, Linux, and macOS · **Status:** Active · **Type:** Console emulator
 
-xemu emulates the original Xbox, including its NVIDIA GPU and Pentium III CPU. It requires an Xbox BIOS/MCPX boot ROM and game dumps, and supports Vulkan and OpenGL rendering. It does not run Xbox 360 software; use XenonRecomp-based ports for that.
+xemu emulates the original Xbox, including its NVIDIA GPU and Pentium III CPU. It requires an Xbox BIOS/MCPX boot ROM and game dumps, and supports Vulkan and OpenGL rendering. It does not run Xbox 360 software; use Xenia or XenonRecomp-based ports for that.
 
 [Source](https://github.com/xemu-project/xemu) · [Website](https://xemu.app/)
+
+#### Xenia
+
+**Route:** Xbox 360 → Windows and Linux · **Status:** Experimental · **Type:** Console emulator
+
+Xenia is an experimental Xbox 360 emulator with Windows and Linux builds. It runs a number of retail games and maintains a public compatibility list, but compatibility and performance vary widely. It requires legally obtained game dumps and, in some cases, Xbox 360 system files. It does not run original Xbox games; use xemu for those.
+
+[Source](https://github.com/xenia-project/xenia) · [Website](https://xenia.jp/)
 
 #### PPSSPP
 
@@ -509,6 +574,14 @@ PPSSPP is a high-level PSP emulator that does not require a BIOS. It supports Vu
 
 [Source](https://github.com/hrydgard/ppsspp) · [Website](https://www.ppsspp.org/) · [Compatibility](https://report.ppsspp.org/games)
 
+#### Flycast
+
+**Route:** Sega Dreamcast, Naomi, Naomi 2, and Atomiswave → Windows, Linux, macOS, Android, Switch, and Xbox · **Status:** Active · **Type:** Console emulator
+
+Flycast is a multi-platform Dreamcast and arcade emulator derived from reicast. It supports Dreamcast, Naomi, Naomi 2, and Atomiswave, with Vulkan, OpenGL, or Direct3D backends depending on the platform. It is available on Windows, Linux, macOS, Android, Switch, and Xbox. It requires game dumps and, for some arcade titles, BIOS files.
+
+[Source](https://github.com/flyinghead/flycast) · [Builds](https://flyinghead.github.io/flycast-builds/)
+
 #### melonDS
 
 **Route:** Nintendo DS → Windows, Linux, macOS, and Android · **Status:** Active · **Type:** Console emulator
@@ -516,6 +589,14 @@ PPSSPP is a high-level PSP emulator that does not require a BIOS. It supports Vu
 melonDS emulates the Nintendo DS and DSi, with an OpenGL renderer and support for direct game boot or firmware boot. Firmware boot requires a BIOS/firmware dump from an original DS or DS Lite; DSi and 3DS firmware dumps are only suitable for direct boot. Some DSi features and Wi-Fi behavior remain incomplete.
 
 [Source](https://github.com/melonDS-emu/melonDS) · [Website](https://melonds.kuribo64.net/)
+
+#### Azahar
+
+**Route:** Nintendo 3DS → Windows, Linux, macOS, and Android · **Status:** Active · **Type:** Console emulator
+
+Azahar is a community continuation of Citra and emulates the Nintendo 3DS with higher resolutions, modern controllers, and save states. It is available for Windows, Linux, macOS (universal, Arm64, and x86-64 builds), and Android. It requires 3DS game dumps and, in some cases, system files. Compatibility varies by title, and it is not affiliated with Nintendo.
+
+[Source](https://github.com/azahar-emu/azahar) · [Website](https://azahar-emu.org/)
 
 #### mGBA
 
@@ -548,6 +629,14 @@ Cemu emulates the Wii U and supports Vulkan and OpenGL rendering. The native mac
 RetroArch is the main frontend for the libretro API, with cores for NES, SNES, GB/GBC/GBA, DS, N64, PlayStation, PS2, PSP, arcade, DOS, and other systems. It provides shaders, netplay, rewind, and a consistent controller interface. Core quality varies, some cores need BIOS/firmware, and iOS App Store builds are constrained by JIT rules. The PS5 port is an alpha homebrew project.
 
 [Source](https://github.com/libretro/RetroArch) · [Website](https://www.retroarch.com/) · [Cores](https://docs.libretro.com/)
+
+#### Delta
+
+**Route:** NES, SNES, N64, GB/GBC, GBA, DS, and Genesis → iOS and iPadOS · **Status:** Active · **Type:** Multi-system emulator frontend
+
+Delta is a non-jailbroken iOS/iPadOS emulator with a native interface, controller support, save states, cheats, fast-forward, and Delta Sync. It bundles mature cores: Nestopia, Snes9x, mupen64plus, Gambatte, visualboyadvance-m, melonDS, and Genesis Plus GX (Genesis support is in beta). It is distributed through AltStore and the App Store where available. It requires your own game dumps.
+
+[Source](https://github.com/rileytestut/Delta) · [Website](https://deltaemulator.com/) · [App Store](https://apps.apple.com/us/app/delta-game-emulator/id1048524688)
 
 #### Ryujinx
 
