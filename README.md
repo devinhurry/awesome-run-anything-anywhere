@@ -9,9 +9,9 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **73 projects**, checked against primary sources on **2026-10-24**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **76 projects**, checked against primary sources on **2026-10-24**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
+If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
@@ -86,7 +86,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | Nintendo 64 | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch; Zelda64Recomp | RetroArch, Delta | RetroArch | — |
 | GameCube / Wii | Dolphin | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
 | Wii U | Cemu | Cemu | Cemu | *Cemu* | — | — | — |
-| Switch 1 | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | *nxnative (few games)* | Eden | — |
+| Switch 1 | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden, MacNativeGames | *nxnative, NX2Apple, Touchable, MacNativeGames* | Eden | — |
 | PS1 / PS2 | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | RetroArch (PS1) | NetherSX2, RetroArch (PS1) | — |
 | PS3 / PS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | *Husk (PS4)* | — | — |
 | PS5 | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | — | — | — |
@@ -134,7 +134,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | Nintendo 64 | **Windows / Linux / macOS:** [RetroArch](#retroarch)<br>**Android:** [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch)<br>**Windows / Linux / macOS (native ports):** [N64Recomp](#n64recomp), [Zelda64Recomp](#zelda64recomp)<br>**SteamOS:** [RetroArch](#retroarch), [Zelda64Recomp](#zelda64recomp) |
 | GameCube / Wii | **Windows / Linux / macOS:** [Dolphin](#dolphin)<br>**Android:** [Dolphin](#dolphin)<br>**SteamOS:** [Dolphin](#dolphin) |
 | Wii U | **Windows / Linux:** [Cemu](#cemu)<br>**macOS:** [Cemu](#cemu) (experimental)<br>**SteamOS:** [Cemu](#cemu) |
-| Switch 1 | **Windows / Linux / macOS:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**Android:** [Eden](#eden)<br>**iPhone / iPad:** [nxnative](#nxnative)<br>**PS5:** [ProsperoEden](#prosperoeden)<br>**SteamOS:** [Ryujinx](#ryujinx), [Eden](#eden) |
+| Switch 1 | **Windows / Linux:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**macOS:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**Android:** [Eden](#eden)<br>**iPhone / iPad:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames)<br>**PS5:** [ProsperoEden](#prosperoeden)<br>**SteamOS:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | PS1 / PS2 | **Windows / Linux / macOS:** [DuckStation](#duckstation), [PCSX2](#pcsx2), [RetroArch](#retroarch)<br>**iOS / Switch (PS1):** [RetroArch](#retroarch)<br>**Android:** [NetherSX2-classic](#nethersx2-classic), [RetroArch](#retroarch) (PS1)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [DuckStation](#duckstation), [PCSX2](#pcsx2), [RetroArch](#retroarch) |
 | PS3 / PS4 | **Windows / Linux / macOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4)<br>**iOS / iPadOS (PS4):** *[Husk](#husk)*<br>**SteamOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4) |
 | PS5 | **Windows / Linux / macOS:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu) (experimental)<br>**SteamOS:** *[KytyPS5](#kytyps5), [SharpEmu](#sharpemu)* |
@@ -154,8 +154,8 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | Linux | **Windows:** [Wine](#wine), [Proton](#proton), [FEX](#fex), [Box64](#box64), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | SteamOS | **Linux:** native<br>**Windows:** [Proton](#proton), [Wine](#wine)<br>**Android:** *[Waydroid](#waydroid) via Distrobox*<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative) |
+| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
+| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
@@ -765,6 +765,30 @@ Unleashed Recompiled is an unofficial PC port of the Xbox 360 version of Sonic U
 nxnative rewrites Switch NSO binaries, stands in for the Horizon OS, and translates NVN graphics to Metal, producing a sideloadable IPA from an NSP folder and `prod.keys`. It requires iOS/iPadOS 26 or later and an A17 Pro or M1-or-newer device because the games use BC-compressed textures. Only a small set of titles is supported, and it does not include any game data.
 
 [Source](https://github.com/seedds/nxnative)
+
+#### NX2Apple
+
+**Route:** Nintendo Switch 1 games → native iPhone/iPad apps, built on macOS · **Status:** Active · **Type:** Native port builder (nxnative fork)
+
+NX2Apple is a macOS GUI fork of nxnative that unpacks your game dumps, rewrites the game code for Apple silicon, translates NVN shaders to Metal, and packages a slim IPA plus a sharded RomFS archive that iOS can install. It ships 48 game profiles with the required update version for each; three are verified end to end on this fork, and roughly twenty more are reported playable on iPhone upstream. It requires an Apple silicon Mac, Xcode, and your own game files, keys, and firmware. It is not an emulator.
+
+[Source](https://github.com/LNPANDY/NX2Apple)
+
+#### Touchable
+
+**Route:** Selected Nintendo Switch 1 games → native iPhone/iPad apps, built on macOS · **Status:** Active · **Type:** Native iOS port framework
+
+Touchable adapts specific Switch games into native iOS/iPadOS apps with Liquid Glass touch controls, virtual buttons, HD rumble through the Taptic Engine, controller support, Game Mode, and per-app language settings. Its supported list currently includes Hollow Knight: Silksong (adapted; menus, gameplay, saves, and touch controls, with cutscenes skipped) and Rhythm Heaven (in progress). It requires iOS/iPadOS 26 or later, an Apple silicon Mac with full Xcode, and your own NSP and keys. It is based on d2r-mobile and is not an emulator.
+
+[Source](https://github.com/MZhao-ouo/Touchable)
+
+#### MacNativeGames
+
+**Route:** The Legend of Zelda: Breath of the Wild, Tears of the Kingdom, and Super Mario Odyssey (Switch) → native Apple silicon Mac; Breath of the Wild 1.6 and Tears of the Kingdom also → iPhone/iPad · **Status:** Active · **Type:** Native port builder
+
+MacNativeGames builds native apps from your own Switch game files, keys, and firmware. The game's ARM64 code runs directly on Apple silicon, Switch system services are answered by a host, and NVN graphics are rebuilt on Metal. It supports Breath of the Wild 1.6.0/1.9.0, Tears of the Kingdom 1.0.0/1.2.1/1.4.3, and an early Super Mario Odyssey port. Mac builds need macOS 26 or later; iPhone/iPad builds of Breath of the Wild 1.6 and Tears of the Kingdom need iOS/iPadOS 26, an iPhone 14 or newer, and produce unsigned IPAs. It is not an emulator and contains no game data.
+
+[Source](https://github.com/ly05010419/MacNativeGames)
 
 ## Legal and practical notes
 

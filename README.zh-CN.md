@@ -9,9 +9,9 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **73 个项目**，已于 **2026-10-24** 对照一手资料核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **76 个项目**，已于 **2026-10-24** 对照一手资料核验。
 
-如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
+如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
 ## 目录
 
@@ -86,7 +86,7 @@
 | Nintendo 64 | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch；Zelda64Recomp | RetroArch、Delta | RetroArch | — |
 | GameCube / Wii | Dolphin | Dolphin | Dolphin | Dolphin | — | Dolphin | — |
 | Wii U | Cemu | Cemu | Cemu | *Cemu* | — | — | — |
-| Switch 1 | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | *nxnative（少量游戏）* | Eden | — |
+| Switch 1 | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden | Ryujinx、Eden、MacNativeGames | *nxnative、NX2Apple、Touchable、MacNativeGames* | Eden | — |
 | PS1 / PS2 | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | DuckStation、PCSX2、RetroArch | RetroArch（PS1） | NetherSX2、RetroArch（PS1） | — |
 | PS3 / PS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | RPCS3、shadPS4 | *Husk（PS4）* | — | — |
 | PS5 | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | *KytyPS5、SharpEmu* | — | — | — |
@@ -134,7 +134,7 @@
 | Nintendo 64 | **Windows / Linux / macOS：** [RetroArch](#retroarch)<br>**Android：** [RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**Windows / Linux / macOS（原生移植）：** [N64Recomp](#n64recomp)、[Zelda64Recomp](#zelda64recomp)<br>**SteamOS：** [RetroArch](#retroarch)、[Zelda64Recomp](#zelda64recomp) |
 | GameCube / Wii | **Windows / Linux / macOS：** [Dolphin](#dolphin)<br>**Android：** [Dolphin](#dolphin)<br>**SteamOS：** [Dolphin](#dolphin) |
 | Wii U | **Windows / Linux：** [Cemu](#cemu)<br>**macOS：** [Cemu](#cemu)（实验性）<br>**SteamOS：** [Cemu](#cemu) |
-| Switch 1 | **Windows / Linux / macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)<br>**PS5：** [ProsperoEden](#prosperoeden)<br>**SteamOS：** [Ryujinx](#ryujinx)、[Eden](#eden) |
+| Switch 1 | **Windows / Linux：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**macOS：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**Android：** [Eden](#eden)<br>**iPhone / iPad：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames)<br>**PS5：** [ProsperoEden](#prosperoeden)<br>**SteamOS：** [Ryujinx](#ryujinx)、[Eden](#eden) |
 | PS1 / PS2 | **Windows / Linux / macOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch)<br>**iOS / Switch（PS1）：** [RetroArch](#retroarch)<br>**Android：** [NetherSX2-classic](#nethersx2-classic)、[RetroArch](#retroarch)（PS1）<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RetroArch](#retroarch) |
 | PS3 / PS4 | **Windows / Linux / macOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4)<br>**iOS / iPadOS（PS4）：** *[Husk](#husk)*<br>**SteamOS：** [RPCS3](#rpcs3)、[shadPS4](#shadps4) |
 | PS5 | **Windows / Linux / macOS：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)（实验性）<br>**SteamOS：** *[KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)* |
@@ -154,8 +154,8 @@
 | Linux | **Windows：** [Wine](#wine)、[Proton](#proton)、[FEX](#fex)、[Box64](#box64)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | Linux on Arm64 | **Windows：** [FEX](#fex)、[Box64](#box64)、[Box86](#box86)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[PPSSPP](#ppsspp)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden) |
 | SteamOS | **Linux：** 原生<br>**Windows：** [Proton](#proton)、[Wine](#wine)<br>**Android：** *[Waydroid](#waydroid)（通过 Distrobox）*<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
-| macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [touchHLE](#touchhle)<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative) |
+| macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [touchHLE](#touchhle)<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
+| iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames) |
 | Android | **Windows：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**Android：** 原生<br>**经典主机：** [mGBA](#mgba)、[melonDS](#melonds)、[Dolphin](#dolphin)、[PPSSPP](#ppsspp)、[Azahar](#azahar)、[Vita3K](#vita3k)、[Flycast](#flycast)<br>**PS1 / PS2：** [RetroArch](#retroarch)、[NetherSX2-classic](#nethersx2-classic)<br>**Switch：** [Eden](#eden) |
 | 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
 | Switch 1（自制系统） | **GBA / GBC / GB：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP：** [RetroArch](#retroarch)（取决于核心）<br>**Dreamcast：** [Flycast](#flycast)<br>**Linux：** [Lakka](#lakka)<br>**通过 Linux 运行 Windows：** [Box64](#box64)、[Wine](#wine) |
@@ -765,6 +765,30 @@ Unleashed Recompiled 是 Xbox 360 版 Sonic Unleashed 的非官方 PC 移植，�
 nxnative 重写 Switch NSO 二进制、替代 Horizon OS，并将 NVN 图形翻译为 Metal，从 NSP 文件夹与 `prod.keys` 生成可侧载的 IPA。它需要 iOS/iPadOS 26 或更高，以及 A17 Pro 或 M1 及更新设备，因为游戏使用 BC 压缩纹理。仅支持少量作品，且不包含任何游戏数据。
 
 [源码](https://github.com/seedds/nxnative)
+
+#### NX2Apple
+
+**路线：** Nintendo Switch 1 游戏 → 在 macOS 上构建的原生 iPhone/iPad 应用 · **状态：** 活跃 · **类型：** 原生移植构建器（nxnative 分支）
+
+NX2Apple 是 nxnative 的 macOS GUI 分支：解包游戏转储、为 Apple silicon 重写游戏代码、把 NVN 着色器翻译为 Metal，并打包成 iOS 可安装的精简 IPA 与分片 RomFS 归档。它附带 48 个游戏配置及各自所需的更新版本；其中 3 个已在此分支端到端验证，另有约 20 个在上游报告可在 iPhone 上运行。它需要 Apple silicon Mac、Xcode，以及你自己的游戏文件、密钥与固件。它不是模拟器。
+
+[源码](https://github.com/LNPANDY/NX2Apple)
+
+#### Touchable
+
+**路线：** 部分 Nintendo Switch 1 游戏 → 在 macOS 上构建的原生 iPhone/iPad 应用 · **状态：** 活跃 · **类型：** 原生 iOS 移植框架
+
+Touchable 将特定 Switch 游戏适配为原生 iOS/iPadOS 应用，提供 Liquid Glass 触摸控件、虚拟按键、通过 Taptic Engine 的 HD 震动、控制器支持、游戏模式与逐应用语言设置。当前支持列表包括 Hollow Knight: Silksong（已适配；菜单、游戏、存档与触摸控件可用，过场动画跳过）与 Rhythm Heaven（进行中）。它需要 iOS/iPadOS 26 或更高版本、装有完整 Xcode 的 Apple silicon Mac，以及你自己的 NSP 与密钥。它基于 d2r-mobile，不是模拟器。
+
+[源码](https://github.com/MZhao-ouo/Touchable)
+
+#### MacNativeGames
+
+**路线：** The Legend of Zelda: Breath of the Wild、Tears of the Kingdom 与 Super Mario Odyssey（Switch）→ Apple silicon Mac 原生应用；Breath of the Wild 1.6 与 Tears of the Kingdom 还可 → iPhone/iPad · **状态：** 活跃 · **类型：** 原生移植构建器
+
+MacNativeGames 使用你自己的 Switch 游戏文件、密钥与固件构建原生应用。游戏的 ARM64 代码直接在 Apple silicon 上运行，Switch 系统服务由宿主响应，NVN 图形重建为 Metal。它支持 Breath of the Wild 1.6.0/1.9.0、Tears of the Kingdom 1.0.0/1.2.1/1.4.3，以及早期的 Super Mario Odyssey 移植。Mac 构建需要 macOS 26 或更高版本；Breath of the Wild 1.6 与 Tears of the Kingdom 的 iPhone/iPad 构建需要 iOS/iPadOS 26、iPhone 14 或更新设备，并生成未签名 IPA。它不是模拟器，也不包含游戏数据。
+
+[源码](https://github.com/ly05010419/MacNativeGames)
 
 ## 法律与实践说明
 
