@@ -9,7 +9,7 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **77 个项目**，已于 **2026-10-24** 对照一手资料核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **78 个项目**，已于 **2026-10-24** 对照一手资料核验。
 
 如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
@@ -75,7 +75,7 @@
 | Windows x86/x64 | 原生；Arm 上由 Prism 模拟 | Wine、Proton、CrossOver | Proton、Wine | CrossOver、Wine + Rosetta、GPTK、Parallels、VMware、UTM | — | Winlator、Boxedwine | v86、CheerpX、JSLinux（旧版 Windows） |
 | Linux x86/x64 | WSL2、VirtualBox | 原生 | 原生 | UTM、Lima、VirtualBox | iSH、UTM SE | — | v86、JSLinux、CheerpX |
 | Linux arm64 | WSL2 | 原生 | — | UTM、Lima、VirtualBox | UTM SE、LinPad | — | — |
-| SteamOS | *VirtualBox、QEMU* | *QEMU/KVM* | 原生 | *UTM、QEMU* | — | — | — |
+| SteamOS | *VirtualBox、QEMU* | *QEMU/KVM* | 原生 | *UTM、QEMU* | — | *SteamOSforAlioth* | — |
 | macOS 应用 | — | Darling | — | 原生；Intel 应用经 Rosetta 2 | — | — | — |
 | iOS 应用（早期） | touchHLE | touchHLE | — | touchHLE | 原生（仅旧应用） | touchHLE | — |
 | Android 应用 | — | Waydroid、redroid | *Waydroid（Distrobox）* | Mac.apk、UTM（Android 虚拟机） | Husk | 原生 | — |
@@ -123,7 +123,7 @@
 | Windows x86/x64 | **Windows：** 原生；Arm 上使用 [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)<br>**Linux：** [Wine](#wine)、[Proton](#proton)、[CrossOver](#crossover)、[Hangover](#hangover)、[FEX](#fex)、[Box64](#box64)<br>**macOS：** [CrossOver](#crossover)、[Wine](#wine)、[Game Porting Toolkit](#game-porting-toolkit)、[Rosetta 2](#rosetta-2)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**Android：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**浏览器：** [v86](#v86)、[CheerpX](#cheerpx)、[JSLinux](#jslinux)<br>**SteamOS：** [Proton](#proton)、[Wine](#wine) |
 | Linux x86/x64 | **Windows：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [iSH](#ish)、[UTM](#utm)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** 原生 |
 | Linux arm64 | **Windows：** [WSL](#wsl)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)<br>**iOS：** [UTM](#utm)、[LinPad OS](#linpad-os)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** — |
-| SteamOS | **Windows：** *[VirtualBox](#virtualbox)、[QEMU](#qemu)*<br>**Linux：** *[QEMU](#qemu)*<br>**SteamOS：** 原生<br>**macOS：** *[UTM](#utm)、[QEMU](#qemu)* |
+| SteamOS | **Windows：** *[VirtualBox](#virtualbox)、[QEMU](#qemu)*<br>**Linux：** *[QEMU](#qemu)*<br>**SteamOS：** 原生<br>**macOS：** *[UTM](#utm)、[QEMU](#qemu)*<br>**Android（alioth）：** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling)<br>**SteamOS：** — |
 | iOS 应用（早期） | **Windows / macOS / Android / Linux：** [touchHLE](#touchhle)<br>**iOS：** 原生（仅旧应用）<br>**SteamOS：** — |
 | Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**iOS / iPadOS：** [Husk](#husk)<br>**Switch：** Switchroot Android（无独立条目）<br>**SteamOS：** *[Waydroid](#waydroid)（通过 Distrobox）* |
@@ -157,6 +157,7 @@
 | macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)<br>**iOS：** [touchHLE](#touchhle)<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames) |
 | Android | **Windows：** [Winlator](#winlator)、[Boxedwine](#boxedwine)<br>**Android：** 原生<br>**经典主机：** [mGBA](#mgba)、[melonDS](#melonds)、[Dolphin](#dolphin)、[PPSSPP](#ppsspp)、[Azahar](#azahar)、[Vita3K](#vita3k)、[Flycast](#flycast)<br>**PS1 / PS2：** [RetroArch](#retroarch)、[NetherSX2-classic](#nethersx2-classic)<br>**Switch：** [Eden](#eden) |
+| Redmi K40 / POCO F3（alioth） | **SteamOS：** *[SteamOSforAlioth](#steamosforalioth)*（替换 Android）<br>**Windows：** [Proton](#proton)、[FEX](#fex)<br>**Linux：** 原生 |
 | 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
 | Switch 1（自制系统） | **GBA / GBC / GB：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP：** [RetroArch](#retroarch)（取决于核心）<br>**Dreamcast：** [Flycast](#flycast)<br>**Linux：** [Lakka](#lakka)<br>**通过 Linux 运行 Windows：** [Box64](#box64)、[Wine](#wine) |
 | PS5（已破解） | **GBA / GBC / GB / PS2：** [PS5 RetroArch](#ps5-retroarch)<br>**Switch：** [ProsperoEden](#prosperoeden)<br>**Linux：** [ps5-linux](#ps5-linux)<br>**通过 Linux 运行 Windows：** [ps5-linux](#ps5-linux)、[Proton](#proton) |
@@ -468,6 +469,14 @@ ps5-linux 利用已修补的 hypervisor 漏洞，在 PS5 上启动自定义 Linu
 SteamOS 3 是 Valve 面向 Steam Deck、Steam Machine 以及 AMD 掌机与台式机的 Arch Linux 发行版。作为宿主，它通过 Proton 运行 Windows 游戏、原生运行 Linux 游戏与模拟器；作为 Guest，它可以安装到 x86 宿主上的 QEMU/KVM、VirtualBox 或 VMware 中。SteamOS 3.9 改进了虚拟机 Guest 的 virtio-gpu 与 venus 图形加速支持，但 Valve 并不提供通用虚拟机镜像。官方安装面向 AMD 硬件，Intel 与 NVIDIA 支持仍在开发中。
 
 [官网](https://store.steampowered.com/steamos/) · [安装 FAQ](https://help.steampowered.com/en/faqs/view/65B4-2AA3-5F37-4227) · [SteamOS 3.9 说明](https://steamcommunity.com/games/1675200/announcements/detail/687519694976975288)
+
+#### SteamOSforAlioth
+
+**路线：** SteamOS（ARM64）→ Redmi K40 / POCO F3（alioth，Snapdragon 870），替换 Android · **状态：** 实验性 · **类型：** 设备移植
+
+SteamOSforAlioth 在 2021 年的 Redmi K40 / POCO F3 上启动 Valve 的 ARM64 SteamOS，使用 Linux 7.2.8 主线内核、Mesa Turnip 驱动的 Adreno 650，并通过 FEX 与 Proton 11 ARM64 运行 x86 游戏。Game Mode、触摸、扬声器、Wi-Fi 与蓝牙、控制器、电池、充电与 USB-C 主机模式可用；麦克风、摄像头、NFC、FM 与红外不可用，Android 双启动不在范围内。安装会清空 userdata 分区并导致 Android 无法启动。项目不提供预构建镜像，必须使用自己手机的固件构建。它是单设备的个人移植，而非受支持的发行版。
+
+[源码](https://github.com/ShouChenICU/SteamOSforAlioth)
 
 ### 浏览器与 WebAssembly
 

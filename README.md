@@ -9,7 +9,7 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **77 projects**, checked against primary sources on **2026-10-24**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **78 projects**, checked against primary sources on **2026-10-24**.
 
 If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
@@ -75,7 +75,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | Windows x86/x64 | Native; Prism on Arm | Wine, Proton, CrossOver | Proton, Wine | CrossOver, Wine + Rosetta, GPTK, Parallels, VMware, UTM | — | Winlator, Boxedwine | v86, CheerpX, JSLinux (older Windows) |
 | Linux x86/x64 | WSL2, VirtualBox | Native | Native | UTM, Lima, VirtualBox | iSH, UTM SE | — | v86, JSLinux, CheerpX |
 | Linux arm64 | WSL2 | Native | — | UTM, Lima, VirtualBox | UTM SE, LinPad | — | — |
-| SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | *UTM, QEMU* | — | — | — |
+| SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | *UTM, QEMU* | — | *SteamOSforAlioth* | — |
 | macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | — | — | — |
 | iOS apps (early) | touchHLE | touchHLE | — | touchHLE | Native (old apps only) | touchHLE | — |
 | Android apps | — | Waydroid, redroid | *Waydroid (Distrobox)* | Mac.apk, UTM (Android VM) | Husk | Native | — |
@@ -123,7 +123,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | Windows x86/x64 | **Windows:** native; Arm uses [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Hangover](#hangover), [FEX](#fex), [Box64](#box64)<br>**macOS:** [CrossOver](#crossover), [Wine](#wine), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**Android:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Browser:** [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux)<br>**SteamOS:** [Proton](#proton), [Wine](#wine) |
 | Linux x86/x64 | **Windows:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [iSH](#ish), [UTM](#utm)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** native |
 | Linux arm64 | **Windows:** [WSL](#wsl)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox)<br>**iOS:** [UTM](#utm), [LinPad OS](#linpad-os)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** — |
-| SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)* |
+| SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)*<br>**Android (alioth):** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
 | Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
@@ -157,6 +157,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
+| Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
 | PS5 (jailbroken) | **GBA / GBC / GB / PS2:** [PS5 RetroArch](#ps5-retroarch)<br>**Switch:** [ProsperoEden](#prosperoeden)<br>**Linux:** [ps5-linux](#ps5-linux)<br>**Windows via Linux:** [ps5-linux](#ps5-linux), [Proton](#proton) |
@@ -468,6 +469,14 @@ ps5-linux uses patched hypervisor vulnerabilities to boot a custom Linux image o
 SteamOS 3 is Valve's Arch-based Linux distribution for Steam Deck, Steam Machine, and AMD-powered handhelds and desktops. As a host it runs Windows games through Proton, Linux games natively, and emulators; as a guest it can be installed in QEMU/KVM, VirtualBox, or VMware on x86 hosts. SteamOS 3.9 added improved VM-guest support with accelerated virtio-gpu and venus graphics, but Valve does not provide a general-purpose VM image. Official installation targets AMD hardware; Intel and NVIDIA support is still being developed.
 
 [Website](https://store.steampowered.com/steamos/) · [Installation FAQ](https://help.steampowered.com/en/faqs/view/65B4-2AA3-5F37-4227) · [SteamOS 3.9 notes](https://steamcommunity.com/games/1675200/announcements/detail/687519694976975288)
+
+#### SteamOSforAlioth
+
+**Route:** SteamOS (ARM64) → Redmi K40 / POCO F3 (alioth, Snapdragon 870), replacing Android · **Status:** Experimental · **Type:** Device port
+
+SteamOSforAlioth boots Valve's ARM64 SteamOS on the 2021 Redmi K40 / POCO F3, with a mainline Linux 7.2.8 kernel, Adreno 650 through Mesa Turnip, and x86 games through FEX and Proton 11 ARM64. Game Mode, touch, speakers, Wi-Fi and Bluetooth, controllers, battery, charging, and USB-C host mode work; microphone, camera, NFC, FM, and IR do not, and Android dual boot is out of scope. Installing it erases the userdata partition and prevents Android from booting. There are no prebuilt images, so you must build it from your own phone's firmware. It is a personal port of one device, not a supported distribution.
+
+[Source](https://github.com/ShouChenICU/SteamOSforAlioth)
 
 ### Browser and WebAssembly
 
