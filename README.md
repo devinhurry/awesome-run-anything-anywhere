@@ -9,9 +9,9 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **72 projects**, checked against primary sources on **2026-10-24**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **73 projects**, checked against primary sources on **2026-10-24**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS, Switch 1 games on PC/Android/PS5, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
+If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
@@ -78,7 +78,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | *UTM, QEMU* | — | — | — |
 | macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | — | — | — |
 | iOS apps (early) | touchHLE | touchHLE | — | touchHLE | Native (old apps only) | touchHLE | — |
-| Android apps | — | Waydroid, redroid | *Waydroid (Distrobox)* | Mac.apk, UTM (Android VM) | — | Native | — |
+| Android apps | — | Waydroid, redroid | *Waydroid (Distrobox)* | Mac.apk, UTM (Android VM) | Husk | Native | — |
 | DOS, Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86, JSLinux |
 | GB / GBC / GBA | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | RetroArch, Delta | mGBA, RetroArch | — |
 | Nintendo DS | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | RetroArch, Delta | melonDS, RetroArch | — |
@@ -88,7 +88,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | Wii U | Cemu | Cemu | Cemu | *Cemu* | — | — | — |
 | Switch 1 | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | Ryujinx, Eden | *nxnative (few games)* | Eden | — |
 | PS1 / PS2 | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | DuckStation, PCSX2, RetroArch | RetroArch (PS1) | NetherSX2, RetroArch (PS1) | — |
-| PS3 / PS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | — | — | — |
+| PS3 / PS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | RPCS3, shadPS4 | *Husk (PS4)* | — | — |
 | PS5 | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | *KytyPS5, SharpEmu* | — | — | — |
 | PlayStation Vita | Vita3K | Vita3K | Vita3K | Vita3K | — | Vita3K | — |
 | Sega Dreamcast | Flycast | Flycast | Flycast | Flycast | — | Flycast | — |
@@ -126,7 +126,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)* |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
-| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**Switch:** Switchroot Android (no separate entry)<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
+| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS:** [DOSBox-X](#dosbox-x)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux)<br>**SteamOS:** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [mGBA](#mgba), [RetroArch](#retroarch) |
 | Nintendo DS | **Windows / Linux / macOS:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Android:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch)<br>**SteamOS:** [melonDS](#melonds), [RetroArch](#retroarch) |
@@ -136,7 +136,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | Wii U | **Windows / Linux:** [Cemu](#cemu)<br>**macOS:** [Cemu](#cemu) (experimental)<br>**SteamOS:** [Cemu](#cemu) |
 | Switch 1 | **Windows / Linux / macOS:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**Android:** [Eden](#eden)<br>**iPhone / iPad:** [nxnative](#nxnative)<br>**PS5:** [ProsperoEden](#prosperoeden)<br>**SteamOS:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | PS1 / PS2 | **Windows / Linux / macOS:** [DuckStation](#duckstation), [PCSX2](#pcsx2), [RetroArch](#retroarch)<br>**iOS / Switch (PS1):** [RetroArch](#retroarch)<br>**Android:** [NetherSX2-classic](#nethersx2-classic), [RetroArch](#retroarch) (PS1)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [DuckStation](#duckstation), [PCSX2](#pcsx2), [RetroArch](#retroarch) |
-| PS3 / PS4 | **Windows / Linux / macOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4)<br>**SteamOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4) |
+| PS3 / PS4 | **Windows / Linux / macOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4)<br>**iOS / iPadOS (PS4):** *[Husk](#husk)*<br>**SteamOS:** [RPCS3](#rpcs3), [shadPS4](#shadps4) |
 | PS5 | **Windows / Linux / macOS:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu) (experimental)<br>**SteamOS:** *[KytyPS5](#kytyps5), [SharpEmu](#sharpemu)* |
 | PlayStation Vita | **Windows / Linux / macOS / Android:** [Vita3K](#vita3k)<br>**SteamOS:** [Vita3K](#vita3k) |
 | Sega Dreamcast | **Windows / Linux / macOS / Android / Switch / Xbox:** [Flycast](#flycast)<br>**SteamOS:** [Flycast](#flycast) |
@@ -155,7 +155,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | SteamOS | **Linux:** native<br>**Windows:** [Proton](#proton), [Wine](#wine)<br>**Android:** *[Waydroid](#waydroid) via Distrobox*<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [nxnative](#nxnative) |
+| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
@@ -262,6 +262,14 @@ Waydroid boots a full Android system image in a Linux container using namespaces
 Mac.apk implements the Android application environment directly on macOS instead of booting Android in an emulator or virtual machine. Apps launch as ordinary Mac processes, use the Mac GPU, and run arm64 code natively; a recompiler handles older 32-bit ARM native libraries. It requires macOS 26.4 or later and Apple silicon, and its compatibility list reports 58 fully playable apps out of 71 tested (October 2026). It is alpha software, and apps run with your macOS user permissions rather than a phone-style sandbox.
 
 [Source](https://github.com/kksimp/Mac.apk) · [Compatibility](https://github.com/kksimp/Mac.apk/blob/main/COMPATIBILITY.md)
+
+#### Husk
+
+**Route:** Android apps and games (arm64) → iPhone/iPad; experimental PS4 games → iPhone/iPad · **Status:** Active · **Type:** Android compatibility layer and emulator
+
+Husk runs Android APKs on iOS. Its translation layer executes the game's 64-bit Android code directly on the iPhone CPU and supplies Android's C library, Java calls, OpenGL ES through ANGLE, Vulkan through MoltenVK, audio, touch, and controllers; a QEMU/LineageOS emulation mode handles apps the translation layer cannot run. It requires iOS 16 or later, sideloading through SideStore, AltStore, or TrollStore, JIT through StikJIT, StikDebug, or a jailbreak, and arm64-v8a APKs. Java-only apps need the slower emulation path, and Play services appear installed but signed out. Husk 3.0 also adds an experimental PS4 layer for PKG and folder-based games.
+
+[Source](https://github.com/Leviidev/Husk)
 
 #### libhybris
 
