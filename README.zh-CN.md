@@ -11,13 +11,15 @@
 
 列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。第一版收录 **60 个项目**，已于 **2026-10-24** 对照一手资料核验。
 
-如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、PC/Android/PS5 上的 Switch 1 游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵) 与 [路线配方](#路线配方)。
+如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、PC/Android/PS5 上的 Switch 1 游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
 ## 目录
 
 - [范围](#范围)
 - [如何阅读](#如何阅读)
 - [Guest → Host 矩阵](#guest--host-矩阵)
+- [按 Guest 分类](#按-guest-分类)
+- [按 Host 分类](#按-host-分类)
 - [技术路线](#技术路线)
   - [兼容层](#兼容层)
   - [二进制翻译与用户态模拟](#二进制翻译与用户态模拟)
@@ -27,8 +29,7 @@
   - [游戏主机与电脑模拟器](#游戏主机与电脑模拟器)
   - [游戏引擎重实现](#游戏引擎重实现)
   - [静态重编译与原生移植](#静态重编译与原生移植)
-- [主机作为宿主](#主机作为宿主)
-- [路线配方](#路线配方)
+  - [主机作为宿主](#主机作为宿主)
 - [法律与实践说明](#法律与实践说明)
 - [贡献](#贡献)
 
@@ -107,8 +108,52 @@
 | Windows | *通过 Switchroot Linux 使用 Box64 + Wine* | *通过 ps5-linux 使用 Steam/Proton* |
 | Android | Switchroot Android | — |
 
+## 按 Guest 分类
+
+从你想运行的软件出发。下方的[技术路线](#技术路线)包含完整条目。
+
+| Guest | 宿主 | 关键项目 |
+| --- | --- | --- |
+| Windows x86/x64 | Windows（原生；Arm 上由 Prism 模拟）、Linux（Wine/Proton）、macOS（CrossOver/GPTK）、Android（Winlator）、浏览器（旧版 Windows） | [Wine](#wine)、[Proton](#proton)、[CrossOver](#crossover)、[Boxedwine](#boxedwine)、[Winlator](#winlator)、[Hangover](#hangover)、[FEX](#fex)、[Box64](#box64)、[Rosetta 2](#rosetta-2)、[Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)、[Game Porting Toolkit](#game-porting-toolkit)、[v86](#v86)、[CheerpX](#cheerpx)、[JSLinux](#jslinux) |
+| Linux x86/x64 | Windows（WSL2、虚拟机）、macOS（UTM、Lima、虚拟机）、iOS（iSH、UTM SE）、浏览器（v86、JSLinux、CheerpX）、Switch 与 PS5 作为宿主 | [WSL](#wsl)、[VirtualBox](#virtualbox)、[UTM](#utm)、[Lima](#lima)、[QEMU](#qemu)、[iSH](#ish)、[v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)、[ps5-linux](#ps5-linux)、[Lakka](#lakka) |
+| Linux arm64 | Windows（WSL2）、macOS（UTM、Lima、VirtualBox）、iOS（UTM SE）、Switch（Switchroot）、PS5（ps5-linux） | [WSL](#wsl)、[UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[ps5-linux](#ps5-linux)、[Lakka](#lakka) |
+| macOS | macOS（原生；Intel 应用经 Rosetta 2）、Linux（Darling） | [Rosetta 2](#rosetta-2)、[Darling](#darling) |
+| iOS 应用（早期） | Windows、macOS、Android 与 Linux 构建，通过 touchHLE | [touchHLE](#touchhle) |
+| Android | Android（原生）、Linux（Waydroid、redroid）、macOS（UTM）、Switch（Switchroot Android） | [Waydroid](#waydroid)、[libhybris](#libhybris)、[redroid](#redroid)、[UTM](#utm) |
+| DOS / Windows 3.x–9x | Windows、Linux、macOS（DOSBox-X）；浏览器（v86、JSLinux） | [DOSBox-X](#dosbox-x)、[v86](#v86)、[JSLinux](#jslinux) |
+| GB / GBC / GBA | 桌面与 Android（mGBA、RetroArch）、iOS（RetroArch）、Switch（mGBA、RetroArch）、PS5（PS5 RetroArch） | [mGBA](#mgba)、[RetroArch](#retroarch)、[PS5 RetroArch](#ps5-retroarch) |
+| Nintendo DS | 桌面与 Android（melonDS、RetroArch）、Switch（RetroArch 核心） | [melonDS](#melonds)、[RetroArch](#retroarch) |
+| Nintendo 64 | 桌面与 Android（RetroArch）、原生移植（N64Recomp、Zelda64Recomp）、Switch（RetroArch 核心） | [N64Recomp](#n64recomp)、[Zelda64Recomp](#zelda64recomp)、[RetroArch](#retroarch) |
+| GameCube / Wii | 桌面与 Android（Dolphin） | [Dolphin](#dolphin) |
+| Wii U | Windows、Linux、macOS（Cemu） | [Cemu](#cemu) |
+| Switch 1 | Windows、Linux、macOS、Android（Ryujinx、Eden）、iPhone/iPad（nxnative）、PS5（ProsperoEden） | [Ryujinx](#ryujinx)、[Eden](#eden)、[nxnative](#nxnative)、[ProsperoEden](#prosperoeden) |
+| PS1 / PS2 | 桌面（PCSX2、RetroArch）、iOS/Android/Switch（RetroArch PS1）、PS5（PS5 RetroArch LRPS2） | [PCSX2](#pcsx2)、[RetroArch](#retroarch)、[PS5 RetroArch](#ps5-retroarch) |
+| PS3 / PS4 | Windows、Linux、macOS（RPCS3、shadPS4） | [RPCS3](#rpcs3)、[shadPS4](#shadps4) |
+| PS5 | Windows、Linux、macOS（KytyPS5、SharpEmu，实验性） | [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu) |
+| Xbox / Xbox 360 | Windows、Linux、macOS（xemu；XenonRecomp 与 UnleashedRecomp 移植） | [xemu](#xemu)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp) |
+| WebAssembly | Windows、Linux、macOS（Wasmtime）、浏览器（原生） | [Wasmtime](#wasmtime) |
+
+## 按 Host 分类
+
+从你手头的机器出发。下方的[技术路线](#技术路线)包含完整条目。
+
+| 宿主 | 可运行的 Guest | 关键项目 |
+| --- | --- | --- |
+| Windows | Windows 原生、Linux（WSL2/虚拟机）、DOS、经典主机、Switch 与 PS5 模拟、Xbox/360、WebAssembly | [WSL](#wsl)、[VirtualBox](#virtualbox)、[RetroArch](#retroarch)、[Dolphin](#dolphin)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)、[Ryujinx](#ryujinx)、[Eden](#eden)、[xemu](#xemu)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)、[Wasmtime](#wasmtime) |
+| Windows on Arm | Windows x86/x64（Prism）、Linux（WSL2）、Arm Guest（VirtualBox） | [Windows on Arm 模拟](#windows-on-arm-x86x64-模拟)、[WSL](#wsl)、[VirtualBox](#virtualbox) |
+| Linux | Windows（Wine/Proton）、Linux 原生、Android（Waydroid/redroid）、DOS、经典主机、Switch 与 PS5 模拟、Xbox/360、WebAssembly | [Wine](#wine)、[Proton](#proton)、[FEX](#fex)、[Box64](#box64)、[Hangover](#hangover)、[Waydroid](#waydroid)、[redroid](#redroid)、[RetroArch](#retroarch)、[Dolphin](#dolphin)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[Ryujinx](#ryujinx)、[Eden](#eden)、[xemu](#xemu)、[Wasmtime](#wasmtime) |
+| Linux on Arm64 | Windows（FEX/Box64/Hangover）、Linux Arm64、Android（Waydroid/redroid）、经典主机、Switch 模拟 | [FEX](#fex)、[Box64](#box64)、[Box86](#box86)、[Hangover](#hangover)、[Waydroid](#waydroid)、[redroid](#redroid)、[RetroArch](#retroarch)、[Dolphin](#dolphin)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[Ryujinx](#ryujinx)、[Eden](#eden) |
+| macOS | Windows（CrossOver/GPTK/Wine）、macOS 原生与 Rosetta、Linux（UTM/Lima/VirtualBox）、iOS（touchHLE）、Android（UTM）、DOS、经典主机、Switch 与 PS5 模拟、Xbox/360、WebAssembly | [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Rosetta 2](#rosetta-2)、[Darling](#darling)、[UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[touchHLE](#touchhle)、[DOSBox-X](#dosbox-x)、[Dolphin](#dolphin)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)、[Ryujinx](#ryujinx)、[Eden](#eden)、[Cemu](#cemu)、[RetroArch](#retroarch)、[xemu](#xemu)、[Wasmtime](#wasmtime) |
+| iOS / iPadOS | Linux（iSH、UTM SE）、经典主机（RetroArch）、GBA（RetroArch）、Switch（nxnative） | [iSH](#ish)、[UTM](#utm)、[RetroArch](#retroarch)、[nxnative](#nxnative) |
+| Android | Windows（Winlator）、Android 原生、经典主机、GBA、DS、N64、GC/Wii、Switch（Eden） | [Winlator](#winlator)、[Boxedwine](#boxedwine)、[Waydroid](#waydroid)、[redroid](#redroid)、[mGBA](#mgba)、[melonDS](#melonds)、[RetroArch](#retroarch)、[Dolphin](#dolphin)、[Eden](#eden) |
+| 浏览器 | DOS、旧版 Windows、Linux（v86/JSLinux/CheerpX）、WebAssembly | [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)、[Wasmtime](#wasmtime) |
+| Switch 1（自制系统） | GBA、DS、N64、PS1、PSP、Linux，以及通过 Linux 运行 Windows | [mGBA](#mgba)、[RetroArch](#retroarch)、[Lakka](#lakka)、[Box64](#box64)、[Wine](#wine) |
+| PS5（已破解） | GBA、PS1、PS2、PSP、Switch、Linux，以及通过 Linux 运行 Windows | [PS5 RetroArch](#ps5-retroarch)、[ProsperoEden](#prosperoeden)、[ps5-linux](#ps5-linux)、[Proton](#proton) |
+
 ## 技术路线
+
 项目按实现路线所依赖的机制分组。选择最贴近你问题的类别；许多路线会组合两种或更多机制。
+
 ### 兼容层
 
 #### Wine
@@ -607,78 +652,6 @@ Lakka 是围绕 RetroArch 构建的轻量 LibreELEC 发行版。在 Switch 1 上
 
 [官网](https://www.lakka.tv/) · [Switch 指南](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
 
-## 路线配方
-
-### 在 Apple silicon 上运行 Windows 游戏
-
-1. 如系统提示，安装 Rosetta 2。
-2. 需要最省心的受支持路径时使用 **CrossOver**；需要测试时使用 **Game Porting Toolkit** 评估环境。
-3. 让 CrossOver/GPTK 选择 D3DMetal，或在 **KosmicKrisp**（Apple silicon，macOS 26+）或 **MoltenVK**（Intel Mac 与较旧环境）之上，将 Wine 与 **DXVK**/**VKD3D-Proton** 搭配。
-4. 预期失败点是反作弊、启动器与媒体编解码器。这不是通用的 Windows 兼容层。
-
-### 在 Arm Linux 上运行 Windows 应用
-
-- 对 x86 与 x86-64 Windows 二进制，使用 **FEX** 搭配 Wine/Proton。
-- 需要 Wine WoW64 加 ARM64EC 与 FEX 模拟器 DLL 时，使用 **Hangover**。
-- 对 x86-64 二进制使用 **Box64** + Wine64，对 32 位组件使用 **Box86**/Box32。
-- 保持现实预期：Vulkan 1.3 驱动、被 thunk 的库与逐应用修复，比单纯 CPU 速度更重要。
-
-### 在 Android 上运行 Windows 应用
-
-- 安装 **Winlator**，让它创建带 Wine 与 Box86/Box64 的容器。
-- 优先选择较旧或较简单的游戏；Snapdragon/Adreno 设备的驱动支持最好。
-- 没有应对内核反作弊的通用方案，热降频也很常见。
-
-### 在 Windows 上运行 Linux
-
-- 使用 **WSL2** 运行命令行工具、开发环境与通过 WSLg 的 GUI 应用。
-- 需要完整桌面 Linux 虚拟机时，使用 **VirtualBox** 或其他 hypervisor。
-- WSL2 不是完整桌面替代；GPU 计算与嵌套虚拟化取决于 Windows 版本与硬件。
-
-### 在 Mac 上运行 Linux
-
-- 对 arm64 Linux 使用 **UTM** 或 **Lima**。在 Apple silicon 上，arm64 Guest 可通过 Apple Virtualization 框架接近原生运行。
-- 对 x86 Linux Guest，使用 **UTM** 的 QEMU TCG；**VirtualBox** 仅适用于受支持的 Arm Guest。
-- 不需要完整虚拟机、只想运行 x86 Linux 二进制时，可在 iOS/iPadOS 上试用 **iSH**（32 位用户态），或在 macOS 上使用 **QEMU** 用户态模式。
-
-### 在 Linux 上运行 Android
-
-- 桌面 Android 体验使用 **Waydroid**。
-- 服务器或 CI 上的容器化 Android 实例使用 **redroid**。
-- 两者都需要兼容内核，默认不包含 Google Play 服务。
-
-### Switch 1 游戏
-
-- Windows、Linux 与 macOS：**Ryujinx**（Ryubing 分支）或 **Eden**。
-- Android：**Eden**（或在有 Android 构建时使用 Ryujinx）。
-- iPhone/iPad：**nxnative**，仅支持少量作品，采用原生执行而非模拟。
-- 已破解 PS5：**ProsperoEden**。
-- 你需要自己的主机密钥、固件与游戏转储。这些项目不提供它们。
-
-### 把 Switch 1 或 PS5 变成宿主
-
-- **Switch 1：** 在未打补丁的主机上安装 Switchroot（Android、L4T Ubuntu/Fedora 或 L4T Lakka）。使用 **Lakka** 或 **RetroArch** 模拟，Box64 + Wine 只适合轻量 Windows 软件。
-- **PS5：** 在受支持的固件上启动 **ps5-linux**，然后运行 Steam/Proton 与模拟器；或者留在 PS5 系统内，使用 **PS5 RetroArch** 与 **ProsperoEden** 自制应用。
-- 两条路线都需要破解或自制系统，可能破坏在线访问，且不受厂商认可。
-
-### GBA 到处运行
-
-- 桌面、Android 与大多数掌机：直接使用 **mGBA**，或使用带 mGBA 核心的 **RetroArch**。
-- iPhone/iPad：使用带 mGBA 核心的 **RetroArch**。
-- Switch 1：使用 **mGBA** 或 **RetroArch** 自制应用。
-- PS5：使用带 mGBA 核心的 **PS5 RetroArch**。
-- 浏览器：使用 WebAssembly GBA 模拟器；本列表暂未收录。
-
-### Xbox 与 Xbox 360
-
-- 初代 Xbox：**xemu**，需要 BIOS/MCPX 启动 ROM 与游戏转储。
-- Xbox 360：本列表中没有通用模拟器。**XenonRecomp** 与 **UnleashedRecomp** 展示的是针对特定作品的静态重编译路线。
-
-### 旧 iOS 游戏
-
-- 对 iPhone OS 2.x–4.0 的 32 位应用使用 **touchHLE**。
-- 先查兼容性数据库；大多数应用无法运行。
-- 现代 64 位 iOS 应用在非 Apple 宿主上没有实用路线。
 
 ## 法律与实践说明
 

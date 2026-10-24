@@ -37,7 +37,7 @@ One short paragraph explaining what it does, what it enables, and the main limit
 [Website](https://example.com/) · [Source](https://github.com/)
 ```
 
-3. Update the **guest → host matrix** if the project adds a new route.
+3. Update the **guest → host matrix** and the **By guest** / **By host** indexes if the project adds a new route.
 4. Update both `README.md` and `README.zh-CN.md`. Keep the two files synchronized.
 5. Add the entry to the correct position, not just the end of the section.
 6. Run a link check (see below).

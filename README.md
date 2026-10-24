@@ -11,13 +11,15 @@ This list covers the practical routes between CPU architectures, operating-syste
 
 The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **60 projects**, checked against primary sources on **2026-10-24**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Switch 1 games on PC/Android/PS5, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix) and the [route recipes](#route-recipes).
+If you are here for the headline routes — Windows games on Apple silicon, Switch 1 games on PC/Android/PS5, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
 - [Scope](#scope)
 - [How to read this list](#how-to-read-this-list)
 - [Guest → host matrix](#guest--host-matrix)
+- [By guest](#by-guest)
+- [By host](#by-host)
 - [Technology routes](#technology-routes)
   - [Compatibility layers](#compatibility-layers)
   - [Binary translation and userspace emulation](#binary-translation-and-userspace-emulation)
@@ -27,8 +29,7 @@ If you are here for the headline routes — Windows games on Apple silicon, Swit
   - [Game console and computer emulators](#game-console-and-computer-emulators)
   - [Game engine reimplementations](#game-engine-reimplementations)
   - [Static recompilation and native ports](#static-recompilation-and-native-ports)
-- [Console-as-host routes](#console-as-host-routes)
-- [Route recipes](#route-recipes)
+  - [Console-as-host routes](#console-as-host-routes)
 - [Legal and practical notes](#legal-and-practical-notes)
 - [Contributing](#contributing)
 
@@ -107,8 +108,52 @@ These routes require homebrew, a jailbreak, or both. They are not supported by t
 | Windows | *Box64 + Wine via Switchroot Linux* | *Steam/Proton via ps5-linux* |
 | Android | Switchroot Android | — |
 
+## By guest
+
+Start from the software you want to run. The [technology routes](#technology-routes) below contain the full entries.
+
+| Guest | Hosts | Key projects |
+| --- | --- | --- |
+| Windows x86/x64 | Windows (native; Prism on Arm), Linux (Wine/Proton), macOS (CrossOver/GPTK), Android (Winlator), browser (older Windows) | [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Boxedwine](#boxedwine), [Winlator](#winlator), [Hangover](#hangover), [FEX](#fex), [Box64](#box64), [Rosetta 2](#rosetta-2), [Windows on Arm emulation](#windows-on-arm-x86x64-emulation), [Game Porting Toolkit](#game-porting-toolkit), [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux) |
+| Linux x86/x64 | Windows (WSL2, VM), macOS (UTM, Lima, VM), iOS (iSH, UTM SE), browser (v86, JSLinux, CheerpX), Switch and PS5 as hosts | [WSL](#wsl), [VirtualBox](#virtualbox), [UTM](#utm), [Lima](#lima), [QEMU](#qemu), [iSH](#ish), [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx), [ps5-linux](#ps5-linux), [Lakka](#lakka) |
+| Linux arm64 | Windows (WSL2), macOS (UTM, Lima, VirtualBox), iOS (UTM SE), Switch (Switchroot), PS5 (ps5-linux) | [WSL](#wsl), [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [ps5-linux](#ps5-linux), [Lakka](#lakka) |
+| macOS | macOS (native; Rosetta 2 for Intel apps), Linux (Darling) | [Rosetta 2](#rosetta-2), [Darling](#darling) |
+| iOS apps (early) | Windows, macOS, Android, and Linux builds through touchHLE | [touchHLE](#touchhle) |
+| Android | Android (native), Linux (Waydroid, redroid), macOS (UTM), Switch (Switchroot Android) | [Waydroid](#waydroid), [libhybris](#libhybris), [redroid](#redroid), [UTM](#utm) |
+| DOS / Windows 3.x–9x | Windows, Linux, macOS (DOSBox-X); browser (v86, JSLinux) | [DOSBox-X](#dosbox-x), [v86](#v86), [JSLinux](#jslinux) |
+| GB / GBC / GBA | Desktop and Android (mGBA, RetroArch), iOS (RetroArch), Switch (mGBA, RetroArch), PS5 (PS5 RetroArch) | [mGBA](#mgba), [RetroArch](#retroarch), [PS5 RetroArch](#ps5-retroarch) |
+| Nintendo DS | Desktop and Android (melonDS, RetroArch), Switch (RetroArch core) | [melonDS](#melonds), [RetroArch](#retroarch) |
+| Nintendo 64 | Desktop and Android (RetroArch), native ports (N64Recomp, Zelda64Recomp), Switch (RetroArch core) | [N64Recomp](#n64recomp), [Zelda64Recomp](#zelda64recomp), [RetroArch](#retroarch) |
+| GameCube / Wii | Desktop and Android (Dolphin) | [Dolphin](#dolphin) |
+| Wii U | Windows, Linux, macOS (Cemu) | [Cemu](#cemu) |
+| Switch 1 | Windows, Linux, macOS, Android (Ryujinx, Eden), iPhone/iPad (nxnative), PS5 (ProsperoEden) | [Ryujinx](#ryujinx), [Eden](#eden), [nxnative](#nxnative), [ProsperoEden](#prosperoeden) |
+| PS1 / PS2 | Desktop (PCSX2, RetroArch), iOS/Android/Switch (RetroArch PS1), PS5 (PS5 RetroArch LRPS2) | [PCSX2](#pcsx2), [RetroArch](#retroarch), [PS5 RetroArch](#ps5-retroarch) |
+| PS3 / PS4 | Windows, Linux, macOS (RPCS3, shadPS4) | [RPCS3](#rpcs3), [shadPS4](#shadps4) |
+| PS5 | Windows, Linux, macOS (KytyPS5, SharpEmu, experimental) | [KytyPS5](#kytyps5), [SharpEmu](#sharpemu) |
+| Xbox / Xbox 360 | Windows, Linux, macOS (xemu; XenonRecomp and UnleashedRecomp ports) | [xemu](#xemu), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp) |
+| WebAssembly | Windows, Linux, macOS (Wasmtime), browser (native) | [Wasmtime](#wasmtime) |
+
+## By host
+
+Start from the machine you have. The [technology routes](#technology-routes) below contain the full entries.
+
+| Host | Guests | Key projects |
+| --- | --- | --- |
+| Windows | Windows native, Linux (WSL2/VM), DOS, classic consoles, Switch and PS5 emulation, Xbox/360, WebAssembly | [WSL](#wsl), [VirtualBox](#virtualbox), [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [KytyPS5](#kytyps5), [SharpEmu](#sharpemu), [Ryujinx](#ryujinx), [Eden](#eden), [xemu](#xemu), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp), [Wasmtime](#wasmtime) |
+| Windows on Arm | Windows x86/x64 (Prism), Linux (WSL2), Arm guests (VirtualBox) | [Windows on Arm emulation](#windows-on-arm-x86x64-emulation), [WSL](#wsl), [VirtualBox](#virtualbox) |
+| Linux | Windows (Wine/Proton), Linux native, Android (Waydroid/redroid), DOS, classic consoles, Switch and PS5 emulation, Xbox/360, WebAssembly | [Wine](#wine), [Proton](#proton), [FEX](#fex), [Box64](#box64), [Hangover](#hangover), [Waydroid](#waydroid), [redroid](#redroid), [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [Ryujinx](#ryujinx), [Eden](#eden), [xemu](#xemu), [Wasmtime](#wasmtime) |
+| Linux on Arm64 | Windows (FEX/Box64/Hangover), Linux Arm64, Android (Waydroid/redroid), classic consoles, Switch emulation | [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover), [Waydroid](#waydroid), [redroid](#redroid), [RetroArch](#retroarch), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [Ryujinx](#ryujinx), [Eden](#eden) |
+| macOS | Windows (CrossOver/GPTK/Wine), macOS native and Rosetta, Linux (UTM/Lima/VirtualBox), iOS (touchHLE), Android (UTM), DOS, classic consoles, Switch and PS5 emulation, Xbox/360, WebAssembly | [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2), [Darling](#darling), [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [touchHLE](#touchhle), [DOSBox-X](#dosbox-x), [Dolphin](#dolphin), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [KytyPS5](#kytyps5), [SharpEmu](#sharpemu), [Ryujinx](#ryujinx), [Eden](#eden), [Cemu](#cemu), [RetroArch](#retroarch), [xemu](#xemu), [Wasmtime](#wasmtime) |
+| iOS / iPadOS | Linux (iSH, UTM SE), retro consoles (RetroArch), GBA (RetroArch), Switch (nxnative) | [iSH](#ish), [UTM](#utm), [RetroArch](#retroarch), [nxnative](#nxnative) |
+| Android | Windows (Winlator), Android native, classic consoles, GBA, DS, N64, GC/Wii, Switch (Eden) | [Winlator](#winlator), [Boxedwine](#boxedwine), [Waydroid](#waydroid), [redroid](#redroid), [mGBA](#mgba), [melonDS](#melonds), [RetroArch](#retroarch), [Dolphin](#dolphin), [Eden](#eden) |
+| Browser | DOS, older Windows, Linux (v86/JSLinux/CheerpX), WebAssembly | [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx), [Wasmtime](#wasmtime) |
+| Switch 1 (homebrew) | GBA, DS, N64, PS1, PSP, Linux, and Windows through Linux | [mGBA](#mgba), [RetroArch](#retroarch), [Lakka](#lakka), [Box64](#box64), [Wine](#wine) |
+| PS5 (jailbroken) | GBA, PS1, PS2, PSP, Switch, Linux, and Windows through Linux | [PS5 RetroArch](#ps5-retroarch), [ProsperoEden](#prosperoeden), [ps5-linux](#ps5-linux), [Proton](#proton) |
+
 ## Technology routes
+
 The projects are grouped by the mechanism that makes the route work. Pick the narrowest category that matches your problem; many routes combine two or more.
+
 ### Compatibility layers
 
 #### Wine
@@ -607,78 +652,6 @@ Lakka is a lightweight LibreELEC-based distribution built around RetroArch. On S
 
 [Website](https://www.lakka.tv/) · [Switch guide](https://www.lakka.tv/doc/Nintendo-Switch/) · [Switchroot FAQ](https://wiki.switchroot.org/wiki/faq)
 
-## Route recipes
-
-### Windows games on Apple silicon
-
-1. Install Rosetta 2 if prompted.
-2. Use **CrossOver** for the simplest supported path, or the **Game Porting Toolkit** evaluation environment for testing.
-3. Let CrossOver/GPTK choose D3DMetal, or pair Wine with **DXVK**/**VKD3D-Proton** on top of **KosmicKrisp** (Apple silicon, macOS 26+) or **MoltenVK** (Intel Macs and older setups).
-4. Expect anti-cheat, launchers, and media codecs to be the failure points. This is not a universal Windows compatibility layer.
-
-### Windows apps on Arm Linux
-
-- Use **FEX** with Wine/Proton for x86 and x86-64 Windows binaries.
-- Use **Hangover** when you want Wine's WoW64 with ARM64EC and FEX emulator DLLs.
-- Use **Box64** with Wine64 for x86-64 binaries and **Box86**/Box32 for 32-bit components.
-- Keep expectations realistic: Vulkan 1.3 drivers, thunked libraries, and per-app fixes matter more than raw CPU speed.
-
-### Windows apps on Android
-
-- Install **Winlator** and let it create a container with Wine and Box86/Box64.
-- Prefer older or simpler games; Snapdragon/Adreno devices have the best driver support.
-- There is no general solution for kernel anti-cheat, and thermal throttling is normal.
-
-### Linux on Windows
-
-- Use **WSL2** for command-line tools, development, and GUI apps through WSLg.
-- Use **VirtualBox** or another hypervisor for a full desktop Linux VM.
-- WSL2 is not a full desktop replacement; GPU compute and nested virtualization depend on the Windows build and hardware.
-
-### Linux on a Mac
-
-- Use **UTM** or **Lima** for arm64 Linux. On Apple silicon, arm64 guests can run near-native through Apple's Virtualization framework.
-- Use **UTM** with QEMU TCG for x86 Linux guests, or **VirtualBox** only for supported Arm guests.
-- For x86 Linux binaries without a full VM, try **iSH** on iOS/iPadOS (32-bit userland) or **QEMU** user-mode on macOS.
-
-### Android on Linux
-
-- Use **Waydroid** for a desktop Android experience on a Linux host.
-- Use **redroid** for containerized Android instances on servers or CI.
-- Both need a compatible kernel and do not include Google Play services by default.
-
-### Switch 1 games
-
-- On Windows, Linux, and macOS: **Ryujinx** (Ryubing fork) or **Eden**.
-- On Android: **Eden** (or Ryujinx where an Android build is available).
-- On iPhone/iPad: **nxnative** for a small number of titles, with native execution rather than emulation.
-- On a jailbroken PS5: **ProsperoEden**.
-- You need your own console keys, firmware, and game dumps. The projects do not supply them.
-
-### Make a Switch 1 or PS5 into a host
-
-- **Switch 1:** install Switchroot (Android, L4T Ubuntu/Fedora, or L4T Lakka) on an unpatched console. Use **Lakka** or **RetroArch** for emulation, and Box64 + Wine only for light Windows software.
-- **PS5:** boot **ps5-linux** on a supported firmware, then run Steam/Proton and emulators. Alternatively stay in the PS5 OS and use **PS5 RetroArch** and **ProsperoEden** homebrew.
-- Both routes require jailbreaking or homebrew, can break online access, and are not endorsed by the vendors.
-
-### GBA everywhere
-
-- Desktop, Android, and most handhelds: **mGBA** directly, or **RetroArch** with the mGBA core.
-- iPhone/iPad: **RetroArch** with the mGBA core.
-- Switch 1: **mGBA** or **RetroArch** homebrew.
-- PS5: **PS5 RetroArch** with the mGBA core.
-- Browser: use a WebAssembly GBA emulator; none is included in this list yet.
-
-### Xbox and Xbox 360
-
-- Original Xbox: **xemu** with a BIOS/MCPX boot ROM and game dumps.
-- Xbox 360: there is no general-purpose emulator in this list. **XenonRecomp** and **UnleashedRecomp** show the static-recompilation route for specific titles.
-
-### Old iOS games
-
-- Use **touchHLE** for 32-bit apps from iPhone OS 2.x–4.0.
-- Check the compatibility database first; most apps do not work.
-- There is no practical route for modern 64-bit iOS apps on non-Apple hosts.
 
 ## Legal and practical notes
 
