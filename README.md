@@ -9,7 +9,7 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This first edition covers **78 projects**, checked against primary sources on **2026-10-24**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **79 projects**: the original 78 were checked against primary sources on **2026-10-24**, and DroidDeck on **2026-10-31**.
 
 If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
@@ -72,9 +72,9 @@ A name means a practical route exists. *Italic* means the route is experimental 
 
 | Guest | Windows | Linux | SteamOS | macOS | iOS / iPadOS | Android | Browser |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Windows x86/x64 | Native; Prism on Arm | Wine, Proton, CrossOver | Proton, Wine | CrossOver, Wine + Rosetta, GPTK, Parallels, VMware, UTM | — | Winlator, Boxedwine | v86, CheerpX, JSLinux (older Windows) |
-| Linux x86/x64 | WSL2, VirtualBox | Native | Native | UTM, Lima, VirtualBox | iSH, UTM SE | — | v86, JSLinux, CheerpX |
-| Linux arm64 | WSL2 | Native | — | UTM, Lima, VirtualBox | UTM SE, LinPad | — | — |
+| Windows x86/x64 | Native; Prism on Arm | Wine, Proton, CrossOver | Proton, Wine | CrossOver, Wine + Rosetta, GPTK, Parallels, VMware, UTM | — | Winlator, Boxedwine, DroidDeck | v86, CheerpX, JSLinux (older Windows) |
+| Linux x86/x64 | WSL2, VirtualBox | Native | Native | UTM, Lima, VirtualBox | iSH, UTM SE | DroidDeck | v86, JSLinux, CheerpX |
+| Linux arm64 | WSL2 | Native | — | UTM, Lima, VirtualBox | UTM SE, LinPad | DroidDeck | — |
 | SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | *UTM, QEMU* | — | *SteamOSforAlioth* | — |
 | macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | — | — | — |
 | iOS apps (early) | touchHLE | touchHLE | — | touchHLE | Native (old apps only) | touchHLE | — |
@@ -120,9 +120,9 @@ Start from the software you want to run. Each host is followed by the projects t
 
 | Guest | Hosts and projects |
 | --- | --- |
-| Windows x86/x64 | **Windows:** native; Arm uses [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Hangover](#hangover), [FEX](#fex), [Box64](#box64)<br>**macOS:** [CrossOver](#crossover), [Wine](#wine), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**Android:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Browser:** [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux)<br>**SteamOS:** [Proton](#proton), [Wine](#wine) |
-| Linux x86/x64 | **Windows:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [iSH](#ish), [UTM](#utm)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** native |
-| Linux arm64 | **Windows:** [WSL](#wsl)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox)<br>**iOS:** [UTM](#utm), [LinPad OS](#linpad-os)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** — |
+| Windows x86/x64 | **Windows:** native; Arm uses [Windows on Arm emulation](#windows-on-arm-x86x64-emulation)<br>**Linux:** [Wine](#wine), [Proton](#proton), [CrossOver](#crossover), [Hangover](#hangover), [FEX](#fex), [Box64](#box64)<br>**macOS:** [CrossOver](#crossover), [Wine](#wine), [Game Porting Toolkit](#game-porting-toolkit), [Rosetta 2](#rosetta-2), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**Android:** [Winlator](#winlator), [Boxedwine](#boxedwine), [DroidDeck](#droiddeck)<br>**Browser:** [v86](#v86), [CheerpX](#cheerpx), [JSLinux](#jslinux)<br>**SteamOS:** [Proton](#proton), [Wine](#wine) |
+| Linux x86/x64 | **Windows:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [iSH](#ish), [UTM](#utm)<br>**Android:** [DroidDeck](#droiddeck)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** native |
+| Linux arm64 | **Windows:** [WSL](#wsl)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox)<br>**iOS:** [UTM](#utm), [LinPad OS](#linpad-os)<br>**Android:** [DroidDeck](#droiddeck)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** — |
 | SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)*<br>**Android (alioth):** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
@@ -156,7 +156,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | SteamOS | **Linux:** native<br>**Windows:** [Proton](#proton), [Wine](#wine)<br>**Android:** *[Waydroid](#waydroid) via Distrobox*<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
-| Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
+| Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine), [DroidDeck](#droiddeck)<br>**Linux:** [DroidDeck](#droiddeck)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
@@ -207,6 +207,14 @@ Boxedwine emulates a 32-bit Linux kernel and CPU, then runs a 32-bit Wine build 
 Winlator packages Wine, Box86/Box64, and graphics drivers into an Android app for running Windows games and utilities. It works best on Snapdragon/Adreno devices and with older or simpler titles. Expect thermal limits, driver-specific bugs, no kernel anti-cheat support, and a non-trivial setup process.
 
 [Source](https://github.com/brunodev85/winlator)
+
+#### DroidDeck
+
+**Route:** Windows x86/x64 games and Linux applications → Android on Arm64 · **Status:** Active · **Type:** ARM64 Proton and FEX in a Linux runtime
+
+DroidDeck runs Valve's Steam client in Big Picture locally on Android, using ARM64 Proton for Windows games and FEX for x86 code. Its Linux runtime also supports desktop applications. It requires Android 9 or later and supported Adreno hardware (730 or newer, or 8xx); Adreno 6xx is experimental, while Mali, Xclipse, PowerVR, and Adreno 710 are unsupported. No root is needed, but compatibility and performance vary by device, and Android child-process restrictions must be disabled.
+
+[Source](https://github.com/Droid-Deck/DroidDeck)
 
 #### Hangover
 
