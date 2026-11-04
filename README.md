@@ -9,7 +9,7 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **79 projects**: the original 78 were checked against primary sources on **2026-10-24**, and DroidDeck on **2026-10-31**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **80 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, and Hydroid on **2026-11-04**.
 
 If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
@@ -112,7 +112,7 @@ These routes require homebrew, a jailbreak, or both. They are not supported by t
 | PSP | RetroArch (core-dependent) | RetroArch (core-dependent) |
 | Linux | Switchroot L4T Linux, Lakka | ps5-linux |
 | Windows | *Box64 + Wine via Switchroot Linux* | *Steam/Proton via ps5-linux* |
-| Android | Switchroot Android | — |
+| Android | Switchroot Android | *Hydroid (arm64 games)* |
 
 ## By guest
 
@@ -126,7 +126,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)*<br>**Android (alioth):** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
-| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
+| Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**PS5:** *[Hydroid](#hydroid) (arm64 games)*<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS:** [DOSBox-X](#dosbox-x)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux)<br>**SteamOS:** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [mGBA](#mgba), [RetroArch](#retroarch) |
 | Nintendo DS | **Windows / Linux / macOS:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Android:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch)<br>**SteamOS:** [melonDS](#melonds), [RetroArch](#retroarch) |
@@ -160,7 +160,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
-| PS5 (jailbroken) | **GBA / GBC / GB / PS2:** [PS5 RetroArch](#ps5-retroarch)<br>**Switch:** [ProsperoEden](#prosperoeden)<br>**Linux:** [ps5-linux](#ps5-linux)<br>**Windows via Linux:** [ps5-linux](#ps5-linux), [Proton](#proton) |
+| PS5 (jailbroken) | **GBA / GBC / GB / PS2:** [PS5 RetroArch](#ps5-retroarch)<br>**Switch:** [ProsperoEden](#prosperoeden)<br>**Android (arm64 games):** *[Hydroid](#hydroid)*<br>**Linux:** [ps5-linux](#ps5-linux)<br>**Windows via Linux:** [ps5-linux](#ps5-linux), [Proton](#proton) |
 
 ## Technology routes
 
@@ -279,6 +279,14 @@ Mac.apk implements the Android application environment directly on macOS instead
 Husk runs Android APKs on iOS. Its translation layer executes the game's 64-bit Android code directly on the iPhone CPU and supplies Android's C library, Java calls, OpenGL ES through ANGLE, Vulkan through MoltenVK, audio, touch, and controllers; a QEMU/LineageOS emulation mode handles apps the translation layer cannot run. It requires iOS 16 or later, sideloading through SideStore, AltStore, or TrollStore, JIT through StikJIT, StikDebug, or a jailbreak, and arm64-v8a APKs. Java-only apps need the slower emulation path, and Play services appear installed but signed out. Husk 3.0 also adds an experimental PS4 layer for PKG and folder-based games.
 
 [Source](https://github.com/Leviidev/Husk)
+
+#### Hydroid
+
+**Route:** Android games (arm64) → PS5 (jailbroken) · **Status:** Experimental · **Type:** Android API compatibility with ARM-to-x86-64 JIT
+
+Hydroid uses Dynarmic to translate a game's arm64 code to x86-64 and implements the Android C/Java interfaces and graphics, audio, and input services it needs. Supported titles run as individual PS5 homebrew apps without an Android system image. Only APKs with `lib/arm64-v8a` work; compatibility depends on per-game engine/API support and tested game versions. It requires a PS5 that can run homebrew, and users must provide their own game files.
+
+[Source](https://github.com/ZiZc3/Hydroid)
 
 #### libhybris
 

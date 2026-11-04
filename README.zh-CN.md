@@ -9,7 +9,7 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **79 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31** 核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **80 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31**、Hydroid 于 **2026-11-04** 核验。
 
 如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
@@ -112,7 +112,7 @@
 | PSP | RetroArch（取决于核心） | RetroArch（取决于核心） |
 | Linux | Switchroot L4T Linux、Lakka | ps5-linux |
 | Windows | *通过 Switchroot Linux 使用 Box64 + Wine* | *通过 ps5-linux 使用 Steam/Proton* |
-| Android | Switchroot Android | — |
+| Android | Switchroot Android | *Hydroid（arm64 游戏）* |
 
 ## 按 Guest 分类
 
@@ -126,7 +126,7 @@
 | SteamOS | **Windows：** *[VirtualBox](#virtualbox)、[QEMU](#qemu)*<br>**Linux：** *[QEMU](#qemu)*<br>**SteamOS：** 原生<br>**macOS：** *[UTM](#utm)、[QEMU](#qemu)*<br>**Android（alioth）：** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling)<br>**SteamOS：** — |
 | iOS 应用（早期） | **Windows / macOS / Android / Linux：** [touchHLE](#touchhle)<br>**iOS：** 原生（仅旧应用）<br>**SteamOS：** — |
-| Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**iOS / iPadOS：** [Husk](#husk)<br>**Switch：** Switchroot Android（无独立条目）<br>**SteamOS：** *[Waydroid](#waydroid)（通过 Distrobox）* |
+| Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**iOS / iPadOS：** [Husk](#husk)<br>**Switch：** Switchroot Android（无独立条目）<br>**PS5：** *[Hydroid](#hydroid)（arm64 游戏）*<br>**SteamOS：** *[Waydroid](#waydroid)（通过 Distrobox）* |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS：** [DOSBox-X](#dosbox-x)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)<br>**SteamOS：** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**Android：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [mGBA](#mgba)、[RetroArch](#retroarch) |
 | Nintendo DS | **Windows / Linux / macOS：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**Android：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**SteamOS：** [melonDS](#melonds)、[RetroArch](#retroarch) |
@@ -160,7 +160,7 @@
 | Redmi K40 / POCO F3（alioth） | **SteamOS：** *[SteamOSforAlioth](#steamosforalioth)*（替换 Android）<br>**Windows：** [Proton](#proton)、[FEX](#fex)<br>**Linux：** 原生 |
 | 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
 | Switch 1（自制系统） | **GBA / GBC / GB：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP：** [RetroArch](#retroarch)（取决于核心）<br>**Dreamcast：** [Flycast](#flycast)<br>**Linux：** [Lakka](#lakka)<br>**通过 Linux 运行 Windows：** [Box64](#box64)、[Wine](#wine) |
-| PS5（已破解） | **GBA / GBC / GB / PS2：** [PS5 RetroArch](#ps5-retroarch)<br>**Switch：** [ProsperoEden](#prosperoeden)<br>**Linux：** [ps5-linux](#ps5-linux)<br>**通过 Linux 运行 Windows：** [ps5-linux](#ps5-linux)、[Proton](#proton) |
+| PS5（已破解） | **GBA / GBC / GB / PS2：** [PS5 RetroArch](#ps5-retroarch)<br>**Switch：** [ProsperoEden](#prosperoeden)<br>**Android（arm64 游戏）：** *[Hydroid](#hydroid)*<br>**Linux：** [ps5-linux](#ps5-linux)<br>**通过 Linux 运行 Windows：** [ps5-linux](#ps5-linux)、[Proton](#proton) |
 
 ## 技术路线
 
@@ -279,6 +279,14 @@ Mac.apk 直接在 macOS 上实现 Android 应用环境，而不是在模拟器�
 Husk 在 iOS 上运行 Android APK。其翻译层直接在 iPhone CPU 上执行游戏的 64 位 Android 代码，并提供 Android 的 C 库、Java 调用、通过 ANGLE 的 OpenGL ES、通过 MoltenVK 的 Vulkan、音频、触摸与控制器；QEMU/LineageOS 模拟模式用于翻译层无法运行的应用。它需要 iOS 16 或更高版本，通过 SideStore、AltStore 或 TrollStore 侧载，通过 StikJIT、StikDebug 或越狱获得 JIT，并使用 arm64-v8a APK。纯 Java 应用需要较慢的模拟路径，Play 服务显示为已安装但未登录。Husk 3.0 还加入了面向 PKG 与文件夹游戏的实验性 PS4 层。
 
 [源码](https://github.com/Leviidev/Husk)
+
+#### Hydroid
+
+**路线：** Android 游戏（arm64）→ PS5（已破解） · **状态：** 实验性 · **类型：** Android API 兼容层与 ARM 到 x86-64 即时翻译
+
+Hydroid 使用 Dynarmic 将游戏的 arm64 代码即时翻译为 x86-64，并实现所需的 Android C/Java 接口，以及图形、音频与输入服务。支持的游戏各自封装成 PS5 homebrew 应用，无需 Android 系统镜像。仅支持带 `lib/arm64-v8a` 的 APK；兼容性取决于逐游戏的引擎/API 适配和测试版本。需要能运行 homebrew 的 PS5，游戏文件由用户自行提供。
+
+[源码](https://github.com/ZiZc3/Hydroid)
 
 #### libhybris
 
