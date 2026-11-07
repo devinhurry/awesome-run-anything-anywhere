@@ -9,7 +9,7 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **80 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, and Hydroid on **2026-11-04**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **82 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, Hydroid on **2026-11-04**, and PlayCover and vphone-aio on **2026-11-07**.
 
 If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
@@ -78,6 +78,8 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | *UTM, QEMU* | — | *SteamOSforAlioth* | — |
 | macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | — | — | — |
 | iOS apps (early) | touchHLE | touchHLE | — | touchHLE | Native (old apps only) | touchHLE | — |
+| iOS apps (modern) | — | — | — | PlayCover (Apple silicon) | Native | — | — |
+| iOS system (virtual iPhone) | — | — | — | *vphone-aio (Apple silicon)* | — | — | — |
 | Android apps | — | Waydroid, redroid | *Waydroid (Distrobox)* | Mac.apk, UTM (Android VM) | Husk | Native | — |
 | DOS, Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86, JSLinux |
 | GB / GBC / GBA | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | RetroArch, Delta | mGBA, RetroArch | — |
@@ -126,6 +128,8 @@ Start from the software you want to run. Each host is followed by the projects t
 | SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** *[UTM](#utm), [QEMU](#qemu)*<br>**Android (alioth):** *[SteamOSforAlioth](#steamosforalioth)* |
 | macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
+| iOS apps (modern) | **macOS (Apple silicon):** [PlayCover](#playcover)<br>**iOS / iPadOS:** native |
+| iOS system (virtual iPhone) | **macOS (Apple silicon):** *[vphone-aio](#vphone-aio)* |
 | Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**PS5:** *[Hydroid](#hydroid) (arm64 games)*<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS:** [DOSBox-X](#dosbox-x)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux)<br>**SteamOS:** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [mGBA](#mgba), [RetroArch](#retroarch) |
@@ -154,7 +158,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | Linux | **Windows:** [Wine](#wine), [Proton](#proton), [FEX](#fex), [Box64](#box64), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), *[SavageWindRecomp](#savagewindrecomp) (BOTW)*<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | SteamOS | **Linux:** native<br>**Windows:** [Proton](#proton), [Wine](#wine)<br>**Android:** *[Waydroid](#waydroid) via Distrobox*<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS:** [touchHLE](#touchhle)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
+| macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu)<br>**iOS apps:** [touchHLE](#touchhle) (early apps), [PlayCover](#playcover) (Apple silicon)<br>**iOS system:** *[vphone-aio](#vphone-aio)* (Apple silicon)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine), [DroidDeck](#droiddeck)<br>**Linux:** [DroidDeck](#droiddeck)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
@@ -231,6 +235,14 @@ Hangover runs x86 and x86-64 Windows applications on Arm64 Wine using ARM64EC an
 Darling implements macOS's Mach IPC, POSIX, and Darwin syscall interfaces on top of Linux, together with reimplementations of Apple frameworks. It uses DPREFIXes in the spirit of Wine prefixes. Command-line tools are the most usable target; GUI support, AppKit, and the Metal-on-Vulkan backend are still in development. It does not support `.mpkg` installers yet, and prefixes require overlayfs.
 
 [Source](https://github.com/darlinghq/darling)
+
+#### PlayCover
+
+**Route:** iOS apps and games → macOS 12+ on Apple silicon · **Status:** Active · **Type:** Native application compatibility wrapper
+
+PlayCover wraps iOS apps in an environment that imitates an iPad, letting them run natively on Apple silicon with mouse, keyboard, controller support, and custom touch-to-key mappings. It imports decrypted IPA files obtained legally; it does not decrypt apps or boot a complete iOS virtual machine. Intel Macs are unsupported, and app compatibility, login flows, and game controls vary by title.
+
+[Source](https://github.com/PlayCover/PlayCover) · [Documentation](https://docs.playcover.io/)
 
 #### touchHLE
 
@@ -437,6 +449,14 @@ QEMU can emulate a complete machine or run Linux user-mode binaries for another 
 UTM wraps QEMU and Apple's Virtualization framework in a native app. It supports more than 30 processor types, uses QEMU TCG for cross-architecture guests, and can boot macOS guests with Virtualization.framework on Apple silicon. On iOS, JIT requires a jailbreak or a workaround; UTM SE uses an interpreter and is slower but can be sideloaded on unmodified devices.
 
 [Source](https://github.com/utmapp/UTM) · [Website](https://getutm.app/)
+
+#### vphone-aio
+
+**Route:** iOS 26.1 virtual iPhone → macOS on Apple silicon · **Status:** Experimental · **Type:** All-in-one setup around vphone-cli
+
+vphone-aio automates unpacking, building, and booting a preconfigured vphone-cli environment with a jailbroken iOS 26.1 guest and bootstrap installed, then exposes SSH and VNC connections. The underlying vphone-cli uses Apple's Virtualization.framework and PCC research virtual machines; this is a full-system research route, not a guarantee that arbitrary IPA files work. The bundled setup needs Xcode and command-line dependencies, requires disabling SIP and AMFI protections, and recommends over 128 GB of free space. Its author recommends current vphone-cli for newer updates and support. This entry documents the tooling; verify rights to any bundled system image before using it.
+
+[Source](https://github.com/34306/vphone-aio) · [Upstream vphone-cli](https://github.com/Lakr233/vphone-cli)
 
 #### VirtualBox
 
