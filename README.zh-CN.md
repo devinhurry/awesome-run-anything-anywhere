@@ -9,9 +9,9 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **85 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31**、Hydroid 于 **2026-11-04**、PlayCover、vphone-aio 与 Hookshot 于 **2026-11-07**、steamac 与 Henge 于 **2026-11-08** 核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **86 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31**、Hydroid 于 **2026-11-04**、PlayCover、vphone-aio 与 Hookshot 于 **2026-11-07**、steamac、Henge 与 wxa-runner 于 **2026-11-08** 核验。
 
-如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、iPhone/iPad 上的 macOS、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、Switch 2《时之笛》的 PC 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
+如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、iPhone/iPad 上的 macOS、浏览器中的微信小程序、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、Switch 2《时之笛》的 PC 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
 ## 目录
 
@@ -36,7 +36,7 @@
 
 **收录**
 
-- 在一种宿主上运行 Windows、Linux、macOS、iOS、Android、DOS 与主机软件。
+- 在不同宿主上运行 Windows、Linux、macOS、iOS、Android、DOS、主机软件与微信小程序。
 - x86、Arm、RISC-V、PowerPC 与 WebAssembly 之间的 CPU 翻译。
 - 图形、音频、输入与操作系统服务的 API 翻译。
 - 虚拟机、模拟器、静态重编译器，以及重建原始运行时的源码移植项目。
@@ -81,6 +81,7 @@
 | iOS 应用（现代） | — | — | — | PlayCover（Apple silicon） | 原生 | — | — |
 | iOS 系统（虚拟 iPhone） | — | — | — | *vphone-aio（Apple silicon）* | — | — | — |
 | Android 应用 | — | Waydroid、redroid | *Waydroid（Distrobox）* | Mac.apk、UTM（Android 虚拟机） | Husk | 原生 | — |
+| 微信小程序 | — | — | — | — | — | — | *wxa-runner* |
 | DOS、Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86、JSLinux |
 | GB / GBC / GBA | mGBA、RetroArch | mGBA、RetroArch | mGBA、RetroArch | mGBA、RetroArch | RetroArch、Delta | mGBA、RetroArch | — |
 | Nintendo DS | melonDS、RetroArch | melonDS、RetroArch | melonDS、RetroArch | melonDS、RetroArch | RetroArch、Delta | melonDS、RetroArch | — |
@@ -132,6 +133,7 @@
 | iOS 应用（现代） | **macOS（Apple silicon）：** [PlayCover](#playcover)<br>**iOS / iPadOS：** 原生 |
 | iOS 系统（虚拟 iPhone） | **macOS（Apple silicon）：** *[vphone-aio](#vphone-aio)* |
 | Android | **Linux：** [Waydroid](#waydroid)、[redroid](#redroid)、[libhybris](#libhybris)<br>**macOS：** [Mac.apk](#macapk)、[UTM](#utm)<br>**iOS / iPadOS：** [Husk](#husk)<br>**Switch：** Switchroot Android（无独立条目）<br>**PS5：** *[Hydroid](#hydroid)（arm64 游戏）*<br>**SteamOS：** *[Waydroid](#waydroid)（通过 Distrobox）* |
+| 微信小程序 | **浏览器（Chrome）：** *[wxa-runner](#wxa-runner)*（项目或编译产物） |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS：** [DOSBox-X](#dosbox-x)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)<br>**SteamOS：** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**Android：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**PS5：** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS：** [mGBA](#mgba)、[RetroArch](#retroarch) |
 | Nintendo DS | **Windows / Linux / macOS：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**Android：** [melonDS](#melonds)、[RetroArch](#retroarch)<br>**iOS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Switch：** [RetroArch](#retroarch)<br>**SteamOS：** [melonDS](#melonds)、[RetroArch](#retroarch) |
@@ -164,7 +166,7 @@
 | iOS / iPadOS | **macOS：** *[Henge](#henge)（完整系统）*<br>**Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames) |
 | Android | **Windows：** [Winlator](#winlator)、[Boxedwine](#boxedwine)、[DroidDeck](#droiddeck)<br>**Linux：** [DroidDeck](#droiddeck)<br>**Android：** 原生<br>**经典主机：** [mGBA](#mgba)、[melonDS](#melonds)、[Dolphin](#dolphin)、[PPSSPP](#ppsspp)、[Azahar](#azahar)、[Vita3K](#vita3k)、[Flycast](#flycast)<br>**PS1 / PS2：** [RetroArch](#retroarch)、[NetherSX2-classic](#nethersx2-classic)<br>**Switch：** [Eden](#eden) |
 | Redmi K40 / POCO F3（alioth） | **SteamOS：** *[SteamOSforAlioth](#steamosforalioth)*（替换 Android）<br>**Windows：** [Proton](#proton)、[FEX](#fex)<br>**Linux：** 原生 |
-| 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
+| 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**微信小程序：** *[wxa-runner](#wxa-runner)*<br>**WebAssembly：** 原生 |
 | Switch 1（自制系统） | **GBA / GBC / GB：** [mGBA](#mgba)、[RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP：** [RetroArch](#retroarch)（取决于核心）<br>**Dreamcast：** [Flycast](#flycast)<br>**Linux：** [Lakka](#lakka)<br>**通过 Linux 运行 Windows：** [Box64](#box64)、[Wine](#wine) |
 | PS5（已破解） | **GBA / GBC / GB / PS2：** [PS5 RetroArch](#ps5-retroarch)<br>**Switch：** [ProsperoEden](#prosperoeden)<br>**Android（arm64 游戏）：** *[Hydroid](#hydroid)*<br>**Linux：** [ps5-linux](#ps5-linux)<br>**通过 Linux 运行 Windows：** [ps5-linux](#ps5-linux)、[Proton](#proton) |
 
@@ -557,6 +559,14 @@ CheerpX 在 WebAssembly 沙箱中运行未修改的 x86 Linux 二进制，实现
 JSLinux 是 Fabrice Bellard 的浏览器内模拟系统合集。它包括支持 AVX-512 与 APX 的 x86_64 Alpine Linux、带图形环境的 32 位 Alpine、Windows 2000、FreeDOS 与 RISC-V Linux 镜像。它是技术演示与轻量沙箱，不是通用桌面替代品。
 
 [官网](https://bellard.org/jslinux/)
+
+#### wxa-runner
+
+**路线：** 微信小程序项目与编译产物 → Chrome · **状态：** 活跃 · **类型：** 使用微信官方基础库的浏览器运行时
+
+wxa-runner 使用微信官方基础库，在 Chrome 中运行原生小程序项目及 uni-app/Taro 编译产物，支持 Chrome DevTools、热更新与无头 Playwright 测试。框架项目目前仅 uni-app 经过真实项目验证。查看器目前只能从源码构建，可把编译后的 `.wxapack` 小程序导出成静态站点。登录与用户信息默认返回模拟数据，支付与扫码默认失败，不支持云开发与蓝牙。开发模式需要 Node.js 18+；没有微信开发者工具时，内置编译器仅支持 x86-64。发布与真机调试仍需开发者工具。基础库版权归腾讯所有，不适用本项目的 MIT 许可证。
+
+[源码](https://github.com/open-wxa/wxa-runner) · [文档](https://open-wxa.github.io/wxa-runner/) · [功能与限制](https://open-wxa.github.io/wxa-runner/features) · [演示](https://wxa-viewer.picfinder.workers.dev)
 
 #### Wasmtime
 

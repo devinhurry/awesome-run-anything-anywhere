@@ -9,9 +9,9 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **85 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, Hydroid on **2026-11-04**, PlayCover, vphone-aio, and Hookshot on **2026-11-07**, and steamac and Henge on **2026-11-08**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **86 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, Hydroid on **2026-11-04**, PlayCover, vphone-aio, and Hookshot on **2026-11-07**, and steamac, Henge, and wxa-runner on **2026-11-08**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, macOS on iPhone/iPad, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, a native PC port of Switch 2 Ocarina of Time, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
+If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, macOS on iPhone/iPad, WeChat Mini Programs in the browser, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, a native PC port of Switch 2 Ocarina of Time, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
@@ -36,7 +36,7 @@ If you are here for the headline routes — Windows games on Apple silicon, Andr
 
 **Included**
 
-- Running Windows, Linux, macOS, iOS, Android, DOS, and console software on a different host.
+- Running Windows, Linux, macOS, iOS, Android, DOS, console software, and WeChat Mini Programs on a different host.
 - CPU translation between x86, Arm, RISC-V, PowerPC, and WebAssembly.
 - API translation for graphics, audio, input, and operating-system services.
 - Virtual machines, emulators, static recompilers, and source-port projects that recreate the original runtime.
@@ -81,6 +81,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | iOS apps (modern) | — | — | — | PlayCover (Apple silicon) | Native | — | — |
 | iOS system (virtual iPhone) | — | — | — | *vphone-aio (Apple silicon)* | — | — | — |
 | Android apps | — | Waydroid, redroid | *Waydroid (Distrobox)* | Mac.apk, UTM (Android VM) | Husk | Native | — |
+| WeChat Mini Programs | — | — | — | — | — | — | *wxa-runner* |
 | DOS, Windows 3.x–9x | DOSBox-X | DOSBox-X | DOSBox-X | DOSBox-X | — | — | v86, JSLinux |
 | GB / GBC / GBA | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | mGBA, RetroArch | RetroArch, Delta | mGBA, RetroArch | — |
 | Nintendo DS | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | melonDS, RetroArch | RetroArch, Delta | melonDS, RetroArch | — |
@@ -132,6 +133,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | iOS apps (modern) | **macOS (Apple silicon):** [PlayCover](#playcover)<br>**iOS / iPadOS:** native |
 | iOS system (virtual iPhone) | **macOS (Apple silicon):** *[vphone-aio](#vphone-aio)* |
 | Android | **Linux:** [Waydroid](#waydroid), [redroid](#redroid), [libhybris](#libhybris)<br>**macOS:** [Mac.apk](#macapk), [UTM](#utm)<br>**iOS / iPadOS:** [Husk](#husk)<br>**Switch:** Switchroot Android (no separate entry)<br>**PS5:** *[Hydroid](#hydroid) (arm64 games)*<br>**SteamOS:** *[Waydroid](#waydroid) via Distrobox* |
+| WeChat Mini Programs | **Browser (Chrome):** *[wxa-runner](#wxa-runner)* (project / compiled output) |
 | DOS / Windows 3.x–9x | **Windows / Linux / macOS:** [DOSBox-X](#dosbox-x)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux)<br>**SteamOS:** [DOSBox-X](#dosbox-x) |
 | GB / GBC / GBA | **Windows / Linux / macOS:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**Android:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**PS5:** [PS5 RetroArch](#ps5-retroarch)<br>**SteamOS:** [mGBA](#mgba), [RetroArch](#retroarch) |
 | Nintendo DS | **Windows / Linux / macOS:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**Android:** [melonDS](#melonds), [RetroArch](#retroarch)<br>**iOS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Switch:** [RetroArch](#retroarch)<br>**SteamOS:** [melonDS](#melonds), [RetroArch](#retroarch) |
@@ -164,7 +166,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | iOS / iPadOS | **macOS:** *[Henge](#henge) (full system)*<br>**Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine), [DroidDeck](#droiddeck)<br>**Linux:** [DroidDeck](#droiddeck)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
-| Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
+| Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WeChat Mini Programs:** *[wxa-runner](#wxa-runner)*<br>**WebAssembly:** native |
 | Switch 1 (homebrew) | **GBA / GBC / GB:** [mGBA](#mgba), [RetroArch](#retroarch)<br>**DS / N64 / PS1 / PSP:** [RetroArch](#retroarch) (core-dependent)<br>**Dreamcast:** [Flycast](#flycast)<br>**Linux:** [Lakka](#lakka)<br>**Windows via Linux:** [Box64](#box64), [Wine](#wine) |
 | PS5 (jailbroken) | **GBA / GBC / GB / PS2:** [PS5 RetroArch](#ps5-retroarch)<br>**Switch:** [ProsperoEden](#prosperoeden)<br>**Android (arm64 games):** *[Hydroid](#hydroid)*<br>**Linux:** [ps5-linux](#ps5-linux)<br>**Windows via Linux:** [ps5-linux](#ps5-linux), [Proton](#proton) |
 
@@ -557,6 +559,14 @@ CheerpX runs unmodified x86 Linux binaries in a WebAssembly sandbox, implements 
 JSLinux is Fabrice Bellard's collection of emulated systems that run entirely in the browser. It includes x86_64 Alpine Linux with AVX-512 and APX support, 32-bit Alpine with a graphical environment, Windows 2000, FreeDOS, and RISC-V Linux images. It is a technical demonstration and lightweight sandbox, not a general-purpose desktop replacement.
 
 [Website](https://bellard.org/jslinux/)
+
+#### wxa-runner
+
+**Route:** WeChat Mini Program projects and compiled output → Chrome · **Status:** Active · **Type:** Browser runtime using WeChat's official base library
+
+wxa-runner runs native Mini Program projects and uni-app/Taro build output in Chrome using WeChat's official base library, with Chrome DevTools, hot reload, and headless Playwright tests. Only uni-app has been verified on real framework projects. A viewer, currently available only from source, can export compiled `.wxapack` apps as static sites. Login and user information use mock data by default; payment and scanning fail by default, and cloud development and Bluetooth are unsupported. Local development requires Node.js 18+; without WeChat DevTools, the bundled compiler supports only x86-64. Publishing and real-device debugging still require DevTools. The base library is Tencent's copyrighted code, not covered by this project's MIT license.
+
+[Source](https://github.com/open-wxa/wxa-runner) · [Documentation](https://open-wxa.github.io/wxa-runner/) · [Features and limitations](https://open-wxa.github.io/wxa-runner/features) · [Demo](https://wxa-viewer.picfinder.workers.dev)
 
 #### Wasmtime
 
