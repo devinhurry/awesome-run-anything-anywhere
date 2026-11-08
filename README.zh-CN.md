@@ -9,9 +9,9 @@
 
 这份列表覆盖不同 CPU 架构、不同操作系统家族，以及 PC 与游戏主机之间的实用路线：API 兼容层、二进制翻译、全系统模拟、图形 API 翻译、虚拟机、浏览器沙箱、静态重编译与原生移植。
 
-列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **84 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31**、Hydroid 于 **2026-11-04**、PlayCover、vphone-aio 与 Hookshot 于 **2026-11-07**、steamac 于 **2026-11-08** 核验。
+列表带有明确取舍：优先收录今天真正可用的项目，记录决定路线能否走通的限制，并把实验性项目清楚标注出来，而不是把它们包装成成品。目前收录 **85 个项目**：原有 78 个项目于 **2026-10-24** 对照一手资料核验，DroidDeck 于 **2026-10-31**、Hydroid 于 **2026-11-04**、PlayCover、vphone-aio 与 Hookshot 于 **2026-11-07**、steamac 与 Henge 于 **2026-11-08** 核验。
 
-如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、Switch 2《时之笛》的 PC 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
+如果你关心的是最受关注的路线——Apple silicon 上的 Windows 游戏、macOS 与 iOS 上的 Android 应用、iPhone/iPad 上的 macOS、PC/Android/PS5 上的 Switch 1 游戏与 iPhone/iPad 原生移植、Switch 2《时之笛》的 PC 原生移植、iOS 上的复古主机游戏、PS5 Linux 与 PS5 RetroArch，或让 GBA 到处运行——请先看 [矩阵](#guest--host-矩阵)，再按 [Guest](#按-guest-分类) 或 [Host](#按-host-分类) 浏览。
 
 ## 目录
 
@@ -76,7 +76,7 @@
 | Linux x86/x64 | WSL2、VirtualBox | 原生 | 原生 | UTM、Lima、VirtualBox、steamac（游戏经 FEX） | iSH、UTM SE | DroidDeck | v86、JSLinux、CheerpX |
 | Linux arm64 | WSL2 | 原生 | — | UTM、Lima、VirtualBox、steamac（SteamOS） | UTM SE、LinPad | DroidDeck | — |
 | SteamOS | *VirtualBox、QEMU* | *QEMU/KVM* | 原生 | steamac（ARM64）、*UTM、QEMU* | — | *SteamOSforAlioth* | — |
-| macOS 应用 | — | Darling | — | 原生；Intel 应用经 Rosetta 2 | — | — | — |
+| macOS 应用 | — | Darling | — | 原生；Intel 应用经 Rosetta 2 | *Henge（完整 macOS Guest）* | — | — |
 | iOS 应用（早期） | touchHLE | touchHLE | — | touchHLE | 原生（仅旧应用） | touchHLE | — |
 | iOS 应用（现代） | — | — | — | PlayCover（Apple silicon） | 原生 | — | — |
 | iOS 系统（虚拟 iPhone） | — | — | — | *vphone-aio（Apple silicon）* | — | — | — |
@@ -127,7 +127,7 @@
 | Linux x86/x64 | **Windows：** [WSL](#wsl)、[VirtualBox](#virtualbox)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)、[steamac](#steamac)（游戏经 FEX）<br>**iOS：** [iSH](#ish)、[UTM](#utm)<br>**Android：** [DroidDeck](#droiddeck)<br>**浏览器：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** 原生 |
 | Linux arm64 | **Windows：** [WSL](#wsl)<br>**macOS：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[steamac](#steamac)（SteamOS）<br>**iOS：** [UTM](#utm)、[LinPad OS](#linpad-os)<br>**Android：** [DroidDeck](#droiddeck)<br>**Switch：** [Lakka](#lakka)<br>**PS5：** [ps5-linux](#ps5-linux)<br>**SteamOS：** — |
 | SteamOS | **Windows：** *[VirtualBox](#virtualbox)、[QEMU](#qemu)*<br>**Linux：** *[QEMU](#qemu)*<br>**SteamOS：** 原生<br>**macOS：** [steamac](#steamac)（ARM64）、*[UTM](#utm)、[QEMU](#qemu)*<br>**Android（alioth）：** *[SteamOSforAlioth](#steamosforalioth)* |
-| macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling)<br>**SteamOS：** — |
+| macOS | **macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [Darling](#darling)<br>**iOS / iPadOS：** *[Henge](#henge)（完整 macOS Guest）*<br>**SteamOS：** — |
 | iOS 应用（早期） | **Windows / macOS / Android / Linux：** [touchHLE](#touchhle)<br>**iOS：** 原生（仅旧应用）<br>**SteamOS：** — |
 | iOS 应用（现代） | **macOS（Apple silicon）：** [PlayCover](#playcover)<br>**iOS / iPadOS：** 原生 |
 | iOS 系统（虚拟 iPhone） | **macOS（Apple silicon）：** *[vphone-aio](#vphone-aio)* |
@@ -161,7 +161,7 @@
 | Linux on Arm64 | **Windows：** [FEX](#fex)、[Box64](#box64)、[Box86](#box86)、[Hangover](#hangover)<br>**Linux：** 原生<br>**Android：** [Waydroid](#waydroid)、[redroid](#redroid)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[PPSSPP](#ppsspp)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden) |
 | SteamOS | **Linux：** 原生<br>**Windows：** [Proton](#proton)、[Wine](#wine)<br>**Android：** *[Waydroid](#waydroid)（通过 Distrobox）*<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)<br>**Switch 2：** *[Hookshot](#hookshot)（时之笛）*<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
 | macOS | **Windows：** [CrossOver](#crossover)、[Game Porting Toolkit](#game-porting-toolkit)、[Wine](#wine)、[Parallels Desktop](#parallels-desktop)、[VMware Fusion](#vmware-fusion)、[UTM](#utm)、[steamac](#steamac)（Proton + FEX）<br>**macOS：** 原生；Intel 应用经 [Rosetta 2](#rosetta-2)<br>**Linux：** [UTM](#utm)、[Lima](#lima)、[VirtualBox](#virtualbox)、[QEMU](#qemu)、[steamac](#steamac)（x86 游戏经 FEX）<br>**SteamOS：** [steamac](#steamac)（ARM64）<br>**iOS 应用：** [touchHLE](#touchhle)（早期应用）、[PlayCover](#playcover)（Apple silicon）<br>**iOS 系统：** *[vphone-aio](#vphone-aio)*（Apple silicon）<br>**Android：** [Mac.apk](#macapk)、[UTM](#utm)<br>**DOS：** [DOSBox-X](#dosbox-x)<br>**经典主机：** [RetroArch](#retroarch)、[Dolphin](#dolphin)、[DuckStation](#duckstation)、[PCSX2](#pcsx2)、[RPCS3](#rpcs3)、[shadPS4](#shadps4)、[mGBA](#mgba)、[melonDS](#melonds)、[Azahar](#azahar)、[PPSSPP](#ppsspp)、[Vita3K](#vita3k)、[Flycast](#flycast)、[Cemu](#cemu)<br>**Switch：** [Ryujinx](#ryujinx)、[Eden](#eden)、[MacNativeGames](#macnativegames)<br>**PS5：** [KytyPS5](#kytyps5)、[SharpEmu](#sharpemu)<br>**Xbox / 360：** [xemu](#xemu)、[Xenia](#xenia)、[XenonRecomp](#xenonrecomp)、[UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly：** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames) |
+| iOS / iPadOS | **macOS：** *[Henge](#henge)（完整系统）*<br>**Linux：** [iSH](#ish)、[UTM](#utm)、[LinPad OS](#linpad-os)<br>**经典主机 / GBA / N64 / DS：** [RetroArch](#retroarch)、[Delta](#delta)<br>**Android 游戏：** [Husk](#husk)<br>**PS4（实验性）：** *[Husk](#husk)*<br>**Switch：** [nxnative](#nxnative)、[NX2Apple](#nx2apple)、[Touchable](#touchable)、[MacNativeGames](#macnativegames) |
 | Android | **Windows：** [Winlator](#winlator)、[Boxedwine](#boxedwine)、[DroidDeck](#droiddeck)<br>**Linux：** [DroidDeck](#droiddeck)<br>**Android：** 原生<br>**经典主机：** [mGBA](#mgba)、[melonDS](#melonds)、[Dolphin](#dolphin)、[PPSSPP](#ppsspp)、[Azahar](#azahar)、[Vita3K](#vita3k)、[Flycast](#flycast)<br>**PS1 / PS2：** [RetroArch](#retroarch)、[NetherSX2-classic](#nethersx2-classic)<br>**Switch：** [Eden](#eden) |
 | Redmi K40 / POCO F3（alioth） | **SteamOS：** *[SteamOSforAlioth](#steamosforalioth)*（替换 Android）<br>**Windows：** [Proton](#proton)、[FEX](#fex)<br>**Linux：** 原生 |
 | 浏览器 | **DOS：** [v86](#v86)、[JSLinux](#jslinux)<br>**旧版 Windows：** [v86](#v86)、[JSLinux](#jslinux)<br>**Linux：** [v86](#v86)、[JSLinux](#jslinux)、[CheerpX](#cheerpx)<br>**WebAssembly：** 原生 |
@@ -451,6 +451,14 @@ QEMU 可以模拟完整机器，也可以为另一种架构运行 Linux 用户�
 UTM 以原生应用封装 QEMU 与 Apple Virtualization 框架。它支持 30 多种处理器类型，跨架构 Guest 使用 QEMU TCG，并可在 Apple silicon 上通过 Virtualization.framework 启动 macOS Guest。在 iOS 上，JIT 需要越狱或特定绕过方法；UTM SE 使用解释器，速度较慢，但可在未修改设备上侧载。
 
 [源码](https://github.com/utmapp/UTM) · [官网](https://getutm.app/)
+
+#### Henge
+
+**路线：** Arm64 macOS → A14 / M1 或更新芯片上的 iOS / iPadOS 17+ · **状态：** 实验性 · **类型：** 使用 Arm64-to-Arm64 JIT 的全系统模拟器
+
+Henge 使用自研 JIT、软件 MMU、设备模型和以 Metal 为后端的虚拟 GPU 启动完整 macOS Guest，而非基于 QEMU 或 Virtualization.framework。它从 Apple 下载恢复镜像并直接在设备上安装 macOS，无需 Mac。0.1 版本确认 Sequoia 15.6.1、Safari、Discord 及剪贴板/文件共享在 iPhone 17 Pro 上可用；iPad 支持尚未经过实机测试。它需要侧载、JIT 和约 43 GB 可用存储空间。Apple 账户登录会失败，图形兼容性有限，模拟运行也比真实 Mac 慢；安装器提供的更新 macOS 版本仍未测试。macOS 与启动 ROM 从 Apple 下载，不随 Henge 分发。
+
+[源码](https://github.com/Leviidev/Henge) · [架构说明](https://github.com/Leviidev/Henge/blob/main/docs/architecture.md) · [0.1 版本](https://github.com/Leviidev/Henge/releases/tag/0.1)
 
 #### vphone-aio
 

@@ -9,9 +9,9 @@
 
 This list covers the practical routes between CPU architectures, operating-system families, and the PC/console boundary: API compatibility layers, binary translation, full-system emulation, graphics translation, virtual machines, browser sandboxes, static recompilation, and native ports.
 
-The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **84 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, Hydroid on **2026-11-04**, PlayCover, vphone-aio, and Hookshot on **2026-11-07**, and steamac on **2026-11-08**.
+The list is deliberately opinionated. It favours projects that are usable today, records the limits that decide whether a route works, and labels experiments instead of presenting them as finished products. This list covers **85 projects**: the original 78 were checked against primary sources on **2026-10-24**, DroidDeck on **2026-10-31**, Hydroid on **2026-11-04**, PlayCover, vphone-aio, and Hookshot on **2026-11-07**, and steamac and Henge on **2026-11-08**.
 
-If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, a native PC port of Switch 2 Ocarina of Time, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
+If you are here for the headline routes — Windows games on Apple silicon, Android apps on macOS and iOS, macOS on iPhone/iPad, Switch 1 games on PC/Android/PS5 and native iPhone/iPad ports, a native PC port of Switch 2 Ocarina of Time, retro consoles on iOS, PS5 Linux and PS5 RetroArch, or GBA on everything — start with the [matrix](#guest--host-matrix), then browse [by guest](#by-guest) or [by host](#by-host).
 
 ## Contents
 
@@ -76,7 +76,7 @@ A name means a practical route exists. *Italic* means the route is experimental 
 | Linux x86/x64 | WSL2, VirtualBox | Native | Native | UTM, Lima, VirtualBox, steamac (games via FEX) | iSH, UTM SE | DroidDeck | v86, JSLinux, CheerpX |
 | Linux arm64 | WSL2 | Native | — | UTM, Lima, VirtualBox, steamac (SteamOS) | UTM SE, LinPad | DroidDeck | — |
 | SteamOS | *VirtualBox, QEMU* | *QEMU/KVM* | Native | steamac (ARM64), *UTM, QEMU* | — | *SteamOSforAlioth* | — |
-| macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | — | — | — |
+| macOS apps | — | Darling | — | Native; Rosetta 2 for Intel apps | *Henge (full macOS guest)* | — | — |
 | iOS apps (early) | touchHLE | touchHLE | — | touchHLE | Native (old apps only) | touchHLE | — |
 | iOS apps (modern) | — | — | — | PlayCover (Apple silicon) | Native | — | — |
 | iOS system (virtual iPhone) | — | — | — | *vphone-aio (Apple silicon)* | — | — | — |
@@ -127,7 +127,7 @@ Start from the software you want to run. Each host is followed by the projects t
 | Linux x86/x64 | **Windows:** [WSL](#wsl), [VirtualBox](#virtualbox)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu), [steamac](#steamac) (games via FEX)<br>**iOS:** [iSH](#ish), [UTM](#utm)<br>**Android:** [DroidDeck](#droiddeck)<br>**Browser:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** native |
 | Linux arm64 | **Windows:** [WSL](#wsl)<br>**macOS:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [steamac](#steamac) (SteamOS)<br>**iOS:** [UTM](#utm), [LinPad OS](#linpad-os)<br>**Android:** [DroidDeck](#droiddeck)<br>**Switch:** [Lakka](#lakka)<br>**PS5:** [ps5-linux](#ps5-linux)<br>**SteamOS:** — |
 | SteamOS | **Windows:** *[VirtualBox](#virtualbox), [QEMU](#qemu)*<br>**Linux:** *[QEMU](#qemu)*<br>**SteamOS:** native<br>**macOS:** [steamac](#steamac) (ARM64), *[UTM](#utm), [QEMU](#qemu)*<br>**Android (alioth):** *[SteamOSforAlioth](#steamosforalioth)* |
-| macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**SteamOS:** — |
+| macOS | **macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [Darling](#darling)<br>**iOS / iPadOS:** *[Henge](#henge) (full macOS guest)*<br>**SteamOS:** — |
 | iOS apps (early) | **Windows / macOS / Android / Linux:** [touchHLE](#touchhle)<br>**iOS:** native (old apps only)<br>**SteamOS:** — |
 | iOS apps (modern) | **macOS (Apple silicon):** [PlayCover](#playcover)<br>**iOS / iPadOS:** native |
 | iOS system (virtual iPhone) | **macOS (Apple silicon):** *[vphone-aio](#vphone-aio)* |
@@ -161,7 +161,7 @@ Start from the machine you have. Each guest is followed by the projects that pro
 | Linux on Arm64 | **Windows:** [FEX](#fex), [Box64](#box64), [Box86](#box86), [Hangover](#hangover)<br>**Linux:** native<br>**Android:** [Waydroid](#waydroid), [redroid](#redroid)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [PPSSPP](#ppsspp)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden) |
 | SteamOS | **Linux:** native<br>**Windows:** [Proton](#proton), [Wine](#wine)<br>**Android:** *[Waydroid](#waydroid) via Distrobox*<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden)<br>**Switch 2:** *[Hookshot](#hookshot) (Ocarina of Time)*<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
 | macOS | **Windows:** [CrossOver](#crossover), [Game Porting Toolkit](#game-porting-toolkit), [Wine](#wine), [Parallels Desktop](#parallels-desktop), [VMware Fusion](#vmware-fusion), [UTM](#utm), [steamac](#steamac) (Proton + FEX)<br>**macOS:** native; Intel apps via [Rosetta 2](#rosetta-2)<br>**Linux:** [UTM](#utm), [Lima](#lima), [VirtualBox](#virtualbox), [QEMU](#qemu), [steamac](#steamac) (x86 games via FEX)<br>**SteamOS:** [steamac](#steamac) (ARM64)<br>**iOS apps:** [touchHLE](#touchhle) (early apps), [PlayCover](#playcover) (Apple silicon)<br>**iOS system:** *[vphone-aio](#vphone-aio)* (Apple silicon)<br>**Android:** [Mac.apk](#macapk), [UTM](#utm)<br>**DOS:** [DOSBox-X](#dosbox-x)<br>**Classic consoles:** [RetroArch](#retroarch), [Dolphin](#dolphin), [DuckStation](#duckstation), [PCSX2](#pcsx2), [RPCS3](#rpcs3), [shadPS4](#shadps4), [mGBA](#mgba), [melonDS](#melonds), [Azahar](#azahar), [PPSSPP](#ppsspp), [Vita3K](#vita3k), [Flycast](#flycast), [Cemu](#cemu)<br>**Switch:** [Ryujinx](#ryujinx), [Eden](#eden), [MacNativeGames](#macnativegames)<br>**PS5:** [KytyPS5](#kytyps5), [SharpEmu](#sharpemu)<br>**Xbox / 360:** [xemu](#xemu), [Xenia](#xenia), [XenonRecomp](#xenonrecomp), [UnleashedRecomp](#unleashedrecomp)<br>**WebAssembly:** [Wasmtime](#wasmtime) |
-| iOS / iPadOS | **Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
+| iOS / iPadOS | **macOS:** *[Henge](#henge) (full system)*<br>**Linux:** [iSH](#ish), [UTM](#utm), [LinPad OS](#linpad-os)<br>**Retro consoles / GBA / N64 / DS:** [RetroArch](#retroarch), [Delta](#delta)<br>**Android games:** [Husk](#husk)<br>**PS4 (experimental):** *[Husk](#husk)*<br>**Switch:** [nxnative](#nxnative), [NX2Apple](#nx2apple), [Touchable](#touchable), [MacNativeGames](#macnativegames) |
 | Android | **Windows:** [Winlator](#winlator), [Boxedwine](#boxedwine), [DroidDeck](#droiddeck)<br>**Linux:** [DroidDeck](#droiddeck)<br>**Android:** native<br>**Classic consoles:** [mGBA](#mgba), [melonDS](#melonds), [Dolphin](#dolphin), [PPSSPP](#ppsspp), [Azahar](#azahar), [Vita3K](#vita3k), [Flycast](#flycast)<br>**PS1 / PS2:** [RetroArch](#retroarch), [NetherSX2-classic](#nethersx2-classic)<br>**Switch:** [Eden](#eden) |
 | Redmi K40 / POCO F3 (alioth) | **SteamOS:** *[SteamOSforAlioth](#steamosforalioth)* (replaces Android)<br>**Windows:** [Proton](#proton), [FEX](#fex)<br>**Linux:** native |
 | Browser | **DOS:** [v86](#v86), [JSLinux](#jslinux)<br>**Older Windows:** [v86](#v86), [JSLinux](#jslinux)<br>**Linux:** [v86](#v86), [JSLinux](#jslinux), [CheerpX](#cheerpx)<br>**WebAssembly:** native |
@@ -451,6 +451,14 @@ QEMU can emulate a complete machine or run Linux user-mode binaries for another 
 UTM wraps QEMU and Apple's Virtualization framework in a native app. It supports more than 30 processor types, uses QEMU TCG for cross-architecture guests, and can boot macOS guests with Virtualization.framework on Apple silicon. On iOS, JIT requires a jailbreak or a workaround; UTM SE uses an interpreter and is slower but can be sideloaded on unmodified devices.
 
 [Source](https://github.com/utmapp/UTM) · [Website](https://getutm.app/)
+
+#### Henge
+
+**Route:** Arm64 macOS → iOS / iPadOS 17+ on A14 / M1 or newer · **Status:** Experimental · **Type:** Full-system emulator with Arm64-to-Arm64 JIT
+
+Henge boots a complete macOS guest using its own JIT, software MMU, device model, and virtual GPU backed by Metal, rather than QEMU or Virtualization.framework. It downloads Apple's restore image and installs macOS on the device without a Mac. Release 0.1 confirms Sequoia 15.6.1, Safari, Discord, and clipboard/file sharing on an iPhone 17 Pro; iPad support has not been tested on real hardware. It requires sideloading, JIT, and about 43 GB of free storage. Apple Account sign-in fails, graphics compatibility is limited, and emulation is slower than a real Mac; newer macOS versions offered by the installer remain untested. macOS and its boot ROM are downloaded from Apple, not bundled with Henge.
+
+[Source](https://github.com/Leviidev/Henge) · [Architecture](https://github.com/Leviidev/Henge/blob/main/docs/architecture.md) · [0.1 release](https://github.com/Leviidev/Henge/releases/tag/0.1)
 
 #### vphone-aio
 
